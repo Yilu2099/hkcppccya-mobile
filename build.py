@@ -23,4 +23,22 @@ wrapped = ('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
            '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
            '<meta name="color-scheme" content="light dark"><link rel="icon" href="'+imgs['emblem']+'"></head><body style="margin:0">'+html+'</body></html>')
 (root/'preview.html').write_text(wrapped, encoding='utf-8')
-print('index.html', len(html)//1024, 'KB · 簡繁字表', len(t2s), '對 · preview.html written')
+# ---- dist/：圖片改為外部檔案，線上版用（HTML 由 1.5MB 降到約 150KB，圖片按需載入、可長期快取）----
+import base64, shutil, hashlib
+dist = root/'dist'; (dist/'img').mkdir(parents=True, exist_ok=True)
+def ext_file(name, datauri):
+    head, b64 = datauri.split(',', 1); ext = 'png' if 'png' in head else 'jpg'
+    data = base64.b64decode(b64); h = hashlib.md5(data).hexdigest()[:8]
+    fn = f'{name}.{h}.{ext}'; (dist/'img'/fn).write_bytes(data); return 'img/'+fn
+h2 = (root/'src/index.template.html').read_text(encoding='utf-8')
+for k, v in imgs.items(): h2 = h2.replace('{{IMG_%s}}' % k.upper(), ext_file(k, v))
+h2 = h2.replace('{{PHOTOS}}', json.dumps({k:{'data':ext_file(k, v['data']),'pos':v.get('pos',50)} for k,v in photos.items()}, ensure_ascii=False, separators=(',',':')))
+h2 = h2.replace('{{NEWS}}', open(root/'assets/news.json', encoding='utf-8').read().strip())
+h2 = h2.replace('{{LEADERS}}', open(root/'assets/leaders.json', encoding='utf-8').read().strip())
+h2 = h2.replace('{{T2S}}', json.dumps(t2s, ensure_ascii=False, separators=(',',':')))
+wrapped2 = ('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+            '<meta name="color-scheme" content="light dark"><link rel="icon" href="'+ext_file('favicon', imgs['emblem'])+'">'
+            '<link rel="preload" as="image" href="'+ext_file('hero', imgs['hero'])+'"></head><body style="margin:0">'+h2+'</body></html>')
+(dist/'index.html').write_text(wrapped2, encoding='utf-8')
+print('index.html', len(html)//1024, 'KB · 簡繁字表', len(t2s), '對 · preview.html written · dist/index.html', len(wrapped2)//1024, 'KB +', len(list((dist/'img').iterdir())), 'images')
