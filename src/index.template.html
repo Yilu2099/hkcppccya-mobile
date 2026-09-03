@@ -116,14 +116,14 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 /* ===== HERO ===== */
 .hero{position:relative;background:var(--blue-solid);color:#fff;overflow:hidden}
-.hero .sails{position:absolute;inset:0;pointer-events:none;opacity:.5;animation:drift 9s ease-in-out infinite alternate}
+.hero .sails{position:absolute;inset:0;pointer-events:none;opacity:1;animation:drift 9s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-10px,8px,0)}}
 .hero .txt>*{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
 .hero .txt>*:nth-child(2){animation-delay:.1s}.hero .txt>*:nth-child(3){animation-delay:.2s}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.hero .sails svg{position:absolute;right:-6%;bottom:-4%;width:70%;max-width:520px;height:auto}
+.hero .sails img{position:absolute;right:-6%;bottom:-6%;width:72%;max-width:520px;height:auto;filter:brightness(0) invert(1);opacity:.14}
 .hero .in{position:relative;max-width:1120px;margin:0 auto;padding:34px 20px 88px}
-@media (min-width:900px){.hero .in{padding:54px 32px 150px}.hero .sails svg{right:-4%;width:40%;bottom:auto;top:-30%}}
+@media (min-width:900px){.hero .in{padding:54px 32px 150px}.hero .sails img{position:absolute;right:-6%;bottom:-6%;width:72%;max-width:520px;height:auto;filter:brightness(0) invert(1);opacity:.14}}
 .hero .k{margin-top:10px;font-size:12px;letter-spacing:.1em;color:var(--gold);font-weight:700}
 .hero .dir{margin-top:12px;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff;line-height:1.7;white-space:nowrap}
 @media (min-width:900px){.hero .dir{font-size:19px}}
@@ -419,15 +419,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 <!-- ================= 首頁 ================= -->
 <main class="view on" id="v-home">
   <section class="hero">
-    <div class="sails" aria-hidden="true">
-      <svg viewBox="0 0 640 420" fill="none">
-        <path d="M300 30 L 300 330" stroke="rgba(255,255,255,.55)" stroke-width="4" stroke-linecap="round"/>
-        <path d="M290 330 C 260 250, 210 170, 120 90 C 200 140, 250 220, 290 330 Z" fill="rgba(255,255,255,.16)"/>
-        <path d="M312 40 C 420 120, 480 220, 500 330 L 312 330 Z" fill="rgba(255,255,255,.22)"/>
-        <path d="M80 345 Q 300 300 560 345 L 540 372 Q 300 350 100 372 Z" fill="rgba(216,172,78,.75)"/>
-        <path d="M40 392 Q 200 372 360 392 T 640 392" stroke="rgba(255,255,255,.25)" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-    </div>
+    <div class="sails" aria-hidden="true"><img class="ship" src="{{IMG_SHIP}}" alt=""></div>
     <div class="in">
       <div class="txt">
         <h1>服務國家 · 服務香港 · 服務會員</h1>

@@ -27,7 +27,7 @@ wrapped = ('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
 import base64, shutil, hashlib
 dist = root/'dist'; (dist/'img').mkdir(parents=True, exist_ok=True)
 def ext_file(name, datauri):
-    head, b64 = datauri.split(',', 1); ext = 'png' if 'png' in head else 'jpg'
+    head, b64 = datauri.split(',', 1); ext = 'svg' if 'svg' in head else ('png' if 'png' in head else 'jpg')
     data = base64.b64decode(b64); h = hashlib.md5(data).hexdigest()[:8]
     fn = f'{name}.{h}.{ext}'; (dist/'img'/fn).write_bytes(data); return 'img/'+fn
 h2 = (root/'src/index.template.html').read_text(encoding='utf-8')
