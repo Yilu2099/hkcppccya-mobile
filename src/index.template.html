@@ -154,19 +154,24 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .bcard::before{content:attr(data-n);position:absolute;right:12px;top:6px;font-family:var(--en);font-size:44px;font-weight:800;color:rgba(255,255,255,.18)}
 .bcard b{font-size:18px;font-weight:900;letter-spacing:.04em}
 .bcard small{font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.5}
+.bcard em{font-style:normal;font-size:12px;font-weight:700;color:#fff;margin-top:6px;opacity:.9}
+.bcard:active{transform:scale(.98)}
 .bcard.b1{background:linear-gradient(135deg,#013A6B,#2E8BD8)}
 .bcard.b2{background:linear-gradient(135deg,#9E1712,#E51E16)}
 .bcard.b3{background:linear-gradient(135deg,#0A66B0,#5FB4EF)}
 .bcard.b4{background:linear-gradient(135deg,#8A6A1E,#D8AC4E)}
-.sails5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end}
-.sail{display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 2px 10px;border-radius:12px;transition:.2s}
-.sail svg{width:100%;height:auto;max-width:64px;transition:transform .25s}
-.sail b{font-size:15px;font-weight:900;color:var(--blue);letter-spacing:.08em}
-.sail.on{background:var(--sky-soft)}
-.sail.on svg{transform:translateY(-4px) scale(1.06)}
-.sail-txt{margin-top:12px;background:var(--paper);border:1px solid var(--hair);border-left:5px solid var(--red);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.7;color:var(--ink-2);min-height:70px}
-.sail-txt b{color:var(--red);margin-right:6px}
-@media (min-width:900px){.five{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}.sail svg{max-width:96px}}
+.five{display:grid;gap:16px}
+.five-emblem{text-align:center}
+.five-emblem img{width:132px;height:132px;margin:0 auto;filter:drop-shadow(0 8px 20px rgba(11,42,91,.18))}
+.five-emblem .tip{margin:12px auto 0;max-width:30em}
+.five-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.five-tabs button{padding:11px 0;border-radius:10px;border:1.5px solid var(--hair);background:var(--paper);font-family:var(--serif);font-weight:900;font-size:17px;letter-spacing:.08em;color:var(--blue);transition:.2s}
+.five-tabs button.on{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-3px);box-shadow:0 8px 18px rgba(225,37,27,.28)}
+.sail-txt{margin-top:12px;background:var(--paper);border:1px solid var(--hair);border-radius:14px;padding:18px 18px 16px;line-height:1.75;color:var(--ink-2);min-height:96px;box-shadow:var(--shadow)}
+.sail-txt b{display:block;font-family:var(--serif);font-size:22px;color:var(--red);letter-spacing:.14em;margin-bottom:4px}
+.sail-txt b::after{content:"";display:block;width:32px;height:3px;background:var(--gold);margin-top:6px}
+.sail-txt .bar{display:flex;gap:4px;margin-top:12px}.sail-txt .bar i{flex:1;height:3px;border-radius:2px;background:var(--hair)}.sail-txt .bar i.on{background:var(--red)}
+@media (min-width:900px){.five{grid-template-columns:320px 1fr;gap:40px;align-items:center}.five-emblem img{width:200px;height:200px}.five-tabs button{font-size:19px;padding:14px 0}}
 .quote{background:var(--paper);border:1px solid var(--hair);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .quote::before{content:"“";position:absolute;left:14px;top:-10px;font-family:Georgia,serif;font-size:90px;color:var(--sky-soft);line-height:1}
 .quote p{position:relative;margin:0;font-size:15.5px;line-height:1.85;color:var(--ink-2)}
@@ -193,6 +198,17 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .foot .cp{grid-column:1/-1;font-size:11.5px;line-height:1.8;opacity:.7;border-top:1px solid var(--hair);padding-top:12px;text-align:center}
 @media (min-width:900px){.foot .cp{text-align:left}}
 .foot a{color:var(--blue)}
+
+/* ===== 品牌頁 ===== */
+.brand-hero{margin-top:18px;border-radius:18px;padding:26px 22px;color:#fff;position:relative;overflow:hidden}
+.brand-hero::before{content:attr(data-n);position:absolute;right:16px;top:8px;font-family:var(--en);font-size:64px;font-weight:800;color:rgba(255,255,255,.15)}
+.brand-hero small{display:block;font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.85)}
+.brand-hero h1{font-size:28px;margin-top:4px;color:#fff}
+.brand-hero p{margin:10px 0 0;font-size:14.5px;line-height:1.75;color:rgba(255,255,255,.9);max-width:36em}
+@media (min-width:900px){.brand-hero{padding:40px 44px;margin-top:30px}.brand-hero h1{font-size:36px}.brand-hero p{font-size:16px}}
+.brand-others{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.brand-others a{display:block;padding:12px 8px;border-radius:12px;color:#fff;text-align:center;font-weight:700;font-size:14px}
+@media (min-width:900px){.brand-others{gap:16px}}
 
 /* ===== 消息列表 / 文章 ===== */
 .page-hero{padding:26px 0 6px}
@@ -376,21 +392,21 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <section class="sec">
       <div class="sec-h"><h2>四大品牌活動</h2></div>
       <div class="brands">
-        <div class="bcard b1" data-n="01"><b>旅學團</b><small>走進內地省市，實地認識國家發展</small></div>
-        <div class="bcard b2" data-n="02"><b>國情班</b><small>系統學習國情，培育國家意識與大局意識</small></div>
-        <div class="bcard b3" data-n="03"><b>政情班</b><small>與特區官員對話，了解施政與政制發展</small></div>
-        <div class="bcard b4" data-n="04"><b>青年導師計劃</b><small>專業人士帶領，成長路上有人同行</small></div>
+        <a class="bcard b1" data-n="01" href="#/brand/tour"><b>旅學團</b><small>走進內地省市，實地認識國家發展</small><em>相關消息 ›</em></a>
+        <a class="bcard b2" data-n="02" href="#/brand/national"><b>國情班</b><small>系統學習國情，培育國家意識與大局意識</small><em>相關消息 ›</em></a>
+        <a class="bcard b3" data-n="03" href="#/brand/policy"><b>政情班</b><small>與特區官員對話，了解施政與政制發展</small><em>相關消息 ›</em></a>
+        <a class="bcard b4" data-n="04" href="#/brand/mentor"><b>青年導師計劃</b><small>專業人士帶領，成長路上有人同行</small><em>相關消息 ›</em></a>
       </div>
     </section>
 
     <section class="sec">
       <div class="sec-h"><h2>會徽 · 五帆精神</h2></div>
       <div class="five">
-        <div>
-          <p class="tip" style="margin:0 0 12px">會徽是一艘紅色帆船，寓意政青團結香港青年搏擊風浪、迎風啟航。五片風帆各有寓意，點一下每片帆看看。</p>
-          <div class="sails5" id="sails5"></div>
+        <div class="five-emblem"><img src="{{IMG_EMBLEM}}" alt="政青會徽"><p class="tip">會徽是一艘紅色帆船，寓意政青團結香港青年搏擊風浪、迎風啟航。五片風帆，五種精神。</p></div>
+        <div class="five-body">
+          <div class="five-tabs" id="sails5"></div>
+          <div class="sail-txt" id="sail-txt"></div>
         </div>
-        <div class="sail-txt" id="sail-txt"></div>
       </div>
     </section>
 
@@ -421,6 +437,14 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <div class="cp">香港政協青年聯會 · <a href="https://gsl.t2099.com" target="_blank" rel="noopener">港區省級政協委員聯誼會</a>屬會<br>版權所有 © 2014–2026 香港政協青年聯會</div>
   </div></footer>
 </main>
+
+<!-- ================= 品牌活動 ================= -->
+<main class="view" id="v-brand"><div class="wrap">
+  <div class="brand-hero" id="brand-hero"></div>
+  <div class="sec-h" style="margin-top:22px"><h2>相關消息</h2><a class="more" href="#/news">全部消息 ›</a></div>
+  <div class="card list" id="brand-list"></div>
+  <div class="brand-others" id="brand-others"></div>
+</div></main>
 
 <!-- ================= 最新消息 ================= -->
 <main class="view" id="v-news"><div class="wrap">
@@ -576,6 +600,13 @@ const GALLERY = [
  {id:"g11",img:"z10",title:"2026 社青共融計劃啟動 · 逾 150 位城大學生參與",date:"2026-02"},
  {id:"g12",img:"z11",title:"寶馬聚福慈善盆菜宴 · 筵開 120 席近 1,500 人賀新春",date:"2026-02"}
 ];
+const BRANDS = {
+ tour:    {n:"01", cls:"b1", name:"旅學團",     tag:"旅學團",   desc:"每年組織青年會員走進內地省市，實地考察經濟、科技與文化發展，認識國家發展大局，並與當地青年組織建立長期交流。", ids:[1084]},
+ national:{n:"02", cls:"b2", name:"國情班",     tag:"國情班",   desc:"系統學習國情與國家政策，圍繞全國「兩會」精神、「十五五」規劃等主題舉辦學習會與專題分享，培育青年的國家意識、大局意識和擔當意識。", ids:[1082,1083]},
+ policy:  {n:"03", cls:"b3", name:"政情班",     tag:"政情班",   desc:"邀請特區政府司局長與部門首長對話交流，走訪紀律部隊與政府部門，讓青年會員第一手了解施政方向與政制發展。", ids:[1087,1088]},
+ mentor:  {n:"04", cls:"b4", name:"青年導師計劃", tag:"青年導師", desc:"由專業人士與資深會員擔任導師，帶領大學生及青年會員參與社會服務、企業參訪與職涯交流，成長路上有人同行。", ids:[1085,1086]}
+};
+const NEWS_TAG = {}; Object.entries(BRANDS).forEach(([k,b])=>b.ids.forEach(id=>NEWS_TAG[id]=k));
 const SAILS = [
  ["貢獻","服務社會，為國家、為香港做出應有貢獻。"],
  ["傳承","發揚傳統，傳承父輩艱苦奮鬥精神。"],
@@ -616,18 +647,28 @@ const photo=k=>PHOTOS[k]?PHOTOS[k].data:"";
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
 const newsSorted=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
 const ncard=(a,big)=>`<a class="ncard${big?' big':''}" href="#/article/${a.id}"><div class="ph" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span><span class="chip">${a.id===1089?"就職典禮":a.title.includes("司長")?"與司長有約":a.title.includes("考察")?"旅學團":a.title.includes("社青")?"社青共融":"活動"}</span></div></div></a>`;
-const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span></span></span><span class="chev">›</span></a>`;
+const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${NEWS_TAG[a.id]?`<span class="chip">${BRANDS[NEWS_TAG[a.id]].tag}</span>`:""}</span></span><span class="chev">›</span></a>`;
 
 /* ===== 首頁 ===== */
 $("#home-feat").innerHTML=ncard(newsSorted[0],false); $("#home-list").innerHTML=newsSorted.slice(1,7).map(a=>item(a,"sm")).join("");
 $("#home-photos").innerHTML=GALLERY.slice(0,4).map(g=>`<a class="pcell" href="#/photos/${g.id}" style="background-image:url('${photo(g.img)}')"><span>${esc(g.title)}</span></a>`).join("");
-const sailSVG=(i,on)=>`<svg viewBox="0 0 64 80" fill="none"><path d="M12 66 C 22 40, 36 22, 50 6 L 50 66 Z" fill="${on?'#E1251B':'currentColor'}" opacity="${on?1:.22}"/><path d="M50 4v70" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".6"/><path d="M6 70 Q 32 62 58 70" stroke="#D8AC4E" stroke-width="4" stroke-linecap="round"/></svg>`;
 let sailIdx=0;
-function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="sail${i===sailIdx?' on':''}" data-i="${i}" style="color:var(--blue)">${sailSVG(i,i===sailIdx)}<b>${s[0]}</b></button>`).join(""); $("#sail-txt").innerHTML=`<b>${SAILS[sailIdx][0]}</b>${SAILS[sailIdx][1]}`; applyLang($("#v-home .five")); }
+function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="${i===sailIdx?'on':''}" data-i="${i}">${s[0]}</button>`).join(""); $("#sail-txt").innerHTML=`<b>${SAILS[sailIdx][0]}</b>${SAILS[sailIdx][1]}<div class="bar">${SAILS.map((_,i)=>`<i class="${i===sailIdx?'on':''}"></i>`).join("")}</div>`; applyLang($("#v-home .five")); }
 renderSails();
-$("#sails5").addEventListener("click",e=>{const b=e.target.closest(".sail"); if(!b) return; sailIdx=+b.dataset.i; renderSails();});
+$("#sails5").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; sailIdx=+b.dataset.i; renderSails();});
 let sailTimer=setInterval(()=>{ if(!$("#v-home").classList.contains("on")) return; sailIdx=(sailIdx+1)%5; renderSails(); },3200);
 $("#sails5").addEventListener("pointerdown",()=>{clearInterval(sailTimer);});
+
+/* ===== 品牌頁 ===== */
+function renderBrand(k){
+  const b=BRANDS[k]||BRANDS.tour;
+  const h=$("#brand-hero"); h.className="brand-hero bcard "+b.cls; h.dataset.n=b.n; h.style.minHeight="0"; h.style.display="block";
+  h.innerHTML=`<small>四大品牌活動 · ${b.n}</small><h1>${b.name}</h1><p>${b.desc}</p>`;
+  const items=newsSorted.filter(a=>b.ids.includes(a.id));
+  $("#brand-list").innerHTML=items.length?items.map(a=>item(a)).join(""):`<div class="tip" style="padding:30px;text-align:center">近期相關消息正式版由後台接入</div>`;
+  $("#brand-others").innerHTML=Object.entries(BRANDS).filter(([kk])=>kk!==k).map(([kk,o])=>`<a class="bcard ${o.cls}" href="#/brand/${kk}" style="min-height:0;padding:12px 8px;display:block;text-align:center">${o.name}</a>`).join("");
+  applyLang($("#v-brand"));
+}
 
 /* ===== 消息 ===== */
 const years=[...new Set(newsSorted.map(a=>a.date.slice(0,4)))];
@@ -640,7 +681,7 @@ renderNews("");
 function renderArticle(id){
   const a=NEWS.find(x=>x.id===+id); if(!a){location.hash="#/news";return;}
   const rel=newsSorted.filter(x=>x.id!==a.id).slice(0,3);
-  $("#art").innerHTML=`<div class="kick"><span class="chip">最新消息</span><span class="num">${fmtDate(a.date)}</span></div><h1>${esc(a.title)}</h1>
+  $("#art").innerHTML=`<div class="kick"><span class="chip">最新消息</span>${NEWS_TAG[a.id]?`<a class="chip gold" href="#/brand/${NEWS_TAG[a.id]}">${BRANDS[NEWS_TAG[a.id]].tag} ›</a>`:""}<span class="num">${fmtDate(a.date)}</span></div><h1>${esc(a.title)}</h1>
    <div class="tools"><button id="share-btn"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg>分享</button><button id="copy-btn"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>複製連結</button></div>
    ${NEWS_PHOTO[a.id]?`<figure><img src="${photo(NEWS_PHOTO[a.id])}" alt=""></figure>`:""}
    <div class="body">${a.body.map(p=>`<p>${esc(p)}</p>`).join("")}</div><div class="end">◆ ◆ ◆</div>
@@ -689,6 +730,7 @@ function route(){
   const h=location.hash||"#/"; const parts=h.slice(2).split("/"); const seg=parts[0]||"home";
   let view="home",tab="home";
   if(seg==="news"){view="news";tab="news";}
+  else if(seg==="brand"){view="brand";tab="home";renderBrand(parts[1]);}
   else if(seg==="article"){view="article";tab="news";renderArticle(parts[1]);}
   else if(seg==="photos"){view="photos";tab="photos"; if(parts[1]) openGallery(parts[1]);}
   else if(seg==="about"){view="about";tab="about";}
