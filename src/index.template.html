@@ -112,21 +112,23 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .hero .sails{position:absolute;inset:0;pointer-events:none;opacity:.55}
 .hero .sails svg{position:absolute;right:-8%;bottom:-6%;width:88%;max-width:640px;height:auto}
 .hero .in{position:relative;max-width:1120px;margin:0 auto;padding:36px 20px 30px;display:grid;gap:22px}
-@media (min-width:900px){.hero .in{grid-template-columns:1.05fr .95fr;align-items:center;padding:64px 32px 56px;gap:40px}.hero .sails svg{right:38%;width:40%;bottom:-10%}}
+@media (min-width:900px){.hero .in{padding:56px 32px 48px;gap:30px}.hero .sails svg{right:-4%;width:46%;bottom:auto;top:-8%}}
 .hero .k{margin-top:10px;font-size:12px;letter-spacing:.1em;color:var(--gold);font-weight:700}
 .hero .dir{margin-top:12px;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff;line-height:1.7;white-space:nowrap}
 @media (min-width:900px){.hero .dir{font-size:19px}}
 .hero .txt{text-align:center}
-@media (min-width:900px){.hero .txt{text-align:left}}
+@media (min-width:900px){.hero .txt{text-align:center}}
 .hero h1{font-family:var(--serif);font-size:21px;margin-top:0;color:#FFE08A;line-height:1.4;letter-spacing:.04em;white-space:nowrap;font-weight:900}
 .hero h1 em{font-style:normal;color:#FFE08A}
 @media (min-width:900px){.hero h1{font-size:36px;letter-spacing:.1em}}
 .hero p{margin:10px 0 0;font-size:13.5px;line-height:1.7;color:var(--on-hero-m);letter-spacing:.04em}
 .hero .cta{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center}
-@media (min-width:900px){.hero .cta{justify-content:flex-start}}
-.hero .ph{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);aspect-ratio:16/9;background:#0B2A5B center/cover no-repeat}
-@media (min-width:900px){.hero .ph{aspect-ratio:4/3}}
-.hero .ph .cap{background:linear-gradient(transparent,rgba(5,20,50,.85));color:#fff;font-size:12.5px;padding:40px 14px 12px;margin-top:-80px;position:relative}
+
+.hero .ph{display:block;border-radius:14px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.hero .ph img{width:100%;height:auto;display:block}
+@media (min-width:900px){.hero .ph{border-radius:18px}}
+.hero .ph .cap{background:rgba(5,20,50,.55);color:#fff;font-size:12.5px;padding:8px 14px;text-align:center;letter-spacing:.02em}
+@media (min-width:900px){.hero .ph .cap{font-size:14px;padding:10px 16px}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:-26px 16px 0;position:relative;z-index:2}
 .stats div{background:var(--paper);border:1px solid var(--hair);border-radius:14px;padding:12px 6px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer}
 .stats div:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(30,155,224,.25)}
@@ -390,7 +392,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
           <a class="btn ghost" href="#/about">認識政青</a>
         </div>
       </div>
-      <a class="ph" href="#/article/1089" style="background-image:url('{{IMG_HERO}}')"><div class="cap">2026 年 8 月 24 日 · 慶祝香港回歸祖國二十九周年暨第七屆執委會就職典禮</div></a>
+      <a class="ph" href="#/article/1089"><img src="{{IMG_HERO_M}}" srcset="{{IMG_HERO_M}} 1200w, {{IMG_HERO}} 2400w" sizes="(min-width:900px) 1056px, 100vw" alt="第七屆執委會就職典禮"><div class="cap">2026 年 8 月 24 日 · 慶祝香港回歸祖國二十九周年暨第七屆執委會就職典禮</div></a>
     </div>
   </section>
   <div class="stats reveal">
