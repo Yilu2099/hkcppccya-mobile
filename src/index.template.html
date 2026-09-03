@@ -684,7 +684,8 @@ const ncard=(a,big)=>`<a class="ncard${big?' big':''}" href="#/article/${a.id}">
 const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="${pstyle(NEWS_PHOTO[a.id])}"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${NEWS_TAG[a.id]?`<span class="chip">${BRANDS[NEWS_TAG[a.id]].tag}</span>`:""}</span></span><span class="chev">›</span></a>`;
 
 /* ===== 首頁 ===== */
-$("#home-feat").innerHTML=ncard(newsSorted[0],false); $("#home-list").innerHTML=newsSorted.slice(1,7).map(a=>item(a,"sm")).join("");
+const homeNews=newsSorted.filter(a=>a.id!==1089); /* 就職典禮已在首屏，不重複 */
+$("#home-feat").innerHTML=ncard(homeNews[0],false); $("#home-list").innerHTML=homeNews.slice(1,7).map(a=>item(a,"sm")).join("");
 $("#home-photos").innerHTML=GALLERY.slice(0,4).map(g=>`<a class="pcell" href="#/photos/${g.id}" style="${pstyle(g.img)}"><span>${esc(g.title)}</span></a>`).join("");
 let sailIdx=0;
 function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="${i===sailIdx?'on':''}" data-i="${i}">${s[0]}</button>`).join(""); $("#sail-txt").innerHTML=`<b>${SAILS[sailIdx][0]}</b>${SAILS[sailIdx][1]}<div class="bar">${SAILS.map((_,i)=>`<i class="${i===sailIdx?'on':''}"></i>`).join("")}</div>`; applyLang($("#v-home .five")); }
