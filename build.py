@@ -7,7 +7,7 @@ imgs = json.load(open(root/'assets/images.json'))
 for k, v in imgs.items():
     html = html.replace('{{IMG_%s}}' % k.upper(), v)
 photos = json.load(open(root/'assets/photos.json', encoding='utf-8'))
-html = html.replace('{{PHOTOS}}', json.dumps({k:{'data':v['data']} for k,v in photos.items()}, ensure_ascii=False, separators=(',',':')))
+html = html.replace('{{PHOTOS}}', json.dumps({k:{'data':v['data'],'pos':v.get('pos',50)} for k,v in photos.items()}, ensure_ascii=False, separators=(',',':')))
 html = html.replace('{{NEWS}}', open(root/'assets/news.json', encoding='utf-8').read().strip())
 html = html.replace('{{LEADERS}}', open(root/'assets/leaders.json', encoding='utf-8').read().strip())
 try:

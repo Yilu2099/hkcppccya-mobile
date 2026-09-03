@@ -662,14 +662,15 @@ const $=(s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.q
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmtDate=d=>{const [y,m,dd]=d.split("-");return dd?`${y}年${+m}月${+dd}日`:`${y}年${+m}月`;};
 const photo=k=>PHOTOS[k]?PHOTOS[k].data:"";
+const pstyle=k=>PHOTOS[k]?`background-image:url('${PHOTOS[k].data}');background-position:center ${PHOTOS[k].pos||50}%`:"";
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
 const newsSorted=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
-const ncard=(a,big)=>`<a class="ncard${big?' big':''}" href="#/article/${a.id}"><div class="ph" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span><span class="chip">${a.id===1089?"就職典禮":a.title.includes("司長")?"與司長有約":a.title.includes("考察")?"旅學團":a.title.includes("社青")?"社青共融":"活動"}</span></div></div></a>`;
-const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${NEWS_TAG[a.id]?`<span class="chip">${BRANDS[NEWS_TAG[a.id]].tag}</span>`:""}</span></span><span class="chev">›</span></a>`;
+const ncard=(a,big)=>`<a class="ncard${big?' big':''}" href="#/article/${a.id}"><div class="ph" style="${pstyle(NEWS_PHOTO[a.id])}"></div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span><span class="chip">${a.id===1089?"就職典禮":a.title.includes("司長")?"與司長有約":a.title.includes("考察")?"旅學團":a.title.includes("社青")?"社青共融":"活動"}</span></div></div></a>`;
+const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="${pstyle(NEWS_PHOTO[a.id])}"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${NEWS_TAG[a.id]?`<span class="chip">${BRANDS[NEWS_TAG[a.id]].tag}</span>`:""}</span></span><span class="chev">›</span></a>`;
 
 /* ===== 首頁 ===== */
 $("#home-feat").innerHTML=ncard(newsSorted[0],false); $("#home-list").innerHTML=newsSorted.slice(1,7).map(a=>item(a,"sm")).join("");
-$("#home-photos").innerHTML=GALLERY.slice(0,4).map(g=>`<a class="pcell" href="#/photos/${g.id}" style="background-image:url('${photo(g.img)}')"><span>${esc(g.title)}</span></a>`).join("");
+$("#home-photos").innerHTML=GALLERY.slice(0,4).map(g=>`<a class="pcell" href="#/photos/${g.id}" style="${pstyle(g.img)}"><span>${esc(g.title)}</span></a>`).join("");
 let sailIdx=0;
 function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="${i===sailIdx?'on':''}" data-i="${i}">${s[0]}</button>`).join(""); $("#sail-txt").innerHTML=`<b>${SAILS[sailIdx][0]}</b>${SAILS[sailIdx][1]}<div class="bar">${SAILS.map((_,i)=>`<i class="${i===sailIdx?'on':''}"></i>`).join("")}</div>`; applyLang($("#v-home .five")); }
 renderSails();
@@ -710,7 +711,7 @@ function renderArticle(id){
 
 /* ===== 相片集 ===== */
 $("#photo-years").innerHTML=`<button class="on">2026</button>`+["2025","2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014"].map(y=>`<button onclick="toast('${y} 年相片正式版由後台接入')">${y}</button>`).join("");
-$("#photo-grid").innerHTML=GALLERY.map(g=>`<a class="pcell" href="#/photos/${g.id}" style="background-image:url('${photo(g.img)}')"><span>${esc(g.title)}</span></a>`).join("");
+$("#photo-grid").innerHTML=GALLERY.map(g=>`<a class="pcell" href="#/photos/${g.id}" style="${pstyle(g.img)}"><span>${esc(g.title)}</span></a>`).join("");
 function openGallery(id){ const i=GALLERY.findIndex(g=>g.id===id); if(i<0) return; const list=GALLERY;
   $("#lb-strip").innerHTML=list.map(g=>`<div><img src="${photo(g.img)}" alt=""></div>`).join(""); $("#lightbox").classList.add("on");
   const s=$("#lb-strip"); requestAnimationFrame(()=>{ s.scrollLeft=i*s.clientWidth; });
