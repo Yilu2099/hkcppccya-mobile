@@ -247,7 +247,13 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .page-hero h1{font-size:26px}
 .page-hero h1 small{display:block;font-family:var(--en);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--sky);margin-bottom:6px}
 @media (min-width:900px){.page-hero{padding:44px 0 10px}.page-hero h1{font-size:36px}}
+.searchbar{display:flex;align-items:center;gap:10px;margin-top:14px;padding:0 14px;height:48px;border-radius:12px;background:var(--paper);border:1.5px solid var(--hair)}
+.searchbar:focus-within{border-color:var(--sky)}
+.searchbar svg.i{font-size:20px;color:var(--muted);flex:none}
+.searchbar input{flex:1;border:0;background:none;font:inherit;font-size:15px;color:var(--ink);outline:none;min-width:0}
+.searchbar button{font-size:22px;color:var(--muted);padding:0 4px}
 .years{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
+.years.tags{padding-top:4px}.years.tags button{font-size:13px;padding:6px 12px}
 .years::-webkit-scrollbar{display:none}
 .years button{flex:none;padding:7px 14px;border-radius:999px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--ink-2)}
 .years button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
@@ -258,7 +264,16 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .item .tt{font-size:15px;font-weight:700;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .item .meta{font-size:12.5px;color:var(--muted);margin-top:5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .item .chev{flex:none;align-self:center;color:var(--hair);font-size:22px}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--sky),var(--gold));z-index:45;transition:width .1s linear}
 .art{max-width:760px;margin:0 auto;padding:22px 0 0}
+.art.big .body{font-size:19px}
+.pn{display:grid;gap:10px;margin-top:22px}
+@media (min-width:640px){.pn{grid-template-columns:1fr 1fr}}
+.pn a{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--shadow);min-height:74px}
+.pn a small{font-size:12px;color:var(--sky);font-weight:700;letter-spacing:.08em}
+.pn a b{font-size:14.5px;font-weight:700;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pn a.next{text-align:right;align-items:flex-end}
+.pn a.empty{opacity:.45;pointer-events:none}
 .art .kick{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
 .art h1{font-size:24px;line-height:1.45;margin-top:10px}
 @media (min-width:900px){.art h1{font-size:32px}.art{padding-top:40px}}
@@ -357,7 +372,20 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .lightbox .strip::-webkit-scrollbar{display:none}
 .lightbox .strip div{flex:0 0 100%;scroll-snap-align:center;display:grid;place-items:center;padding:10px}
 .lightbox .strip img{max-height:100%;max-width:100%;border-radius:6px;object-fit:contain}
-.lightbox .cap{padding:14px 22px calc(26px + env(safe-area-inset-bottom));font-size:14px;line-height:1.5;text-align:center;color:#DDD}
+.lightbox .cap{padding:12px 22px calc(22px + env(safe-area-inset-bottom));font-size:14px;line-height:1.5;text-align:center;color:#DDD}
+.lightbox .bar span{display:flex;gap:8px;align-items:center}
+.lightbox .bar #lb-share{padding:8px 10px}.lightbox .bar svg.i{font-size:18px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;display:grid;place-items:center;background:rgba(255,255,255,.14);color:#fff;border-radius:12px;backdrop-filter:blur(6px);transition:background .2s}
+.lb-nav:hover{background:rgba(255,255,255,.3)}
+.lb-nav.prev{left:8px}.lb-nav.next{right:8px}.lb-nav svg.i{font-size:28px;stroke-width:2.2}
+.lb-nav[disabled]{opacity:.25;pointer-events:none}
+.lb-dots{display:flex;justify-content:center;gap:5px;margin:10px 0 6px}.lb-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35)}.lb-dots i.on{background:#fff;width:18px;border-radius:3px}
+.lb-link{display:inline-block;margin-top:2px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.45);color:#fff;font-size:13px;font-weight:700}
+.lb-link[hidden]{display:none}
+@media (min-width:900px){.lb-nav{width:56px;height:80px}.lb-nav.prev{left:24px}.lb-nav.next{right:24px}}
+.totop{position:fixed;right:14px;bottom:calc(var(--tab-h) + 18px + env(safe-area-inset-bottom));width:44px;height:44px;border-radius:50%;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--blue);opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;z-index:39}
+.totop.on{opacity:1;transform:none;pointer-events:auto}.totop svg.i{font-size:20px;stroke-width:2.2}
+@media (min-width:900px){.totop{right:28px;bottom:28px}}
 .toast{position:fixed;left:50%;bottom:calc(var(--tab-h) + 24px);transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:90;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%)}
 @media (min-width:900px){.toast{bottom:30px}}
@@ -484,12 +512,14 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 <!-- ================= 最新消息 ================= -->
 <main class="view" id="v-news"><div class="wrap">
   <div class="page-hero"><h1>最新消息</h1></div>
+  <div class="searchbar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="news-q" placeholder="搜尋標題或內容，例如：司長、廣西、兩會"><button id="news-clear" hidden aria-label="清除">×</button></div>
   <div class="years" id="news-years"></div>
+  <div class="years" id="news-tags"></div>
   <div class="card list" id="news-list" style="margin-top:12px"></div>
 </div></main>
 
 <!-- ================= 文章 ================= -->
-<main class="view" id="v-article"><div class="wrap"><article class="art" id="art"></article></div></main>
+<main class="view" id="v-article"><div class="progress" id="progress"></div><div class="wrap"><article class="art" id="art"></article></div></main>
 
 <!-- ================= 相片集 ================= -->
 <main class="view" id="v-photos"><div class="wrap">
@@ -546,7 +576,8 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
         <div><i>2</i><span><b>你會得到什麼</b><small>四大品牌活動、與特區官員及內地省市交流的機會、十五個工作委員會的平台，以及一群志同道合的青年夥伴。</small></span></div>
         <div><i>3</i><span><b>怎樣申請</b><small>填寫下方表格，或下載會員登記表填妥後電郵至 info@hkcppccya.org。本會有權拒絕任何申請，無需給予解釋。</small></span></div>
       </div>
-      <a class="btn line wide" href="files/membership-form.pdf" target="_blank" rel="noopener" style="margin-top:12px"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>下載會員登記表（PDF）</a>
+      <a class="btn sky wide" href="https://wa.me/85259355193?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3%E5%8A%A0%E5%85%A5%E6%94%BF%E9%9D%92" target="_blank" rel="noopener" style="margin-top:12px"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-3.8A8 8 0 1 1 8.2 19z"/></svg>WhatsApp 直接聯繫入會</a>
+      <a class="btn line wide" href="files/membership-form.pdf" target="_blank" rel="noopener" style="margin-top:10px"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>下載會員登記表（PDF）</a>
     </div>
     <form class="form" id="join-form">
       <label>姓名</label><input required placeholder="中文全名">
@@ -606,10 +637,13 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <button class="cancel" id="sheet-cancel">取消</button>
 </div></div>
 <div class="lightbox" id="lightbox">
-  <div class="bar"><span id="lb-idx" class="num"></span><button id="lb-close">關閉</button></div>
+  <div class="bar"><span id="lb-idx" class="num"></span><span><button id="lb-share" aria-label="分享"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg></button><button id="lb-close">關閉</button></span></div>
   <div class="strip" id="lb-strip"></div>
-  <div class="cap" id="lb-cap"></div>
+  <button class="lb-nav prev" id="lb-prev" aria-label="上一張"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="lb-nav next" id="lb-next" aria-label="下一張"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="cap"><div id="lb-cap"></div><div class="lb-dots" id="lb-dots"></div><a id="lb-link" class="lb-link" href="#/photos">查看相關消息 ›</a></div>
 </div>
+<button class="totop" id="totop" aria-label="回到頂部"><svg class="i" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -763,7 +797,7 @@ const LEADERS = [
   ]
  }
 ];
-const T2S = {"並":"并","亞":"亚","佈":"布","來":"来","係":"系","個":"个","們":"们","倫":"伦","偉":"伟","傑":"杰","傳":"传","僅":"仅","僑":"侨","價":"价","儀":"仪","優":"优","兒":"儿","內":"内","兩":"两","凱":"凯","別":"别","剛":"刚","創":"创","劃":"划","劉":"刘","劍":"剑","動":"动","務":"务","勝":"胜","勞":"劳","勢":"势","勵":"励","匯":"汇","區":"区","協":"协","參":"参","吳":"吴","呂":"吕","員":"员","問":"问","啟":"启","單":"单","嚴":"严","國":"国","圍":"围","園":"园","圓":"圆","圖":"图","團":"团","執":"执","堅":"坚","堯":"尧","報":"报","場":"场","塊":"块","壇":"坛","壯":"壮","夢":"梦","夥":"伙","奮":"奋","嫺":"娴","孫":"孙","學":"学","實":"实","寧":"宁","寫":"写","寶":"宝","將":"将","專":"专","尋":"寻","對":"对","導":"导","尙":"尚","屆":"届","層":"层","屬":"属","峯":"峰","嶺":"岭","師":"师","帶":"带","幗":"帼","幣":"币","幫":"帮","幹":"干","庫":"库","廈":"厦","廣":"广","廳":"厅","張":"张","強":"强","彥":"彦","後":"后","從":"从","復":"复","恆":"恒","愛":"爱","態":"态","慶":"庆","憑":"凭","應":"应","懷":"怀","戰":"战","戲":"戏","戶":"户","揚":"扬","換":"换","揮":"挥","搖":"摇","撥":"拨","擊":"击","擔":"担","據":"据","擴":"扩","攜":"携","敘":"叙","數":"数","於":"于","時":"时","晉":"晋","暫":"暂","曉":"晓","書":"书","會":"会","東":"东","棟":"栋","楊":"杨","業":"业","極":"极","榮":"荣","構":"构","樂":"乐","樑":"梁","樓":"楼","樣":"样","樹":"树","橋":"桥","機":"机","欄":"栏","權":"权","歡":"欢","歷":"历","歸":"归","氣":"气","況":"况","湊":"凑","溝":"沟","溫":"温","滬":"沪","滿":"满","漢":"汉","潑":"泼","潛":"潜","潤":"润","澤":"泽","濟":"济","濤":"涛","灝":"灏","灣":"湾","為":"为","無":"无","煒":"炜","熱":"热","燈":"灯","營":"营","狀":"状","獎":"奖","獨":"独","獲":"获","獻":"献","現":"现","瑤":"瑶","瑩":"莹","環":"环","產":"产","當":"当","療":"疗","發":"发","盡":"尽","監":"监","盧":"卢","眾":"众","碩":"硕","確":"确","磚":"砖","礎":"础","礪":"砺","禮":"礼","稟":"禀","種":"种","稱":"称","積":"积","穎":"颖","穩":"稳","穫":"获","節":"节","範":"范","築":"筑","簡":"简","簽":"签","籃":"篮","粵":"粤","紀":"纪","約":"约","紅":"红","納":"纳","紐":"纽","級":"级","紮":"扎","細":"细","紹":"绍","終":"终","組":"组","結":"结","絕":"绝","絡":"络","給":"给","統":"统","經":"经","綠":"绿","維":"维","網":"网","綺":"绮","緊":"紧","線":"线","緣":"缘","練":"练","總":"总","織":"织","繞":"绕","繩":"绳","繫":"系","繼":"继","續":"续","羅":"罗","義":"义","習":"习","聖":"圣","聯":"联","聰":"聪","聲":"声","職":"职","聽":"听","脈":"脉","脫":"脱","腦":"脑","臨":"临","與":"与","興":"兴","舉":"举","艱":"艰","莊":"庄","華":"华","葉":"叶","蒞":"莅","蓋":"盖","蕭":"萧","薦":"荐","藍":"蓝","藝":"艺","藥":"药","蘇":"苏","蘊":"蕴","蘭":"兰","處":"处","虛":"虚","號":"号","螄":"蛳","術":"术","衞":"卫","裝":"装","裡":"里","製":"制","複":"复","見":"见","規":"规","視":"视","親":"亲","覽":"览","觀":"观","計":"计","訊":"讯","討":"讨","訓":"训","託":"托","記":"记","訪":"访","設":"设","許":"许","詠":"咏","詢":"询","詩":"诗","話":"话","該":"该","詳":"详","認":"认","語":"语","說":"说","説":"说","誰":"谁","課":"课","誼":"谊","調":"调","談":"谈","請":"请","論":"论","諧":"谐","諮":"咨","謂":"谓","謙":"谦","講":"讲","謝":"谢","謳":"讴","謹":"谨","證":"证","識":"识","譚":"谭","議":"议","護":"护","譽":"誉","讀":"读","變":"变","讓":"让","讚":"赞","豐":"丰","貞":"贞","負":"负","財":"财","貢":"贡","責":"责","貴":"贵","貿":"贸","賀":"贺","資":"资","賓":"宾","賢":"贤","賦":"赋","質":"质","賽":"赛","贈":"赠","贊":"赞","趙":"赵","趨":"趋","踐":"践","踴":"踊","躍":"跃","車":"车","軍":"军","軒":"轩","載":"载","輕":"轻","輝":"辉","輩":"辈","轄":"辖","轉":"转","辦":"办","辭":"辞","這":"这","連":"连","進":"进","遊":"游","運":"运","過":"过","達":"达","遞":"递","遠":"远","邁":"迈","還":"还","邊":"边","郵":"邮","鄉":"乡","鄧":"邓","鄭":"郑","醫":"医","釋":"释","針":"针","鉅":"巨","銀":"银","銘":"铭","銷":"销","鋒":"锋","鋪":"铺","錦":"锦","鍵":"键","鍾":"钟","鎔":"镕","鎮":"镇","鐵":"铁","鑌":"镔","長":"长","門":"门","閃":"闪","閉":"闭","開":"开","間":"间","閻":"阎","闊":"阔","關":"关","闡":"阐","陳":"陈","陸":"陆","陽":"阳","隊":"队","階":"阶","際":"际","隨":"随","雙":"双","離":"离","雲":"云","電":"电","靜":"静","鞏":"巩","韻":"韵","響":"响","頁":"页","頂":"顶","項":"项","順":"顺","領":"领","頭":"头","頴":"颕","頻":"频","題":"题","顏":"颜","類":"类","顧":"顾","顯":"显","風":"风","飛":"飞","飲":"饮","養":"养","餘":"余","館":"馆","饋":"馈","馬":"马","馮":"冯","駐":"驻","駿":"骏","騰":"腾","驗":"验","體":"体","鬆":"松","鬥":"斗","鳴":"鸣","鴻":"鸿","鵬":"鹏","麗":"丽","麥":"麦","麼":"么","黃":"黄","點":"点","黨":"党","齊":"齐","齡":"龄","龍":"龙","龔":"龚"};
+const T2S = {"並":"并","亞":"亚","佈":"布","來":"来","係":"系","個":"个","們":"们","倫":"伦","偉":"伟","傑":"杰","傳":"传","僅":"仅","僑":"侨","價":"价","儀":"仪","優":"优","兒":"儿","內":"内","兩":"两","凱":"凯","別":"别","剛":"刚","創":"创","劃":"划","劉":"刘","劍":"剑","動":"动","務":"务","勝":"胜","勞":"劳","勢":"势","勵":"励","匯":"汇","區":"区","協":"协","參":"参","吳":"吴","呂":"吕","員":"员","問":"问","啟":"启","單":"单","嚴":"严","國":"国","圍":"围","園":"园","圓":"圆","圖":"图","團":"团","執":"执","堅":"坚","堯":"尧","報":"报","場":"场","塊":"块","壇":"坛","壯":"壮","夢":"梦","夥":"伙","奮":"奋","嫺":"娴","孫":"孙","學":"学","實":"实","寧":"宁","寫":"写","寶":"宝","將":"将","專":"专","尋":"寻","對":"对","導":"导","尙":"尚","屆":"届","層":"层","屬":"属","峯":"峰","嶺":"岭","師":"师","帶":"带","幗":"帼","幣":"币","幫":"帮","幹":"干","庫":"库","廈":"厦","廣":"广","廳":"厅","張":"张","強":"强","彥":"彦","後":"后","從":"从","復":"复","恆":"恒","愛":"爱","態":"态","慶":"庆","憑":"凭","應":"应","懷":"怀","戰":"战","戲":"戏","戶":"户","捲":"卷","揚":"扬","換":"换","揮":"挥","搖":"摇","撥":"拨","擊":"击","擔":"担","據":"据","擴":"扩","攜":"携","敘":"叙","數":"数","於":"于","時":"时","晉":"晋","暫":"暂","曉":"晓","書":"书","會":"会","東":"东","棟":"栋","楊":"杨","業":"业","極":"极","榮":"荣","構":"构","樂":"乐","樑":"梁","樓":"楼","標":"标","樣":"样","樹":"树","橋":"桥","機":"机","欄":"栏","權":"权","歡":"欢","歷":"历","歸":"归","氣":"气","沒":"没","況":"况","湊":"凑","溝":"沟","溫":"温","滬":"沪","滿":"满","漢":"汉","潑":"泼","潛":"潜","潤":"润","澤":"泽","濟":"济","濤":"涛","灝":"灏","灣":"湾","為":"为","無":"无","煒":"炜","熱":"热","燈":"灯","營":"营","狀":"状","獎":"奖","獨":"独","獲":"获","獻":"献","現":"现","瑤":"瑶","瑩":"莹","環":"环","產":"产","當":"当","療":"疗","發":"发","盡":"尽","監":"监","盧":"卢","眾":"众","碩":"硕","確":"确","磚":"砖","礎":"础","礪":"砺","禮":"礼","稟":"禀","種":"种","稱":"称","積":"积","穎":"颖","穩":"稳","穫":"获","節":"节","範":"范","築":"筑","簡":"简","簽":"签","籃":"篮","粵":"粤","紀":"纪","約":"约","紅":"红","納":"纳","紐":"纽","級":"级","紮":"扎","細":"细","紹":"绍","終":"终","組":"组","結":"结","絕":"绝","絡":"络","給":"给","統":"统","經":"经","綠":"绿","維":"维","網":"网","綺":"绮","緊":"紧","線":"线","緣":"缘","練":"练","總":"总","織":"织","繞":"绕","繩":"绳","繫":"系","繼":"继","續":"续","羅":"罗","義":"义","習":"习","聖":"圣","聯":"联","聰":"聪","聲":"声","職":"职","聽":"听","脈":"脉","脫":"脱","腦":"脑","臨":"临","與":"与","興":"兴","舉":"举","艱":"艰","莊":"庄","華":"华","葉":"叶","蒞":"莅","蓋":"盖","蕭":"萧","薦":"荐","藍":"蓝","藝":"艺","藥":"药","蘇":"苏","蘊":"蕴","蘭":"兰","處":"处","虛":"虚","號":"号","螄":"蛳","術":"术","衞":"卫","裝":"装","裡":"里","製":"制","複":"复","見":"见","規":"规","視":"视","親":"亲","覽":"览","觀":"观","計":"计","訊":"讯","討":"讨","訓":"训","託":"托","記":"记","訪":"访","設":"设","許":"许","詠":"咏","詢":"询","詩":"诗","話":"话","該":"该","詳":"详","認":"认","語":"语","說":"说","説":"说","誰":"谁","課":"课","誼":"谊","調":"调","談":"谈","請":"请","論":"论","諧":"谐","諮":"咨","謂":"谓","謙":"谦","講":"讲","謝":"谢","謳":"讴","謹":"谨","證":"证","識":"识","譚":"谭","議":"议","護":"护","譽":"誉","讀":"读","變":"变","讓":"让","讚":"赞","豐":"丰","貞":"贞","負":"负","財":"财","貢":"贡","責":"责","貴":"贵","貿":"贸","賀":"贺","資":"资","賓":"宾","賢":"贤","賦":"赋","質":"质","賽":"赛","贈":"赠","贊":"赞","趙":"赵","趨":"趋","踐":"践","踴":"踊","躍":"跃","車":"车","軍":"军","軒":"轩","載":"载","輕":"轻","輝":"辉","輩":"辈","轄":"辖","轉":"转","辦":"办","辭":"辞","這":"这","連":"连","進":"进","遊":"游","運":"运","過":"过","達":"达","遞":"递","遠":"远","邁":"迈","還":"还","邊":"边","郵":"邮","鄉":"乡","鄧":"邓","鄭":"郑","醫":"医","釋":"释","針":"针","鉅":"巨","銀":"银","銘":"铭","銷":"销","鋒":"锋","鋪":"铺","錦":"锦","鍵":"键","鍾":"钟","鎔":"镕","鎮":"镇","鐵":"铁","鑌":"镔","長":"长","門":"门","閃":"闪","閉":"闭","開":"开","間":"间","閱":"阅","閻":"阎","闊":"阔","關":"关","闡":"阐","陳":"陈","陸":"陆","陽":"阳","隊":"队","階":"阶","際":"际","隨":"随","雙":"双","離":"离","雲":"云","電":"电","靜":"静","鞏":"巩","韻":"韵","響":"响","頁":"页","頂":"顶","項":"项","順":"顺","領":"领","頭":"头","頴":"颕","頻":"频","題":"题","顏":"颜","類":"类","顧":"顾","顯":"显","風":"风","飛":"飞","飲":"饮","養":"养","餘":"余","館":"馆","饋":"馈","馬":"马","馮":"冯","駐":"驻","駿":"骏","騰":"腾","驗":"验","體":"体","鬆":"松","鬥":"斗","鳴":"鸣","鴻":"鸿","鵬":"鹏","麗":"丽","麥":"麦","麼":"么","黃":"黄","點":"点","黨":"党","齊":"齐","齡":"龄","龍":"龙","龔":"龚"};
 const NEWS_PHOTO = {1089:"z0",1087:"z1",1088:"z2",1086:"z3",1085:"z4",1084:"z5",1083:"z6",1082:"z7"};
 const GALLERY = [
  {id:"g1",img:"z0",title:"第七屆執委會就職典禮 · 容思瀚榮膺主席",date:"2026-08-24",news:1089},
@@ -854,32 +888,57 @@ function renderBrand(k){
 /* ===== 消息 ===== */
 const years=[...new Set(newsSorted.map(a=>a.date.slice(0,4)))];
 $("#news-years").innerHTML=`<button class="on" data-y="">全部</button>`+years.map(y=>`<button data-y="${y}">${y}</button>`).join("")+["2025","2024","2023"].map(y=>`<button data-y="${y}">${y}</button>`).join("");
-function renderNews(y){ $$("#news-years button").forEach(b=>b.classList.toggle("on",b.dataset.y===y)); const items=newsSorted.filter(a=>!y||a.date.startsWith(y)); $("#news-list").innerHTML=items.length?items.map(item).join(""):`<div class="tip" style="padding:36px;text-align:center">${y} 年暫無消息</div>`; applyLang($("#v-news")); }
-$("#news-years").addEventListener("click",e=>{const b=e.target.closest("button"); if(b) renderNews(b.dataset.y);});
-renderNews("");
+let newsY="", newsTag="";
+$("#news-tags").className="years tags"; $("#news-tags").innerHTML=`<button class="on" data-t="">全部類別</button>`+Object.entries(BRANDS).map(([k,b])=>`<button data-t="${k}">${b.tag}</button>`).join("");
+function renderNews(){ const q=$("#news-q").value.trim(); const qt=q.replace(/[㐀-鿿]/g,c=>S2T[c]||c);
+  $$("#news-years button").forEach(b=>b.classList.toggle("on",b.dataset.y===newsY)); $$("#news-tags button").forEach(b=>b.classList.toggle("on",b.dataset.t===newsTag)); $("#news-clear").hidden=!q;
+  const items=newsSorted.filter(a=>(!newsY||a.date.startsWith(newsY))&&(!newsTag||NEWS_TAG[a.id]===newsTag)&&(!q||(a.title+a.body.join("")).includes(qt)||(a.title+a.body.join("")).includes(q)));
+  $("#news-list").innerHTML=items.length?items.map(item).join(""):`<div class="tip" style="padding:36px;text-align:center">${q?`沒有找到「${esc(q)}」相關的消息`:(newsY?newsY+" 年暫無消息":"暫無消息")}</div>`;
+  applyLang($("#v-news")); }
+$("#news-years").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){ newsY=b.dataset.y; renderNews(); }});
+$("#news-tags").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){ newsTag=b.dataset.t; renderNews(); }});
+$("#news-q").addEventListener("input",renderNews); $("#news-clear").onclick=()=>{ $("#news-q").value=""; renderNews(); };
+renderNews();
 
 /* ===== 文章 ===== */
 function renderArticle(id){
   const a=NEWS.find(x=>x.id===+id); if(!a){location.hash="#/news";return;}
-  const rel=newsSorted.filter(x=>x.id!==a.id).slice(0,3);
+  const idx=newsSorted.findIndex(x=>x.id===a.id); const prev=newsSorted[idx+1], next=newsSorted[idx-1];
+  const rel=newsSorted.filter(x=>x.id!==a.id && x.id!==(prev&&prev.id) && x.id!==(next&&next.id)).slice(0,3);
   $("#art").innerHTML=`<div class="kick"><span class="chip">最新消息</span>${NEWS_TAG[a.id]?`<a class="chip gold" href="#/brand/${NEWS_TAG[a.id]}">${BRANDS[NEWS_TAG[a.id]].tag} ›</a>`:""}<span class="num">${fmtDate(a.date)}</span></div><h1>${esc(a.title)}</h1>
-   <div class="tools"><button id="share-btn"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg>分享</button><button id="copy-btn"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>複製連結</button></div>
+   <div class="tools"><button id="fs-btn"><svg class="i" viewBox="0 0 24 24"><path d="M4 18 10 5l6 13M6 14h8M17 12h5M19.5 9.5v5"/></svg>大字</button><button id="share-btn"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg>分享</button><button id="copy-btn"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>複製連結</button></div>
    ${NEWS_PHOTO[a.id]?`<figure><img src="${photo(NEWS_PHOTO[a.id])}" alt=""></figure>`:""}
    <div class="body">${a.body.map(p=>`<p>${esc(p)}</p>`).join("")}</div><div class="end">◆ ◆ ◆</div>
-   <div class="sec-h"><h2 style="font-size:18px">更多消息</h2></div><div class="card list">${rel.map(item).join("")}</div>
+   <div class="pn"><a class="${prev?'':'empty'}" href="${prev?'#/article/'+prev.id:'#'}"><small>‹ 上一篇</small><b>${prev?esc(prev.title):'已是最早一篇'}</b></a><a class="next ${next?'':'empty'}" href="${next?'#/article/'+next.id:'#'}"><small>下一篇 ›</small><b>${next?esc(next.title):'已是最新一篇'}</b></a></div>
+   <div class="sec-h" style="margin-top:26px"><h2 style="font-size:18px">更多消息</h2></div><div class="card list">${rel.map(item).join("")}</div>
    <a class="btn line wide" href="#/news" style="margin-top:18px">返回最新消息</a>`;
-  $("#share-btn").onclick=()=>$("#sheet").classList.add("on"); $("#copy-btn").onclick=copyLink; applyLang($("#v-article"));
+  $("#share-btn").onclick=()=>$("#sheet").classList.add("on"); $("#copy-btn").onclick=copyLink;
+  $("#fs-btn").onclick=()=>{ $("#art").classList.toggle("big"); toast($("#art").classList.contains("big")?"已放大字體":"已恢復字號"); };
+  applyLang($("#v-article"));
 }
 
 /* ===== 相片集 ===== */
 $("#photo-years").innerHTML=`<button class="on">2026</button>`+["2025","2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014"].map(y=>`<button onclick="toast('${y} 年相片整理中')">${y}</button>`).join("");
 $("#photo-grid").innerHTML=GALLERY.map(g=>`<a class="pcell" href="#/photos/${g.id}" style="${pstyle(g.img)}"><span>${esc(g.title)}</span></a>`).join("");
-function openGallery(id){ const i=GALLERY.findIndex(g=>g.id===id); if(i<0) return; const list=GALLERY;
-  $("#lb-strip").innerHTML=list.map(g=>`<div><img src="${photo(g.img)}" alt=""></div>`).join(""); $("#lightbox").classList.add("on");
-  const s=$("#lb-strip"); requestAnimationFrame(()=>{ s.scrollLeft=i*s.clientWidth; });
-  const upd=()=>{const k=Math.round(s.scrollLeft/s.clientWidth); $("#lb-idx").textContent=`${k+1} / ${list.length}`; $("#lb-cap").textContent=(lang==="zh-Hans"?toS(list[k].title):list[k].title)+" · "+fmtDate(list[k].date);}; s.onscroll=upd; setTimeout(upd,60);
+let lbIdx=0;
+function lbGo(k,smooth=true){ const s=$("#lb-strip"); k=Math.max(0,Math.min(GALLERY.length-1,k)); s.scrollTo({left:k*s.clientWidth,behavior:smooth?"smooth":"auto"}); }
+function lbUpdate(){ const s=$("#lb-strip"); const k=Math.round(s.scrollLeft/s.clientWidth); lbIdx=k; const g=GALLERY[k]; if(!g) return;
+  $("#lb-idx").textContent=`${k+1} / ${GALLERY.length}`; $("#lb-cap").textContent=(lang==="zh-Hans"?toS(g.title):g.title)+" · "+fmtDate(g.date);
+  $("#lb-dots").innerHTML=GALLERY.map((_,i)=>`<i class="${i===k?'on':''}"></i>`).join("");
+  $("#lb-prev").disabled=k===0; $("#lb-next").disabled=k===GALLERY.length-1;
+  const l=$("#lb-link"); if(g.news){ l.hidden=false; l.href="#/article/"+g.news; } else l.hidden=true;
+  if(location.hash.startsWith("#/photos/")) history.replaceState(null,"","#/photos/"+g.id);
 }
-$("#lb-close").onclick=()=>{$("#lightbox").classList.remove("on"); if(location.hash.startsWith("#/photos/")) location.hash="#/photos";};
+function openGallery(id){ const i=GALLERY.findIndex(g=>g.id===id); if(i<0) return;
+  const s=$("#lb-strip"); if(!s.children.length) s.innerHTML=GALLERY.map(g=>`<div><img src="${photo(g.img)}" alt="" loading="lazy"></div>`).join("");
+  $("#lightbox").classList.add("on"); requestAnimationFrame(()=>{ lbGo(i,false); setTimeout(lbUpdate,60); });
+  s.onscroll=()=>{ clearTimeout(s._t); s._t=setTimeout(lbUpdate,80); };
+}
+function closeGallery(){ $("#lightbox").classList.remove("on"); if(location.hash.startsWith("#/photos/")) location.hash="#/photos"; }
+$("#lb-close").onclick=closeGallery; $("#lb-prev").onclick=()=>lbGo(lbIdx-1); $("#lb-next").onclick=()=>lbGo(lbIdx+1);
+$("#lb-share").onclick=()=>$("#sheet").classList.add("on");
+$("#lb-link").onclick=()=>{ $("#lightbox").classList.remove("on"); };
+addEventListener("keydown",e=>{ if(!$("#lightbox").classList.contains("on")) return; if(e.key==="ArrowLeft") lbGo(lbIdx-1); else if(e.key==="ArrowRight") lbGo(lbIdx+1); else if(e.key==="Escape") closeGallery(); });
 
 /* ===== 關於 ===== */
 $("#roles").innerHTML=LEADERS.map(r=>`<div class="role"><b>${esc(r.title)}</b><span>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</span></div>`).join("");
@@ -900,6 +959,11 @@ try{ const t=localStorage.getItem("zq-theme"); if(t) root.dataset.theme=t; const
 
 /* ===== 地圖連結依裝置 ===== */
 if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)) $("#map-link").href="https://maps.apple.com/?q=160+Gloucester+Road+Wan+Chai+Hong+Kong";
+
+/* ===== 捲動：回到頂部、閱讀進度 ===== */
+$("#totop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+addEventListener("scroll",()=>{ const y=window.scrollY; $("#totop").classList.toggle("on",y>600);
+  if($("#v-article").classList.contains("on")){ const max=document.documentElement.scrollHeight-innerHeight; $("#progress").style.width=(max>0?Math.min(100,y/max*100):0)+"%"; } },{passive:true});
 
 /* ===== 表單 ===== */
 ["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交");}));
