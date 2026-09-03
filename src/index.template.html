@@ -143,20 +143,20 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .banner .cap span{color:var(--muted);font-size:12.5px}
 @media (min-width:900px){.banner .cap{font-size:15px;padding:12px 18px}.banner .cap span{font-size:13.5px}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 16px 0;position:relative;z-index:2;background:var(--paper);border:1px solid var(--hair);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
-.stats div{background:none;border:0;border-right:1px solid var(--hair);border-radius:0;padding:14px 4px 16px;text-align:center;box-shadow:none;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s;opacity:0;transform:translateY(14px)}
-.stats div:last-child{border-right:0}
-.stats.in div{opacity:1;transform:none}
-.stats.in div:nth-child(2){transition-delay:.08s}.stats.in div:nth-child(3){transition-delay:.16s}.stats.in div:nth-child(4){transition-delay:.24s}
-.stats div:hover{background:var(--sky-soft)}
-.stats div::after{content:"";position:absolute;left:50%;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),#F2D27A);transform:translateX(-50%);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
-.stats.in div::after{width:42%}
-.stats.in div:nth-child(2)::after{transition-delay:.3s}.stats.in div:nth-child(3)::after{transition-delay:.5s}.stats.in div:nth-child(4)::after{transition-delay:.7s}
+.stats>a{display:block;color:inherit;background:none;border:0;border-right:1px solid var(--hair);border-radius:0;padding:14px 4px 16px;text-align:center;box-shadow:none;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s;opacity:0;transform:translateY(14px)}
+.stats>a:last-child{border-right:0}
+.stats.in>a{opacity:1;transform:none}
+.stats.in>a:nth-child(2){transition-delay:.08s}.stats.in>a:nth-child(3){transition-delay:.16s}.stats.in>a:nth-child(4){transition-delay:.24s}
+.stats>a:hover{background:var(--sky-soft)}
+.stats>a::after{content:"";position:absolute;left:50%;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),#F2D27A);transform:translateX(-50%);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.stats.in>a::after{width:42%}
+.stats.in>a:nth-child(2)::after{transition-delay:.3s}.stats.in>a:nth-child(3)::after{transition-delay:.5s}.stats.in>a:nth-child(4)::after{transition-delay:.7s}
 .stats .cnt{display:inline-block;filter:blur(6px);opacity:0;transition:filter .9s ease,opacity .9s ease}
 .stats.in .cnt{filter:blur(0);opacity:1}
 .stats b{display:block;font-family:var(--en);font-size:21px;font-weight:800;color:var(--blue);line-height:1.1;white-space:nowrap;letter-spacing:-.01em}
 .stats b i{font-style:normal;font-family:var(--sans);font-size:12px;color:var(--sky);margin-left:2px}
 .stats small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
-@media (min-width:900px){.stats{max-width:1056px;margin:20px auto 0;gap:0}.stats div{padding:20px}.stats b{font-size:32px}.stats small{font-size:13px}}
+@media (min-width:900px){.stats{max-width:1056px;margin:20px auto 0;gap:0}.stats>a{padding:20px}.stats b{font-size:32px}.stats small{font-size:13px}}
 
 /* ===== 首頁區塊 ===== */
 .home-news{display:grid;gap:14px}
@@ -433,10 +433,10 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </section>
   <div class="wrap"><a class="banner" href="#/article/1089"><img src="{{IMG_HERO_M}}" srcset="{{IMG_HERO_M}} 1200w, {{IMG_HERO}} 2400w" sizes="(min-width:900px) 1056px, 100vw" alt="第七屆執委會就職典禮"><div class="cap"><b>第七屆執委會就職典禮</b><span class="num">2026 年 8 月 24 日</span></div></a></div>
   <div class="stats reveal">
-    <div><b><span class="cnt" data-to="12">0</span><i>年</i></b><small>2014 年成立</small></div>
-    <div><b><span class="cnt" data-to="2500">0</span><i>+</i></b><small>青年會員</small></div>
-    <div><b><span class="cnt" data-to="4">0</span><i>大</i></b><small>品牌活動</small></div>
-    <div><b><span class="cnt" data-to="15">0</span><i>個</i></b><small>工作委員會</small></div>
+    <a href="#/about"><b><span class="cnt" data-to="12">0</span><i>年</i></b><small>2014 年成立</small></a>
+    <a href="#/about"><b><span class="cnt" data-to="2500">0</span><i>+</i></b><small>青年會員</small></a>
+    <a href="#/#brands"><b><span class="cnt" data-to="4">0</span><i>大</i></b><small>品牌活動</small></a>
+    <a href="#/about#committees"><b><span class="cnt" data-to="13">0</span><i>個</i></b><small>工作委員會</small></a>
   </div>
 
   <div class="wrap">
@@ -445,7 +445,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
       <div class="home-news"><div id="home-feat"></div><div class="card list stagger" id="home-list"></div></div>
     </section>
 
-    <section class="sec">
+    <section class="sec" id="brands">
       <div class="sec-h"><h2>四大品牌活動</h2></div>
       <div class="brands stagger">
         <a class="bcard b1" data-n="01" href="#/brand/tour"><b>旅學團</b><small>走進內地省市，實地認識國家發展</small><em>相關消息 ›</em></a>
@@ -551,9 +551,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <div class="roles" id="roles" style="margin-top:12px"></div>
   </section>
 
-  <section class="sec">
-    <div class="sec-h"><h2>工作委員會</h2></div>
-    <div class="tags" id="committees"></div>
+  <section class="sec" id="committees">
+    <div class="sec-h"><h2>13 個工作委員會</h2></div>
+    <div class="card acc" id="committee-list"></div>
   </section>
 
   <section class="sec">
@@ -647,6 +647,7 @@ const IMG = {hero:"{{IMG_HERO}}", hero_m:"{{IMG_HERO_M}}"};
 const PHOTOS = {{PHOTOS}};   /* z0..z11 取自官網 2026 活動 */
 const NEWS = {{NEWS}};       /* 官網最新 8 篇（2026-04 至 2026-08） */
 const LEADERS = {{LEADERS}};
+const COMMITTEES_DATA = {{COMMITTEES}};
 const T2S = {{T2S}};
 const NEWS_PHOTO = {1089:"z0",1087:"z1",1088:"z2",1086:"z3",1085:"z4",1084:"z5",1083:"z6",1082:"z7"};
 const GALLERY = [
@@ -792,7 +793,7 @@ addEventListener("keydown",e=>{ if(!$("#lightbox").classList.contains("on")) ret
 
 /* ===== 關於 ===== */
 $("#roles").innerHTML=LEADERS.map(r=>`<div class="role"><b>${esc(r.title)}</b><span>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</span></div>`).join("");
-$("#committees").innerHTML=COMMITTEES.map(c=>`<span>${c}委員會</span>`).join("");
+$("#committee-list").innerHTML=COMMITTEES_DATA.map(c=>`<details><summary>${esc(c.name)}<small style="margin-left:auto;margin-right:10px;font-size:12px;color:var(--muted);font-weight:500">主任 ${esc((c.roles.find(r=>r.title==="主任")||{names:[""]}).names[0])}</small></summary><div class="c">${c.roles.map(r=>`<b>${esc(r.title)}</b>${r.names.join("、")}`).join("")}</div></details>`).join("");
 $("#honor").innerHTML=HONOR.map(([t,n])=>`<details><summary>${t}</summary><div class="c">${n}</div></details>`).join("");
 
 /* ===== 分享 / 複製 ===== */

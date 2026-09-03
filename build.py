@@ -10,6 +10,7 @@ photos = json.load(open(root/'assets/photos.json', encoding='utf-8'))
 html = html.replace('{{PHOTOS}}', json.dumps({k:{'data':v['data'],'pos':v.get('pos',50)} for k,v in photos.items()}, ensure_ascii=False, separators=(',',':')))
 html = html.replace('{{NEWS}}', open(root/'assets/news.json', encoding='utf-8').read().strip())
 html = html.replace('{{LEADERS}}', open(root/'assets/leaders.json', encoding='utf-8').read().strip())
+html = html.replace('{{COMMITTEES}}', open(root/'assets/committees.json', encoding='utf-8').read().strip())
 try:
     import zhconv
 except ImportError:
@@ -35,6 +36,7 @@ for k, v in imgs.items(): h2 = h2.replace('{{IMG_%s}}' % k.upper(), ext_file(k, 
 h2 = h2.replace('{{PHOTOS}}', json.dumps({k:{'data':ext_file(k, v['data']),'pos':v.get('pos',50)} for k,v in photos.items()}, ensure_ascii=False, separators=(',',':')))
 h2 = h2.replace('{{NEWS}}', open(root/'assets/news.json', encoding='utf-8').read().strip())
 h2 = h2.replace('{{LEADERS}}', open(root/'assets/leaders.json', encoding='utf-8').read().strip())
+h2 = h2.replace('{{COMMITTEES}}', open(root/'assets/committees.json', encoding='utf-8').read().strip())
 h2 = h2.replace('{{T2S}}', json.dumps(t2s, ensure_ascii=False, separators=(',',':')))
 wrapped2 = ('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
