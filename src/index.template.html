@@ -320,7 +320,10 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .acc details:last-child{border-bottom:0}
 .acc summary{list-style:none;display:flex;align-items:center;gap:10px;padding:16px 18px;font-weight:700;font-size:15.5px;cursor:pointer}
 .acc summary::-webkit-details-marker{display:none}
-.acc summary::after{content:"＋";margin-left:auto;color:var(--sky);font-size:20px}
+.acc summary::after{content:"＋";margin-left:8px;color:var(--sky);font-size:20px;width:20px;text-align:center;flex:none}
+.acc summary .chair{margin-left:auto;display:flex;align-items:baseline;gap:6px;flex:none;font-size:13px;color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.acc summary .chair i{font-style:normal;font-size:11px;letter-spacing:.06em}
+.acc summary .chair span{display:inline-block;min-width:3.2em;text-align:right;color:var(--ink-2);font-weight:700}
 .acc details[open] summary::after{content:"－"}
 .acc .c{padding:0 18px 16px;line-height:1.85;color:var(--ink-2);font-size:14.5px}
 .acc .c b{color:var(--blue);display:block;margin-top:8px}
@@ -793,7 +796,7 @@ addEventListener("keydown",e=>{ if(!$("#lightbox").classList.contains("on")) ret
 
 /* ===== 關於 ===== */
 $("#roles").innerHTML=LEADERS.map(r=>`<div class="role"><b>${esc(r.title)}</b><span>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</span></div>`).join("");
-$("#committee-list").innerHTML=COMMITTEES_DATA.map(c=>`<details><summary>${esc(c.name)}<small style="margin-left:auto;margin-right:10px;font-size:12px;color:var(--muted);font-weight:500">主任 ${esc((c.roles.find(r=>r.title==="主任")||{names:[""]}).names[0])}</small></summary><div class="c">${c.roles.map(r=>`<b>${esc(r.title)}</b>${r.names.join("、")}`).join("")}</div></details>`).join("");
+$("#committee-list").innerHTML=COMMITTEES_DATA.map(c=>`<details><summary>${esc(c.name)}<small class="chair"><i>主任</i><span>${esc((c.roles.find(r=>r.title==="主任")||{names:[""]}).names[0].replace("(兼)","").replace("（兼）",""))}</span></small></summary><div class="c">${c.roles.map(r=>`<b>${esc(r.title)}</b>${r.names.join("、")}`).join("")}</div></details>`).join("");
 $("#honor").innerHTML=HONOR.map(([t,n])=>`<details><summary>${t}</summary><div class="c">${n}</div></details>`).join("");
 
 /* ===== 分享 / 複製 ===== */
