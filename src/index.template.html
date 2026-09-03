@@ -53,7 +53,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .topbar .in{display:flex;align-items:center;gap:10px;height:60px;max-width:1120px;margin:0 auto;padding:0 14px}
 @media (min-width:900px){.topbar .in{padding:0 32px;height:68px}}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
-.brand img{width:40px;height:40px}
+.brand img{width:44px;height:44px}
 .brand .t{display:flex;flex-direction:column;line-height:1.15;min-width:0}
 .brand .t b{font-size:16px;font-weight:900;letter-spacing:.04em;white-space:nowrap;color:var(--blue)}
 .brand .t small{display:none;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
@@ -181,7 +181,10 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .foot{margin-top:44px;border-top:1px solid var(--hair);padding:26px 0 10px;font-size:13px;color:var(--muted);line-height:1.7}
 .foot .in{max-width:1120px;margin:0 auto;padding:0 16px;display:grid;gap:14px}
 @media (min-width:900px){.foot .in{grid-template-columns:1fr 1fr 1fr;padding:0 32px}}
-.foot img{width:190px;opacity:.9}
+.flogo{display:flex;align-items:center;gap:12px}
+.flogo img{width:60px;height:60px}
+.flogo b{display:block;font-size:17px;font-weight:900;color:var(--blue);letter-spacing:.04em;margin-bottom:2px}
+.flogo small{display:block;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .foot b{color:var(--ink-2);font-weight:700;display:block;margin-bottom:4px}
 .foot .cp{grid-column:1/-1;font-size:11.5px;opacity:.75;border-top:1px solid var(--hair);padding-top:12px}
 .foot a{color:var(--blue)}
@@ -408,7 +411,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </div>
 
   <footer class="foot"><div class="in">
-    <div><img src="{{IMG_LOGO}}" alt="香港政協青年聯會"></div>
+    <div class="flogo"><img src="{{IMG_EMBLEM}}" alt="政青會徽"><span><b>香港政協青年聯會</b><small>Hong Kong CPPCC Youth Association</small></span></div>
     <div><b>聯繫</b>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓<br>電話 <a class="num" href="tel:+85237065193">+852 3706 5193</a><br>電郵 <a href="mailto:info@hkcppccya.org">info@hkcppccya.org</a></div>
     <div><b>快速入口</b><a href="#/news">最新消息</a> · <a href="#/photos">相片集</a> · <a href="#/about">關於本會</a> · <a href="#/join">加入本會</a><br><a href="https://gsl.t2099.com" target="_blank" rel="noopener">港區省級政協委員聯誼會</a></div>
     <div class="cp">香港政協青年聯會 · 港區省級政協委員聯誼會屬會<br>版權所有 © 2014–2026 香港政協青年聯會</div>
