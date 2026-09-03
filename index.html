@@ -13,6 +13,7 @@
   --tab-h:66px; --fs:16px;
   --sans:-apple-system,"PingFang TC","PingFang SC","Hiragino Sans","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei","Microsoft YaHei",system-ui,sans-serif;
   --en:-apple-system,"SF Pro Display","Helvetica Neue",Arial,"PingFang TC",sans-serif;
+  --serif:"Songti TC","Songti SC","Noto Serif TC","Noto Serif CJK TC","SimSun","PingFang TC",serif;
 }
 :root[lang="zh-Hans"]{--sans:-apple-system,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif}
 @media (prefers-color-scheme: dark){
@@ -111,14 +112,17 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .hero .sails svg{position:absolute;right:-8%;bottom:-6%;width:88%;max-width:640px;height:auto}
 .hero .in{position:relative;max-width:1120px;margin:0 auto;padding:36px 20px 30px;display:grid;gap:22px}
 @media (min-width:900px){.hero .in{grid-template-columns:1.05fr .95fr;align-items:center;padding:64px 32px 56px;gap:40px}.hero .sails svg{right:38%;width:40%;bottom:-10%}}
-.hero .k{margin-top:12px;font-size:13px;letter-spacing:.12em;color:var(--gold);font-weight:700}
-.hero .dir{margin-top:14px;font-size:15px;font-weight:700;letter-spacing:.04em;color:#fff;line-height:1.7}
-@media (min-width:900px){.hero .dir{font-size:17px}}
-.hero h1{font-size:22px;margin-top:0;color:#FFE08A;line-height:1.4;letter-spacing:.05em;white-space:nowrap}
+.hero .k{margin-top:10px;font-size:12px;letter-spacing:.1em;color:var(--gold);font-weight:700}
+.hero .dir{margin-top:12px;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff;line-height:1.7;white-space:nowrap}
+@media (min-width:900px){.hero .dir{font-size:19px}}
+.hero .txt{text-align:center}
+@media (min-width:900px){.hero .txt{text-align:left}}
+.hero h1{font-family:var(--serif);font-size:21px;margin-top:0;color:#FFE08A;line-height:1.4;letter-spacing:.04em;white-space:nowrap;font-weight:900}
 .hero h1 em{font-style:normal;color:#FFE08A}
-@media (min-width:900px){.hero h1{font-size:38px;letter-spacing:.08em}}
-.hero p{margin:10px 0 0;font-size:14px;line-height:1.75;color:var(--on-hero-m);max-width:32em}
-.hero .cta{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+@media (min-width:900px){.hero h1{font-size:36px;letter-spacing:.1em}}
+.hero p{margin:10px 0 0;font-size:13.5px;line-height:1.7;color:var(--on-hero-m);letter-spacing:.04em}
+.hero .cta{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center}
+@media (min-width:900px){.hero .cta{justify-content:flex-start}}
 .hero .ph{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);aspect-ratio:16/9;background:#0B2A5B center/cover no-repeat}
 @media (min-width:900px){.hero .ph{aspect-ratio:4/3}}
 .hero .ph .cap{background:linear-gradient(transparent,rgba(5,20,50,.85));color:#fff;font-size:12.5px;padding:40px 14px 12px;margin-top:-80px;position:relative}
@@ -336,9 +340,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
       </svg>
     </div>
     <div class="in">
-      <div>
+      <div class="txt">
         <h1>服務國家 · 服務香港 · 服務會員</h1>
-        <div class="dir">搭建愛國愛港青年平台 · 培養參政議政人才 · 發揮年青一代社會影響力</div>
+        <div class="dir">搭建愛國愛港青年平台 · 培養參政議政人才</div>
         <p>2014 年 5 月 4 日成立 · 青年會員 2,500 餘人</p>
         <div class="k">香港政協青年聯會 · 港區省級政協委員聯誼會屬會</div>
         <div class="cta">
