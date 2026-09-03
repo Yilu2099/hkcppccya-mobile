@@ -483,7 +483,6 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <div class="page-hero"><h1>相片集</h1></div>
   <div class="years" id="photo-years"></div>
   <div class="pgrid" id="photo-grid" style="margin-top:12px"></div>
-  <p class="tip" style="margin-top:14px">示範版收錄 2026 年 12 場活動；歷年（2014–2025）相片正式版由後台接入。</p>
 </div></main>
 
 <!-- ================= 關於 ================= -->
@@ -508,10 +507,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <section class="sec" id="leaders">
     <div class="sec-h"><h2>第七屆執委會</h2></div>
     <div class="lead-top">
-      <div class="lead-card"><img class="av" src="{{IMG_CHAIR}}" alt="容思瀚主席"><span><small>主　席</small><b>容思瀚</b><p>第七屆執委會主席（2026 年 8 月就職）</p></span></div>
+      <div class="lead-card"><img class="av" src="{{IMG_CHAIR}}" alt="容思瀚主席"><span><small>主　席</small><b>容思瀚</b><p>第七屆執委會主席</p></span></div>
     </div>
     <div class="roles" id="roles" style="margin-top:12px"></div>
-    <p class="tip" style="margin-top:10px">第七屆執委會於 2026 年 8 月 24 日就職，名單依就職典禮公佈；其餘成員待補。</p>
   </section>
 
   <section class="sec">
@@ -688,7 +686,7 @@ function renderBrand(k){
   const h=$("#brand-hero"); h.className="brand-hero bcard "+b.cls; h.dataset.n=b.n; h.style.minHeight="0"; h.style.display="block";
   h.innerHTML=`<small>四大品牌活動 · ${b.n}</small><h1>${b.name}</h1><p>${b.desc}</p>`;
   const items=newsSorted.filter(a=>b.ids.includes(a.id));
-  $("#brand-list").innerHTML=items.length?items.map(a=>item(a)).join(""):`<div class="tip" style="padding:30px;text-align:center">近期相關消息正式版由後台接入</div>`;
+  $("#brand-list").innerHTML=items.length?items.map(a=>item(a)).join(""):`<div class="tip" style="padding:30px;text-align:center">暫無相關消息</div>`;
   $("#brand-others").innerHTML=Object.entries(BRANDS).filter(([kk])=>kk!==k).map(([kk,o])=>`<a class="bcard ${o.cls}" href="#/brand/${kk}" style="min-height:0;padding:12px 8px;display:block;text-align:center">${o.name}</a>`).join("");
   applyLang($("#v-brand"));
 }
@@ -696,7 +694,7 @@ function renderBrand(k){
 /* ===== 消息 ===== */
 const years=[...new Set(newsSorted.map(a=>a.date.slice(0,4)))];
 $("#news-years").innerHTML=`<button class="on" data-y="">全部</button>`+years.map(y=>`<button data-y="${y}">${y}</button>`).join("")+["2025","2024","2023"].map(y=>`<button data-y="${y}">${y}</button>`).join("");
-function renderNews(y){ $$("#news-years button").forEach(b=>b.classList.toggle("on",b.dataset.y===y)); const items=newsSorted.filter(a=>!y||a.date.startsWith(y)); $("#news-list").innerHTML=items.length?items.map(item).join(""):`<div class="tip" style="padding:36px;text-align:center">${y} 年的消息正式版由後台接入</div>`; applyLang($("#v-news")); }
+function renderNews(y){ $$("#news-years button").forEach(b=>b.classList.toggle("on",b.dataset.y===y)); const items=newsSorted.filter(a=>!y||a.date.startsWith(y)); $("#news-list").innerHTML=items.length?items.map(item).join(""):`<div class="tip" style="padding:36px;text-align:center">${y} 年暫無消息</div>`; applyLang($("#v-news")); }
 $("#news-years").addEventListener("click",e=>{const b=e.target.closest("button"); if(b) renderNews(b.dataset.y);});
 renderNews("");
 
@@ -714,7 +712,7 @@ function renderArticle(id){
 }
 
 /* ===== 相片集 ===== */
-$("#photo-years").innerHTML=`<button class="on">2026</button>`+["2025","2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014"].map(y=>`<button onclick="toast('${y} 年相片正式版由後台接入')">${y}</button>`).join("");
+$("#photo-years").innerHTML=`<button class="on">2026</button>`+["2025","2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014"].map(y=>`<button onclick="toast('${y} 年相片整理中')">${y}</button>`).join("");
 $("#photo-grid").innerHTML=GALLERY.map(g=>`<a class="pcell" href="#/photos/${g.id}" style="${pstyle(g.img)}"><span>${esc(g.title)}</span></a>`).join("");
 function openGallery(id){ const i=GALLERY.findIndex(g=>g.id===id); if(i<0) return; const list=GALLERY;
   $("#lb-strip").innerHTML=list.map(g=>`<div><img src="${photo(g.img)}" alt=""></div>`).join(""); $("#lightbox").classList.add("on");
@@ -741,7 +739,7 @@ $("#btn-lang").onclick=toggleLang;
 try{ const t=localStorage.getItem("zq-theme"); if(t) root.dataset.theme=t; const l=localStorage.getItem("zq-lang"); if(l) lang=l; }catch(_){}
 
 /* ===== 表單 ===== */
-["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交（示範）");}));
+["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交");}));
 
 /* ===== 數字 / 進場 ===== */
 function odometer(n,delay){
