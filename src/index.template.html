@@ -1,38 +1,36 @@
 <title>政青 · 香港政協青年聯會</title>
-<meta name="theme-color" content="#0B2A5B">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Sora:wght@500;700;800&display=swap">
+<meta name="theme-color" content="#015293">
 <style>
 /* ===== 政青：海港藍 × 帆 × 金 ===== */
 :root{
-  --blue:#0B2A5B; --blue-2:#123E86; --sky:#1E9BE0; --sky-soft:#E4F2FC;
-  --gold:#D8AC4E; --gold-soft:#FBF1D9; --red:#E1251B;
-  --ink:#14213D; --ink-2:#3B4A6B; --muted:#6B7690; --hair:#DFE5EF;
-  --bg:#F5F8FC; --paper:#FFFFFF; --paper-2:#F0F4F9;
-  --hero-grad:linear-gradient(135deg,#0B2A5B 0%,#123E86 45%,#1E9BE0 100%);
+  --blue:#015293; --blue-2:#0A66B0; --sky:#2E8BD8; --sky-soft:#E4F0FA;
+  --gold:#D8AC4E; --gold-soft:#FBF1D9; --gold-text:#8A6A1E; --red:#E51E16;
+  --ink:#14213D; --ink-2:#3B4A6B; --muted:#6B7690; --hair:#DCE4EE;
+  --bg:#F3F7FB; --paper:#FFFFFF; --paper-2:#EEF3F9; --paper-a:rgba(255,255,255,.93);
+  --hero-grad:linear-gradient(135deg,#013A6B 0%,#015293 50%,#2E8BD8 100%);
   --shadow:0 4px 18px rgba(11,42,91,.10);
   --on-hero-m:rgba(255,255,255,.78);
   --tab-h:66px; --fs:16px;
-  --sans:"Noto Sans TC","Noto Sans SC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
-  --en:"Sora","Noto Sans TC",sans-serif;
+  --sans:-apple-system,"PingFang TC","PingFang SC","Hiragino Sans","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei","Microsoft YaHei",system-ui,sans-serif;
+  --en:-apple-system,"SF Pro Display","Helvetica Neue",Arial,"PingFang TC",sans-serif;
 }
-:root[lang="zh-Hans"]{--sans:"Noto Sans SC","Noto Sans TC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+:root[lang="zh-Hans"]{--sans:-apple-system,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --blue:#7FB3F0; --blue-2:#5A93D6; --sky:#4DB8F5; --sky-soft:#12233F;
-    --gold:#E4BE6A; --gold-soft:#2E2816;
+    --gold:#E4BE6A; --gold-soft:#2E2816; --gold-text:#E4BE6A; --red:#FF5A52;
     --ink:#EEF2F8; --ink-2:#C9D2E3; --muted:#8E9AB3; --hair:#25304A;
-    --bg:#0B1224; --paper:#131C31; --paper-2:#182340;
-    --hero-grad:linear-gradient(135deg,#071634 0%,#0B2A5B 55%,#0F5C8C 100%);
+    --bg:#0B1224; --paper:#131C31; --paper-2:#182340; --paper-a:rgba(19,28,49,.94);
+    --hero-grad:linear-gradient(135deg,#031C38 0%,#013A6B 55%,#0F5C8C 100%);
     --shadow:0 4px 18px rgba(0,0,0,.45);
   }
 }
 :root[data-theme="dark"]{
   --blue:#7FB3F0; --blue-2:#5A93D6; --sky:#4DB8F5; --sky-soft:#12233F;
-  --gold:#E4BE6A; --gold-soft:#2E2816;
+  --gold:#E4BE6A; --gold-soft:#2E2816; --gold-text:#E4BE6A; --red:#FF5A52;
   --ink:#EEF2F8; --ink-2:#C9D2E3; --muted:#8E9AB3; --hair:#25304A;
-  --bg:#0B1224; --paper:#131C31; --paper-2:#182340;
-  --hero-grad:linear-gradient(135deg,#071634 0%,#0B2A5B 55%,#0F5C8C 100%);
+  --bg:#0B1224; --paper:#131C31; --paper-2:#182340; --paper-a:rgba(19,28,49,.94);
+  --hero-grad:linear-gradient(135deg,#031C38 0%,#013A6B 55%,#0F5C8C 100%);
   --shadow:0 4px 18px rgba(0,0,0,.45);
 }
 *{box-sizing:border-box}
@@ -50,14 +48,15 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:900px){.wrap{padding:0 32px}}
 
 /* ===== 頂欄（手機）/ 導航（電腦） ===== */
-.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper-a);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
 .topbar .in{display:flex;align-items:center;gap:10px;height:60px;max-width:1120px;margin:0 auto;padding:0 14px}
 @media (min-width:900px){.topbar .in{padding:0 32px;height:68px}}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brand img{width:40px;height:40px}
 .brand .t{display:flex;flex-direction:column;line-height:1.15;min-width:0}
 .brand .t b{font-size:16px;font-weight:900;letter-spacing:.04em;white-space:nowrap;color:var(--blue)}
-.brand .t small{font-family:var(--en);font-size:9.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.brand .t small{display:none;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+@media (min-width:560px){.brand .t small{display:block}}
 .nav{display:none;margin-left:auto;gap:4px}
 .nav a{padding:8px 14px;border-radius:999px;font-size:15px;font-weight:500;color:var(--ink-2)}
 .nav a.on{background:var(--blue);color:#fff}
@@ -70,7 +69,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:900px){.tbtn.cta{display:inline-flex}}
 
 /* ===== 底部分頁（手機） ===== */
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(5,1fr)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--paper-a);backdrop-filter:blur(12px);border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(5,1fr)}
 .tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;color:var(--muted);font-weight:500}
 .tabbar a svg.i{font-size:24px;stroke-width:1.7}
 .tabbar a.on{color:var(--blue)}
@@ -101,9 +100,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .btn.wide{width:100%}
 .btn svg.i{font-size:20px}
 .chip{display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--sky-soft);color:var(--blue);letter-spacing:.04em}
-.chip.gold{background:var(--gold-soft);color:#8A6A1E}
-:root[data-theme="dark"] .chip.gold,:root:not([data-theme="light"]) .chip.gold{color:var(--gold)}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .chip.gold{color:#8A6A1E}}
+.chip.gold{background:var(--gold-soft);color:var(--gold-text)}
 .tip{font-size:13px;color:var(--muted);line-height:1.6}
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .reveal.in{opacity:1;transform:none}
@@ -148,9 +145,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .bcard::before{content:attr(data-n);position:absolute;right:12px;top:6px;font-family:var(--en);font-size:44px;font-weight:800;color:rgba(255,255,255,.18)}
 .bcard b{font-size:18px;font-weight:900;letter-spacing:.04em}
 .bcard small{font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.5}
-.bcard.b1{background:linear-gradient(135deg,#0B2A5B,#1E9BE0)}
-.bcard.b2{background:linear-gradient(135deg,#8E1B24,#E1251B)}
-.bcard.b3{background:linear-gradient(135deg,#123E86,#4CC3F0)}
+.bcard.b1{background:linear-gradient(135deg,#013A6B,#2E8BD8)}
+.bcard.b2{background:linear-gradient(135deg,#9E1712,#E51E16)}
+.bcard.b3{background:linear-gradient(135deg,#0A66B0,#5FB4EF)}
 .bcard.b4{background:linear-gradient(135deg,#8A6A1E,#D8AC4E)}
 .sails5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end}
 .sail{display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 2px 10px;border-radius:12px;transition:.2s}
