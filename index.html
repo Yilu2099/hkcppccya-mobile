@@ -305,8 +305,8 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .form .sub{margin-top:18px;width:100%}
 .form .ok{display:none;margin-top:14px;padding:14px;border-radius:10px;background:var(--gold-soft);color:var(--ink);font-size:14px;text-align:center;line-height:1.5}
 .crow{background:var(--paper);border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.crow a,.crow div{display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid var(--hair);min-height:66px}
-.crow a:last-child,.crow div:last-child{border-bottom:0}
+.crow a,.crow div,.crow button{display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid var(--hair);min-height:66px;width:100%;text-align:left;font:inherit;color:inherit;background:none}
+.crow a:last-child,.crow div:last-child,.crow button:last-child{border-bottom:0}
 .crow svg.i{font-size:26px;color:var(--blue);flex:none;stroke-width:1.7}
 .crow .t{flex:1;min-width:0}
 .crow .t small{display:block;font-size:12px;color:var(--muted);letter-spacing:.06em}
@@ -557,7 +557,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <div class="crow">
       <a href="https://maps.apple.com/?q=160+Gloucester+Road+Wan+Chai+Hong+Kong" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="t"><small>地址</small><b>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓</b></span><span class="act">導航</span></a>
       <a href="https://wa.me/85259355193" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-3.8A8 8 0 1 1 8.2 19z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 2 .8-.4 1.6c-3.5.6-8-3.9-7.4-7.4L10.5 7l.8 2z"/></svg><span class="t"><small>WhatsApp</small><b class="num">+852 5935 5193</b></span><span class="act wa">傳訊息</span></a>
-      <button id="wx-copy" style="width:100%;text-align:left"><svg class="i" viewBox="0 0 24 24"><path d="M9 4C5.5 4 3 6.4 3 9.3c0 1.7.9 3.1 2.3 4.1L4.8 15l2-1.1c.7.2 1.4.3 2.2.3.2 0 .4 0 .6 0-.3-.6-.4-1.3-.4-2 0-3.1 3-5.6 6.6-5.6h.4C15.4 5.3 12.5 4 9 4z"/><path d="M15.5 8.5c-3 0-5.5 2-5.5 4.6s2.5 4.6 5.5 4.6c.6 0 1.2-.1 1.8-.3l1.7.9-.4-1.5c1.2-.8 1.9-2.1 1.9-3.7 0-2.6-2.5-4.6-5-4.6z"/></svg><span class="t"><small>微信 WeChat ID</small><b>hkcppccya</b></span><span class="act wx">複製</span></button>
+      <button id="wx-copy" type="button"><svg class="i" viewBox="0 0 24 24"><path d="M9 4C5.5 4 3 6.4 3 9.3c0 1.7.9 3.1 2.3 4.1L4.8 15l2-1.1c.7.2 1.4.3 2.2.3.2 0 .4 0 .6 0-.3-.6-.4-1.3-.4-2 0-3.1 3-5.6 6.6-5.6h.4C15.4 5.3 12.5 4 9 4z"/><path d="M15.5 8.5c-3 0-5.5 2-5.5 4.6s2.5 4.6 5.5 4.6c.6 0 1.2-.1 1.8-.3l1.7.9-.4-1.5c1.2-.8 1.9-2.1 1.9-3.7 0-2.6-2.5-4.6-5-4.6z"/></svg><span class="t"><small>微信 WeChat ID</small><b>hkcppccya</b></span><span class="act wx">複製</span></button>
       <a href="tel:+85237065193"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="t"><small>電話</small><b class="num">+852 3706 5193</b></span><span class="act">撥號</span></a>
       <div><svg class="i" viewBox="0 0 24 24"><path d="M6 9V4h12v5M6 18H4v-6h16v6h-2M6 14h12v6H6z"/></svg><span class="t"><small>傳真</small><b class="num">+852 2877 0203</b></span></div>
       <a href="mailto:info@hkcppccya.org"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span class="t"><small>電郵</small><b>info@hkcppccya.org</b></span><span class="act">寫信</span></a>
