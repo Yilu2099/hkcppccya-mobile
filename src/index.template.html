@@ -111,11 +111,13 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .hero .sails svg{position:absolute;right:-8%;bottom:-6%;width:88%;max-width:640px;height:auto}
 .hero .in{position:relative;max-width:1120px;margin:0 auto;padding:36px 20px 30px;display:grid;gap:22px}
 @media (min-width:900px){.hero .in{grid-template-columns:1.05fr .95fr;align-items:center;padding:64px 32px 56px;gap:40px}.hero .sails svg{right:38%;width:40%;bottom:-10%}}
-.hero .k{font-family:var(--en);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.hero h1{font-size:30px;margin-top:10px;color:#fff;line-height:1.25}
+.hero .k{font-size:13px;letter-spacing:.16em;color:var(--gold);font-weight:700}
+.hero .dir{margin-top:14px;font-size:15px;font-weight:700;letter-spacing:.04em;color:#fff;line-height:1.7}
+@media (min-width:900px){.hero .dir{font-size:17px}}
+.hero h1{font-size:22px;margin-top:10px;color:#FFE08A;line-height:1.4;letter-spacing:.05em;white-space:nowrap}
 .hero h1 em{font-style:normal;color:#FFE08A}
-@media (min-width:900px){.hero h1{font-size:46px}}
-.hero p{margin:14px 0 0;font-size:15px;line-height:1.75;color:var(--on-hero-m);max-width:32em}
+@media (min-width:900px){.hero h1{font-size:38px;letter-spacing:.08em}}
+.hero p{margin:10px 0 0;font-size:14px;line-height:1.75;color:var(--on-hero-m);max-width:32em}
 .hero .cta{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 .hero .ph{border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);aspect-ratio:16/9;background:#0B2A5B center/cover no-repeat}
 @media (min-width:900px){.hero .ph{aspect-ratio:4/3}}
@@ -335,15 +337,16 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </div>
     <div class="in">
       <div>
-        <div class="k">Hong Kong CPPCC Youth Association · Since 2014</div>
-        <h1>凝聚香港青年<br><em>貢獻祖國 · 共建香港</em></h1>
-        <p>香港政協青年聯會在港區省級政協委員聯誼會領導下成立，以「服務國家、服務香港、服務會員」為宗旨，團結 2,500 多位青年政協委員、企業家、專業人士與社團領袖，搭建愛國愛港青年的活動平台。</p>
+        <div class="k">香港政協青年聯會 · 港區省級政協委員聯誼會屬會</div>
+        <h1>服務國家 · 服務香港 · 服務會員</h1>
+        <div class="dir">對接國家「十五五」規劃 · 支持特區政府施政 · 發揮香港「內聯外通」優勢</div>
+        <p>2014 年成立 · 青年會員 2,500 餘人 · 第七屆執委會主席容思瀚</p>
         <div class="cta">
           <a class="btn red" href="#/join">加入本會</a>
           <a class="btn ghost" href="#/about">認識政青</a>
         </div>
       </div>
-      <a class="ph" href="#/article/1089" style="background-image:url('{{IMG_HERO}}')"><div class="cap">2026 年 8 月 24 日 · 第七屆執委會就職典禮 · 容思瀚榮膺主席</div></a>
+      <a class="ph" href="#/article/1089" style="background-image:url('{{IMG_HERO}}')"><div class="cap">2026 年 8 月 24 日 · 慶祝香港回歸祖國二十九周年暨第七屆執委會就職典禮</div></a>
     </div>
   </section>
   <div class="stats reveal">
@@ -355,12 +358,12 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
   <div class="wrap">
     <section class="sec">
-      <div class="sec-h"><h2><small>Latest</small>最新消息</h2><a class="more" href="#/news">全部 ›</a></div>
+      <div class="sec-h"><h2>最新消息</h2><a class="more" href="#/news">全部 ›</a></div>
       <div class="news-grid" id="home-news"></div>
     </section>
 
     <section class="sec">
-      <div class="sec-h"><h2><small>Signature programmes</small>四大品牌活動</h2></div>
+      <div class="sec-h"><h2>四大品牌活動</h2></div>
       <div class="brands">
         <div class="bcard b1" data-n="01"><b>旅學團</b><small>走進內地省市，實地認識國家發展</small></div>
         <div class="bcard b2" data-n="02"><b>國情班</b><small>系統學習國情，培育國家意識與大局意識</small></div>
@@ -370,7 +373,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </section>
 
     <section class="sec">
-      <div class="sec-h"><h2><small>Our emblem</small>會徽 · 五帆精神</h2></div>
+      <div class="sec-h"><h2>會徽 · 五帆精神</h2></div>
       <div class="five">
         <div>
           <p class="tip" style="margin:0 0 12px">會徽是一艘紅色帆船，寓意政青團結香港青年搏擊風浪、迎風啟航。五片風帆各有寓意，點一下每片帆看看。</p>
@@ -381,7 +384,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </section>
 
     <section class="sec">
-      <div class="sec-h"><h2><small>Chairman</small>主席寄語</h2><a class="more" href="#/about#leaders">執委會架構 ›</a></div>
+      <div class="sec-h"><h2>主席寄語</h2><a class="more" href="#/about#leaders">執委會架構 ›</a></div>
       <div class="quote">
         <p>展望未來，新一屆執委會將做好三項重點青年工作：積極對接國家「十五五」規劃，融入和服務國家發展大局；全力支持香港特區政府施政，為青年工作添磚加瓦；發揮好香港「內聯外通」優勢，全力「拼經濟」。讓我們並肩前行，砥礪奮鬥，攜手為國家同香港貢獻更大力量。</p>
         <div class="who"><span class="av">容</span><span><b>容思瀚</b><small>香港政協青年聯會 第七屆執委會主席</small></span></div>
@@ -389,7 +392,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </section>
 
     <section class="sec">
-      <div class="sec-h"><h2><small>Gallery</small>相片集</h2><a class="more" href="#/photos">全部 ›</a></div>
+      <div class="sec-h"><h2>相片集</h2><a class="more" href="#/photos">全部 ›</a></div>
       <div class="pgrid" id="home-photos"></div>
     </section>
 
@@ -405,13 +408,13 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <div><img src="{{IMG_LOGO}}" alt="香港政協青年聯會"><div style="margin-top:8px">在港區省級政協委員聯誼會領導下成立 · 2014</div></div>
     <div><b>聯繫</b>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓<br>電話 <a class="num" href="tel:+85237065193">+852 3706 5193</a><br>電郵 <a href="mailto:info@hkcppccya.org">info@hkcppccya.org</a></div>
     <div><b>快速入口</b><a href="#/news">最新消息</a> · <a href="#/photos">相片集</a> · <a href="#/about">關於本會</a> · <a href="#/join">加入本會</a><br><a href="https://gsl.t2099.com" target="_blank" rel="noopener">港區省級政協委員聯誼會</a></div>
-    <div class="cp">版權所有 © 2014–2026 香港政協青年聯會 Hong Kong CPPCC Youth Association</div>
+    <div class="cp">版權所有 © 2014–2026 香港政協青年聯會</div>
   </div></footer>
 </main>
 
 <!-- ================= 最新消息 ================= -->
 <main class="view" id="v-news"><div class="wrap">
-  <div class="page-hero"><h1><small>News</small>最新消息</h1></div>
+  <div class="page-hero"><h1>最新消息</h1></div>
   <div class="years" id="news-years"></div>
   <div class="card list" id="news-list" style="margin-top:12px"></div>
 </div></main>
@@ -421,7 +424,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 <!-- ================= 相片集 ================= -->
 <main class="view" id="v-photos"><div class="wrap">
-  <div class="page-hero"><h1><small>Gallery</small>相片集</h1></div>
+  <div class="page-hero"><h1>相片集</h1></div>
   <div class="years" id="photo-years"></div>
   <div class="pgrid" id="photo-grid" style="margin-top:12px"></div>
   <p class="tip" style="margin-top:14px">示範版收錄 2026 年 12 場活動；歷年（2014–2025）相片正式版由後台接入。</p>
@@ -429,7 +432,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 <!-- ================= 關於 ================= -->
 <main class="view" id="v-about"><div class="wrap">
-  <div class="page-hero"><h1><small>About</small>關於本會</h1></div>
+  <div class="page-hero"><h1>關於本會</h1></div>
   <div class="about-grid" style="margin-top:14px">
     <div class="prose">
       <p>香港政協青年聯會是在港區省級政協委員聯誼會領導下成立，並以「服務國家、服務香港、服務會員」為本會宗旨，以現任港區全國各級政協青年委員為核心，廣泛吸納香港青年企業家、專業人士、社團領袖等優秀人才。</p>
@@ -447,7 +450,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </div>
 
   <section class="sec" id="leaders">
-    <div class="sec-h"><h2><small>Executive committee</small>第七屆執委會</h2></div>
+    <div class="sec-h"><h2>第七屆執委會</h2></div>
     <div class="lead-top">
       <div class="lead-card"><span class="av">容</span><span><small>主　席</small><b>容思瀚</b><p>第七屆執委會主席（2026 年 8 月就職）</p></span></div>
     </div>
@@ -456,19 +459,19 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </section>
 
   <section class="sec">
-    <div class="sec-h"><h2><small>Committees</small>工作委員會</h2></div>
+    <div class="sec-h"><h2>工作委員會</h2></div>
     <div class="tags" id="committees"></div>
   </section>
 
   <section class="sec">
-    <div class="sec-h"><h2><small>Honorary</small>榮譽架構</h2></div>
+    <div class="sec-h"><h2>榮譽架構</h2></div>
     <div class="card acc" id="honor"></div>
   </section>
 </div></main>
 
 <!-- ================= 加入 ================= -->
 <main class="view" id="v-join"><div class="wrap">
-  <div class="page-hero"><h1><small>Join us</small>加入本會</h1></div>
+  <div class="page-hero"><h1>加入本會</h1></div>
   <div class="join-grid" style="margin-top:14px">
     <div>
       <div class="why">
@@ -497,7 +500,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 <!-- ================= 聯繫 ================= -->
 <main class="view" id="v-contact"><div class="wrap">
-  <div class="page-hero"><h1><small>Contact</small>聯繫我們</h1></div>
+  <div class="page-hero"><h1>聯繫我們</h1></div>
   <div class="join-grid" style="margin-top:14px">
     <div class="crow">
       <a href="https://maps.apple.com/?q=160+Gloucester+Road+Wan+Chai+Hong+Kong" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="t"><small>地址</small><b>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓</b></span><span class="act">導航</span></a>
