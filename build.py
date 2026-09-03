@@ -41,4 +41,5 @@ wrapped2 = ('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
             '<meta name="color-scheme" content="light dark"><link rel="icon" href="'+ext_file('favicon', imgs['emblem'])+'">'
             '<link rel="preload" as="image" href="'+ext_file('hero', imgs['hero'])+'"></head><body style="margin:0">'+h2+'</body></html>')
 (dist/'index.html').write_text(wrapped2, encoding='utf-8')
+if (root/'assets/files').exists(): shutil.copytree(root/'assets/files', dist/'files', dirs_exist_ok=True)
 print('index.html', len(html)//1024, 'KB · 簡繁字表', len(t2s), '對 · preview.html written · dist/index.html', len(wrapped2)//1024, 'KB +', len(list((dist/'img').iterdir())), 'images')
