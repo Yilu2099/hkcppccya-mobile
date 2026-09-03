@@ -134,6 +134,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:900px){.stats{max-width:1120px;margin:-34px auto 0;padding:0 32px;gap:16px}.stats div{padding:18px}.stats b{font-size:32px}.stats small{font-size:13px}}
 
 /* ===== 首頁區塊 ===== */
+.home-news{display:grid;gap:14px}
+@media (min-width:900px){.home-news{grid-template-columns:1fr 1.15fr;gap:20px;align-items:start}}
+.item.sm{padding:11px 14px;min-height:0}.item.sm .th{width:84px;height:60px}.item.sm .tt{font-size:14.5px}
 .news-grid{display:grid;gap:14px}
 @media (min-width:640px){.news-grid{grid-template-columns:1fr 1fr}}
 @media (min-width:900px){.news-grid{grid-template-columns:repeat(3,1fr);gap:20px}}
@@ -179,14 +182,16 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .join-band .cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;position:relative}
 @media (min-width:900px){.join-band{padding:40px 44px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px}.join-band .cta{margin-top:0}.join-band h3{font-size:28px}}
 .foot{margin-top:44px;border-top:1px solid var(--hair);padding:26px 0 10px;font-size:13px;color:var(--muted);line-height:1.7}
-.foot .in{max-width:1120px;margin:0 auto;padding:0 16px;display:grid;gap:14px}
-@media (min-width:900px){.foot .in{grid-template-columns:1fr 1fr 1fr;padding:0 32px}}
+.foot .in{max-width:1120px;margin:0 auto;padding:0 16px;display:grid;gap:18px}
+.foot .fc{display:grid;gap:6px;font-size:13.5px;line-height:1.7}
+@media (min-width:900px){.foot .in{grid-template-columns:auto 1fr;align-items:center;padding:0 32px;gap:30px}.foot .fc{text-align:right}}
 .flogo{display:flex;align-items:center;gap:12px}
 .flogo img{width:60px;height:60px}
 .flogo b{display:block;font-size:17px;font-weight:900;color:var(--blue);letter-spacing:.04em;margin-bottom:2px}
 .flogo small{display:block;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .foot b{color:var(--ink-2);font-weight:700;display:block;margin-bottom:4px}
-.foot .cp{grid-column:1/-1;font-size:11.5px;opacity:.75;border-top:1px solid var(--hair);padding-top:12px}
+.foot .cp{grid-column:1/-1;font-size:11.5px;line-height:1.8;opacity:.7;border-top:1px solid var(--hair);padding-top:12px;text-align:center}
+@media (min-width:900px){.foot .cp{text-align:left}}
 .foot a{color:var(--blue)}
 
 /* ===== 消息列表 / 文章 ===== */
@@ -365,7 +370,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <div class="wrap">
     <section class="sec">
       <div class="sec-h"><h2>最新消息</h2><a class="more" href="#/news">全部 ›</a></div>
-      <div class="news-grid" id="home-news"></div>
+      <div class="home-news"><div id="home-feat"></div><div class="card list" id="home-list"></div></div>
     </section>
 
     <section class="sec">
@@ -412,9 +417,8 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
   <footer class="foot"><div class="in">
     <div class="flogo"><img src="{{IMG_EMBLEM}}" alt="政青會徽"><span><b>香港政協青年聯會</b><small>Hong Kong CPPCC Youth Association</small></span></div>
-    <div><b>聯繫</b>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓<br>電話 <a class="num" href="tel:+85237065193">+852 3706 5193</a><br>電郵 <a href="mailto:info@hkcppccya.org">info@hkcppccya.org</a></div>
-    <div><b>快速入口</b><a href="#/news">最新消息</a> · <a href="#/photos">相片集</a> · <a href="#/about">關於本會</a> · <a href="#/join">加入本會</a><br><a href="https://gsl.t2099.com" target="_blank" rel="noopener">港區省級政協委員聯誼會</a></div>
-    <div class="cp">香港政協青年聯會 · 港區省級政協委員聯誼會屬會<br>版權所有 © 2014–2026 香港政協青年聯會</div>
+    <div class="fc"><span>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓</span><span><a class="num" href="tel:+85237065193">+852 3706 5193</a>　<a href="mailto:info@hkcppccya.org">info@hkcppccya.org</a></span></div>
+    <div class="cp">香港政協青年聯會 · <a href="https://gsl.t2099.com" target="_blank" rel="noopener">港區省級政協委員聯誼會</a>屬會<br>版權所有 © 2014–2026 香港政協青年聯會</div>
   </div></footer>
 </main>
 
@@ -612,10 +616,10 @@ const photo=k=>PHOTOS[k]?PHOTOS[k].data:"";
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
 const newsSorted=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
 const ncard=(a,big)=>`<a class="ncard${big?' big':''}" href="#/article/${a.id}"><div class="ph" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span><span class="chip">${a.id===1089?"就職典禮":a.title.includes("司長")?"與司長有約":a.title.includes("考察")?"旅學團":a.title.includes("社青")?"社青共融":"活動"}</span></div></div></a>`;
-const item=a=>`<a class="item" href="#/article/${a.id}"><span class="th" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span></span></span><span class="chev">›</span></a>`;
+const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="background-image:url('${photo(NEWS_PHOTO[a.id])}')"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span></span></span><span class="chev">›</span></a>`;
 
 /* ===== 首頁 ===== */
-$("#home-news").innerHTML=newsSorted.slice(0,5).map((a,i)=>ncard(a,i===0)).join("");
+$("#home-feat").innerHTML=ncard(newsSorted[0],false); $("#home-list").innerHTML=newsSorted.slice(1,7).map(a=>item(a,"sm")).join("");
 $("#home-photos").innerHTML=GALLERY.slice(0,4).map(g=>`<a class="pcell" href="#/photos/${g.id}" style="background-image:url('${photo(g.img)}')"><span>${esc(g.title)}</span></a>`).join("");
 const sailSVG=(i,on)=>`<svg viewBox="0 0 64 80" fill="none"><path d="M12 66 C 22 40, 36 22, 50 6 L 50 66 Z" fill="${on?'#E1251B':'currentColor'}" opacity="${on?1:.22}"/><path d="M50 4v70" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".6"/><path d="M6 70 Q 32 62 58 70" stroke="#D8AC4E" stroke-width="4" stroke-linecap="round"/></svg>`;
 let sailIdx=0;
