@@ -35,6 +35,10 @@
   --hero-grad:linear-gradient(135deg,#031C38 0%,#013A6B 55%,#0F5C8C 100%);
   --shadow:0 4px 18px rgba(0,0,0,.45);
 }
+/* 首屏文字帶：實色深藍，與下方相片卡分層 */
+:root{--blue-solid:#12305F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--blue-solid:#0B1E3F}}
+:root[data-theme="dark"]{--blue-solid:#0B1E3F}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -111,16 +115,15 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .stagger.in>*:nth-child(2){transition-delay:.07s}.stagger.in>*:nth-child(3){transition-delay:.14s}.stagger.in>*:nth-child(4){transition-delay:.21s}.stagger.in>*:nth-child(5){transition-delay:.28s}.stagger.in>*:nth-child(6){transition-delay:.35s}.stagger.in>*:nth-child(n+7){transition-delay:.4s}
 
 /* ===== HERO ===== */
-.hero{position:relative;background:var(--hero-grad);color:#fff;overflow:hidden}
-.hero .sails{position:absolute;inset:0;pointer-events:none;opacity:.55;animation:drift 9s ease-in-out infinite alternate}
+.hero{position:relative;background:var(--blue-solid);color:#fff;overflow:hidden}
+.hero .sails{position:absolute;inset:0;pointer-events:none;opacity:.35;animation:drift 9s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-10px,8px,0)}}
 .hero .txt>*{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
 .hero .txt>*:nth-child(2){animation-delay:.1s}.hero .txt>*:nth-child(3){animation-delay:.2s}
-.hero .ph{animation:rise .8s cubic-bezier(.2,.8,.2,1) .25s both}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .hero .sails svg{position:absolute;right:-8%;bottom:-6%;width:88%;max-width:640px;height:auto}
-.hero .in{position:relative;max-width:1120px;margin:0 auto;padding:36px 20px 30px;display:grid;gap:22px}
-@media (min-width:900px){.hero .in{padding:56px 32px 48px;gap:30px}.hero .sails svg{right:-4%;width:46%;bottom:auto;top:-8%}}
+.hero .in{position:relative;max-width:1120px;margin:0 auto;padding:34px 20px 32px}
+@media (min-width:900px){.hero .in{padding:54px 32px 50px}.hero .sails svg{right:-4%;width:40%;bottom:auto;top:-30%}}
 .hero .k{margin-top:10px;font-size:12px;letter-spacing:.1em;color:var(--gold);font-weight:700}
 .hero .dir{margin-top:12px;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff;line-height:1.7;white-space:nowrap}
 @media (min-width:900px){.hero .dir{font-size:19px}}
@@ -132,14 +135,14 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .hero p{margin:10px 0 0;font-size:13.5px;line-height:1.7;color:var(--on-hero-m);letter-spacing:.04em}
 .hero .cta{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center}
 
-.hero .ph{display:block;border-radius:14px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35)}
-.hero .ph img{width:100%;height:auto;display:block}
-@media (min-width:900px){.hero .ph{border-radius:18px}}
-.hero .ph .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(5,20,50,.6);color:#fff;font-size:13px;padding:9px 14px;white-space:nowrap}
-.hero .ph .cap b{font-weight:700;letter-spacing:.04em}
-.hero .ph .cap span{color:rgba(255,255,255,.75);font-size:12px}
-@media (min-width:900px){.hero .ph .cap{font-size:15px;padding:11px 18px}.hero .ph .cap span{font-size:13px}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:-26px 16px 0;position:relative;z-index:2}
+.banner{display:block;margin-top:16px;border-radius:14px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--shadow);animation:rise .8s cubic-bezier(.2,.8,.2,1) .25s both}
+.banner img{width:100%;height:auto;display:block}
+@media (min-width:900px){.banner{margin-top:24px;border-radius:18px}}
+.banner .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--ink);font-size:13.5px;padding:10px 14px;white-space:nowrap;border-top:1px solid var(--hair)}
+.banner .cap b{font-weight:700;letter-spacing:.04em}
+.banner .cap span{color:var(--muted);font-size:12.5px}
+@media (min-width:900px){.banner .cap{font-size:15px;padding:12px 18px}.banner .cap span{font-size:13.5px}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 16px 0;position:relative;z-index:2}
 .stats div{background:var(--paper);border:1px solid var(--hair);border-radius:14px;padding:12px 4px 14px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;opacity:0;transform:translateY(14px)}
 .stats.in div{opacity:1;transform:none}
 .stats.in div:nth-child(2){transition-delay:.08s}.stats.in div:nth-child(3){transition-delay:.16s}.stats.in div:nth-child(4){transition-delay:.24s}
@@ -152,7 +155,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .stats b{display:block;font-family:var(--en);font-size:21px;font-weight:800;color:var(--blue);line-height:1.1;white-space:nowrap;letter-spacing:-.01em}
 .stats b i{font-style:normal;font-family:var(--sans);font-size:12px;color:var(--sky);margin-left:2px}
 .stats small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
-@media (min-width:900px){.stats{max-width:1120px;margin:-34px auto 0;padding:0 32px;gap:16px}.stats div{padding:18px}.stats b{font-size:32px}.stats small{font-size:13px}}
+@media (min-width:900px){.stats{max-width:1120px;margin:20px auto 0;padding:0 32px;gap:16px}.stats div{padding:18px}.stats b{font-size:32px}.stats small{font-size:13px}}
 
 /* ===== 首頁區塊 ===== */
 .home-news{display:grid;gap:14px}
@@ -433,9 +436,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
           <a class="btn ghost" href="#/about">認識政青</a>
         </div>
       </div>
-      <a class="ph" href="#/article/1089"><img src="{{IMG_HERO_M}}" srcset="{{IMG_HERO_M}} 1200w, {{IMG_HERO}} 2400w" sizes="(min-width:900px) 1056px, 100vw" alt="第七屆執委會就職典禮"><div class="cap"><b>第七屆執委會就職典禮</b><span class="num">2026 年 8 月 24 日</span></div></a>
     </div>
   </section>
+  <div class="wrap"><a class="banner" href="#/article/1089"><img src="{{IMG_HERO_M}}" srcset="{{IMG_HERO_M}} 1200w, {{IMG_HERO}} 2400w" sizes="(min-width:900px) 1056px, 100vw" alt="第七屆執委會就職典禮"><div class="cap"><b>第七屆執委會就職典禮</b><span class="num">2026 年 8 月 24 日</span></div></a></div>
   <div class="stats reveal">
     <div><b><span class="cnt" data-to="12">0</span><i>年</i></b><small>2014 年成立</small></div>
     <div><b><span class="cnt" data-to="2500">0</span><i>+</i></b><small>青年會員</small></div>
