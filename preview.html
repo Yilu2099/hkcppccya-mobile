@@ -127,7 +127,17 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:900px){.hero .ph{aspect-ratio:4/3}}
 .hero .ph .cap{background:linear-gradient(transparent,rgba(5,20,50,.85));color:#fff;font-size:12.5px;padding:40px 14px 12px;margin-top:-80px;position:relative}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:-26px 16px 0;position:relative;z-index:2}
-.stats div{background:var(--paper);border:1px solid var(--hair);border-radius:14px;padding:12px 6px;text-align:center;box-shadow:var(--shadow)}
+.stats div{background:var(--paper);border:1px solid var(--hair);border-radius:14px;padding:12px 6px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer}
+.stats div:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(30,155,224,.25)}
+.stats div::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-130%);pointer-events:none}
+.stats div.sweep::after{animation:sweep 1.1s ease .25s 1}
+@keyframes sweep{to{transform:translateX(130%)}}
+.od{display:inline-block;height:1em;overflow:hidden;vertical-align:bottom;line-height:1}
+.od-strip{display:flex;flex-direction:column;transform:translateY(0);transition:transform 1.7s cubic-bezier(.16,.9,.2,1)}
+.od-strip span{display:block;height:1em;line-height:1}
+.stats b.shine{background:linear-gradient(100deg,var(--blue) 35%,#FFD86B 50%,var(--blue) 65%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 1.4s ease 1}
+.stats b.shine i{color:var(--sky);-webkit-text-fill-color:var(--sky)}
+@keyframes shine{from{background-position:200% 0}to{background-position:-100% 0}}
 .stats b{display:block;font-family:var(--en);font-size:22px;font-weight:800;color:var(--blue);line-height:1.1}
 .stats b i{font-style:normal;font-family:var(--sans);font-size:12px;color:var(--sky);margin-left:2px}
 .stats small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
@@ -882,7 +892,20 @@ try{ const t=localStorage.getItem("zq-theme"); if(t) root.dataset.theme=t; const
 ["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交（示範）");}));
 
 /* ===== 數字 / 進場 ===== */
-function reveal(el){ if(el.classList.contains("in")) return; el.classList.add("in"); $$(".cnt",el).forEach(n=>{const to=+n.dataset.to,t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/1100);n.textContent=Math.round(to*(1-Math.pow(1-k,3))).toLocaleString();if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);}); }
+function odometer(n,delay){
+  const str=(+n.dataset.to).toLocaleString(); const rounds=2;
+  n.innerHTML=[...str].map(ch=>/\d/.test(ch)?`<span class="od"><span class="od-strip">${Array.from({length:10*rounds+ +ch+1},(_,i)=>`<span>${i%10}</span>`).join("")}</span></span>`:`<span>${ch}</span>`).join("");
+  const strips=$$(".od-strip",n);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>strips.forEach((st,i)=>{ st.style.transitionDelay=(delay+i*90)+"ms"; st.style.transform=`translateY(-${st.children.length-1}em)`; })));
+}
+function reveal(el){ if(el.classList.contains("in")) return; el.classList.add("in"); runStats(el); }
+function runStats(el){
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $$(".cnt",el).forEach((n,i)=>{ if(reduce){ n.textContent=(+n.dataset.to).toLocaleString(); return; } odometer(n,i*140); });
+  $$(".stats div",el).forEach((d,i)=>{ d.classList.remove("sweep"); void d.offsetWidth; d.style.animationDelay=""; setTimeout(()=>d.classList.add("sweep"),i*140); });
+  $$(".stats b",el).forEach((b,i)=>{ b.classList.remove("shine"); setTimeout(()=>b.classList.add("shine"),1500+i*140); setTimeout(()=>b.classList.remove("shine"),3400+i*140); });
+}
+$(".stats").addEventListener("click",()=>runStats($(".stats")));
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){reveal(en.target);io.unobserve(en.target);}}),{threshold:.15});
 $$(".reveal").forEach(el=>io.observe(el)); setTimeout(()=>$$(".reveal").forEach(reveal),2500);
 
