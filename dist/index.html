@@ -246,6 +246,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .names div:last-child{border-bottom:0}
 .names b{display:block;color:var(--red);font-weight:700;font-size:.92em;letter-spacing:.1em;margin-bottom:2px}
 .names .n{display:inline-block;margin-right:14px;white-space:nowrap}
+.names.gap{margin-top:10px}
+.names .cm{display:inline-flex;align-items:baseline;gap:6px;margin:0 16px 6px 0;white-space:nowrap}
+.names .cm b{display:inline;color:var(--muted);font-size:.86em;letter-spacing:0;font-weight:500;margin:0}
 .past{display:grid;gap:10px;max-width:620px}
 .past .person{display:flex;align-items:center;text-align:left;gap:16px;padding:10px 16px 10px 10px}
 .past .person .ph{width:72px;height:90px;aspect-ratio:auto;flex:none;border-radius:10px;font-size:26px}
@@ -503,7 +506,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <div class="sec-h"><h2>第七屆執委會架構</h2></div>
     <div id="exec-grid"></div>
     <div class="role-h" style="margin-top:26px">工作委員會主任</div>
-    <div class="pgrid" id="committee-grid"></div>
+    <div id="committee-grid"></div>
   </section>
 </div></main>
 
@@ -2003,8 +2006,15 @@ $("#sails5").addEventListener("click",e=>{const b=e.target.closest("button"); if
 $("#past-grid").innerHTML=STRUCT.past.map(p=>`<div class="person ${p.now?'now':''}"><div class="ph ${PEOPLE[p.name]?'':'empty'}" ${PEOPLE[p.name]?`style="background-image:url('${ASSET}${PEOPLE[p.name]}')"`:''}>${PEOPLE[p.name]?'':initials(p.name)}</div><b>${esc(p.name)}</b><small>${esc(p.term)}</small></div>`).join("");
 const namesBlock=rows=>rows.map(r=>`<div><b>${esc(r.title)}</b>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div>`).join("");
 $("#honor-list").innerHTML=namesBlock(STRUCT.honor); $("#fund-list").innerHTML=namesBlock(STRUCT.fund);
-$("#exec-grid").innerHTML=STRUCT.exec.map(r=>{ const big=r.title==="主席"; return `<div class="role-h">${esc(r.title)}</div><div class="pgrid ${big?'big':''}">${r.names.map(n=>personCard(n,big?"第七屆執委會主席":"",big)).join("")}</div>`; }).join("");
-$("#committee-grid").innerHTML=STRUCT.committees.map(c=>personCard(c.chair,c.name.replace("委員會","委員會主任"))).join("");
+$("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
+  const clean=n=>n.replace(/[（(]兼[）)]/,"").trim();
+  const withPhoto=r.names.filter(n=>PEOPLE[clean(n)]), without=r.names.filter(n=>!PEOPLE[clean(n)]);
+  const big=r.title==="主席";
+  let html=`<div class="role-h">${esc(r.title)}</div>`;
+  if(withPhoto.length) html+=`<div class="pgrid ${big?'big':''}">${withPhoto.map(n=>personCard(n,big?"第七屆執委會主席":"")).join("")}</div>`;
+  if(without.length) html+=`<div class="names${withPhoto.length?' gap':''}"><div>${without.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div></div>`;
+  return html; }).join("");
+$("#committee-grid").innerHTML=`<div class="names"><div>${STRUCT.committees.map(c=>`<span class="cm"><b>${esc(c.name.replace("委員會",""))}</b>${esc(c.chair)}</span>`).join("")}</div></div>`;
 
 /* ===== 重點活動 ===== */
 function renderProg(key){
