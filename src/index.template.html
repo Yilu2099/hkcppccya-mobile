@@ -314,9 +314,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:900px){.hx-grid{grid-template-columns:repeat(6,1fr);gap:14px}}
 .hcard{background:var(--paper);border:1px solid var(--hair);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);text-align:center;transition:transform .25s;width:100%}
 .hcard:hover{transform:translateY(-3px)}
-.hcard .ph{aspect-ratio:7/10;background:#fff center top/cover no-repeat;border-bottom:1px solid var(--hair)}
-.hcard b{display:block;font-size:13px;padding:8px 6px;line-height:1.35}
-.hcard b small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.hcard{position:relative;padding:0}
+.hcard .ph{aspect-ratio:7/10;background:#fff center top/cover no-repeat;border-radius:12px}
+.hcard .pg{position:absolute;right:6px;top:6px;min-width:20px;height:20px;border-radius:10px;background:var(--red);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 5px}
 
 /* ===== 加入 / 聯繫 ===== */
 .form{background:var(--paper);border:1px solid var(--hair);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
@@ -759,7 +759,7 @@ function renderArticle(id){
 $("#tici-grid").innerHTML=TICI.map((t,i)=>`<button class="tcard" data-tici="${i}"><div class="ph" style="background-image:url('${ASSET}${t.thumb}')"></div><div class="b"><div class="motto">${esc(t.motto)}</div><b>${esc(t.name)}</b><small>${esc(t.title)}</small></div></button>`).join("");
 (function(){ const groups=[]; HEXIN.forEach(h=>{ let g=groups.find(x=>x.region===h.region); if(!g){g={region:h.region,items:[]};groups.push(g);} g.items.push(h); });
   const label=r=>({"全國政協":"中國人民政治協商會議全國委員會","中華海聯":"中華海外聯誼會","世晉青":"世界晉江青年聯誼會"}[r]||r);
-  $("#hexin-groups").innerHTML=groups.map(g=>`<div class="hx-group"><h3>${esc(label(g.region))}</h3><div class="hx-grid">${g.items.map(h=>`<button class="hcard" data-hexin="${HEXIN.indexOf(h)}"><div class="ph" style="background-image:url('${ASSET}${h.thumb}')"></div><b>${esc(h.title)}${h.page>1?`<small>第 ${h.page} 頁</small>`:''}</b></button>`).join("")}</div></div>`).join(""); })();
+  $("#hexin-groups").innerHTML=groups.map(g=>`<div class="hx-group"><h3>${esc(label(g.region))}</h3><div class="hx-grid">${g.items.map(h=>`<button class="hcard" data-hexin="${HEXIN.indexOf(h)}" title="${esc(h.title)}"><div class="ph" style="background-image:url('${ASSET}${h.thumb}')"></div>${h.page>1?`<span class="pg">${h.page}</span>`:''}</button>`).join("")}</div></div>`).join(""); })();
 $("#v-tributes .subnav").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; $$("#v-tributes .subnav button").forEach(x=>x.classList.toggle("on",x===b)); $("#tb-tici").hidden=b.dataset.k!=="tici"; $("#tb-hexin").hidden=b.dataset.k!=="hexin";});
 
 /* ===== 全屏瀏覽（相片／題詞／賀信共用） ===== */
