@@ -71,7 +71,20 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .tbtn{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 9px;border-radius:10px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--red)}
 .tbtn svg.i{font-size:18px}
 .tbtn.cta{background:var(--red);color:#fff;border-color:var(--red);padding:0 14px;display:none}
-@media (min-width:900px){.tbtn.cta{display:inline-flex}}
+@media (min-width:900px){.tbtn.cta{display:inline-flex}.menu-btn{display:none}}
+.mmenu{position:fixed;inset:0;z-index:60;display:none;background:rgba(40,5,8,.45)}
+.mmenu.on{display:block}
+.mmenu .panel{position:absolute;top:0;right:0;bottom:0;width:min(84vw,340px);background:var(--paper);box-shadow:-10px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;animation:slide .25s ease;padding-bottom:env(safe-area-inset-bottom)}
+@keyframes slide{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+.mmenu .hd{display:flex;align-items:center;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top)) 16px 12px 20px;border-bottom:1px solid var(--hair);font-weight:900;color:var(--red);font-size:16px}
+.mmenu .hd button{width:40px;height:40px;border-radius:10px;border:1px solid var(--hair);font-size:22px;color:var(--ink-2)}
+.mmenu .list{flex:1;overflow-y:auto;padding:8px 0}
+.mmenu .list a{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:16.5px;font-weight:700;color:var(--ink);border-bottom:1px solid var(--hair)}
+.mmenu .list a.on{color:var(--red)}
+.mmenu .list a svg.i{font-size:22px;color:var(--red);stroke-width:1.8}
+.mmenu .sub{background:var(--paper-2);padding:6px 0 8px;border-bottom:1px solid var(--hair)}
+.mmenu .sub a{padding:9px 20px 9px 54px;font-size:14.5px;font-weight:500;color:var(--ink-2);border:0}
+.mmenu .ft{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--hair);display:grid;gap:10px}
 
 /* ===== 底部分頁 ===== */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--paper);border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(5,1fr)}
@@ -233,8 +246,11 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .names div:last-child{border-bottom:0}
 .names b{display:block;color:var(--red);font-weight:700;font-size:.92em;letter-spacing:.1em;margin-bottom:2px}
 .names .n{display:inline-block;margin-right:14px;white-space:nowrap}
-.past{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media (min-width:900px){.past{grid-template-columns:repeat(6,1fr)}}
+.past{display:grid;gap:10px;max-width:620px}
+.past .person{display:flex;align-items:center;text-align:left;gap:16px;padding:10px 16px 10px 10px}
+.past .person .ph{width:72px;height:90px;aspect-ratio:auto;flex:none;border-radius:10px;font-size:26px}
+.past .person b{font-size:18px;padding:0;letter-spacing:.1em}
+.past .person small{font-size:13px;padding:2px 0 0}
 .past .person.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft),var(--shadow)}
 
 /* ===== 活動 / 回顧 / 文章 ===== */
@@ -383,6 +399,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </nav>
     <div class="tools">
       <button class="tbtn" id="btn-lang" data-nolang aria-label="簡繁切換">簡</button>
+      <button class="tbtn menu-btn" id="btn-menu" aria-label="選單"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <button class="tbtn" id="btn-theme" aria-label="深色模式"><svg class="i" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A6 6 0 0 1 12 3z"/></svg></button>
       <a class="tbtn cta" href="#/join">加入本會</a>
     </div>
@@ -573,6 +590,19 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </div>
 </div></main>
 
+<div class="mmenu" id="mmenu"><div class="panel">
+  <div class="hd"><span>網站導覽</span><button id="mmenu-close" aria-label="關閉">×</button></div>
+  <div class="list">
+    <a href="#/" data-tab="home"><svg class="i" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>首頁</a>
+    <a href="#/about" data-tab="about"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>關於本會</a>
+    <div class="sub"><a href="#/about#intro">本會簡介</a><a href="#/about#past">歷屆領袖</a><a href="#/about#message">主席的話</a><a href="#/about#honor">榮譽架構</a><a href="#/about#fund">基金架構</a><a href="#/about#exec">執委會架構</a></div>
+    <a href="#/programmes" data-tab="programmes"><svg class="i" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>重點活動</a>
+    <a href="#/review" data-tab="review"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 5"/><circle cx="16" cy="9" r="1.5"/></svg>活動回顧</a>
+    <a href="#/tributes" data-tab="tributes"><svg class="i" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>題詞賀信</a>
+    <a href="#/contact" data-tab="contact"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>聯繫我們</a>
+  </div>
+  <div class="ft"><a class="btn pri" href="#/join">加入本會</a><button class="btn line" id="mmenu-theme">切換深色 / 淺色</button></div>
+</div></div>
 <nav class="tabbar" id="tabbar">
   <a href="#/" data-tab="home"><svg class="i" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>首頁</a>
   <a href="#/about" data-tab="about"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>關於本會</a>
@@ -760,6 +790,9 @@ if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)) $("#map-link").href="https
 const root=document.documentElement;
 $("#btn-theme").onclick=()=>{ const dark=root.dataset.theme==="dark"||(!root.dataset.theme&&matchMedia("(prefers-color-scheme: dark)").matches); root.dataset.theme=dark?"light":"dark"; try{localStorage.setItem("zq-theme",root.dataset.theme)}catch(_){} };
 $("#btn-lang").onclick=toggleLang;
+$("#btn-menu").onclick=()=>$("#mmenu").classList.add("on"); $("#mmenu-close").onclick=()=>$("#mmenu").classList.remove("on");
+$("#mmenu").addEventListener("click",e=>{ if(e.target.id==="mmenu"||e.target.closest("a")) $("#mmenu").classList.remove("on"); });
+$("#mmenu-theme").onclick=()=>{ $("#btn-theme").click(); };
 try{ const t=localStorage.getItem("zq-theme"); if(t) root.dataset.theme=t; const l=localStorage.getItem("zq-lang"); if(l) lang=l; }catch(_){}
 ["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交");}));
 
@@ -784,7 +817,7 @@ function route(){
   else if(seg==="contact"){view="contact";tab="contact";}
   else if(seg==="news"||seg==="photos"||seg==="brand"){location.replace(seg==="brand"?"#/programmes/"+(parts[1]||""):"#/review");return;}
   $$(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));
-  $$("#tabbar a, #nav > a, #nav > .dd").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
+  $$("#tabbar a, #nav > a, #nav > .dd, #mmenu .list > a").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
   $$("#about-nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#/about#"+(anchor||"intro")));
   window.scrollTo({top:0});
   if(anchor){ const target=$("#"+anchor); if(target) setTimeout(()=>{ const y=target.getBoundingClientRect().top+window.scrollY-118; window.scrollTo({top:y,behavior:"smooth"}); },80); }

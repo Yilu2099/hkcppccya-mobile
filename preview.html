@@ -71,7 +71,20 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .tbtn{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 9px;border-radius:10px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--red)}
 .tbtn svg.i{font-size:18px}
 .tbtn.cta{background:var(--red);color:#fff;border-color:var(--red);padding:0 14px;display:none}
-@media (min-width:900px){.tbtn.cta{display:inline-flex}}
+@media (min-width:900px){.tbtn.cta{display:inline-flex}.menu-btn{display:none}}
+.mmenu{position:fixed;inset:0;z-index:60;display:none;background:rgba(40,5,8,.45)}
+.mmenu.on{display:block}
+.mmenu .panel{position:absolute;top:0;right:0;bottom:0;width:min(84vw,340px);background:var(--paper);box-shadow:-10px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;animation:slide .25s ease;padding-bottom:env(safe-area-inset-bottom)}
+@keyframes slide{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+.mmenu .hd{display:flex;align-items:center;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top)) 16px 12px 20px;border-bottom:1px solid var(--hair);font-weight:900;color:var(--red);font-size:16px}
+.mmenu .hd button{width:40px;height:40px;border-radius:10px;border:1px solid var(--hair);font-size:22px;color:var(--ink-2)}
+.mmenu .list{flex:1;overflow-y:auto;padding:8px 0}
+.mmenu .list a{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:16.5px;font-weight:700;color:var(--ink);border-bottom:1px solid var(--hair)}
+.mmenu .list a.on{color:var(--red)}
+.mmenu .list a svg.i{font-size:22px;color:var(--red);stroke-width:1.8}
+.mmenu .sub{background:var(--paper-2);padding:6px 0 8px;border-bottom:1px solid var(--hair)}
+.mmenu .sub a{padding:9px 20px 9px 54px;font-size:14.5px;font-weight:500;color:var(--ink-2);border:0}
+.mmenu .ft{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--hair);display:grid;gap:10px}
 
 /* ===== 底部分頁 ===== */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--paper);border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(5,1fr)}
@@ -233,8 +246,11 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .names div:last-child{border-bottom:0}
 .names b{display:block;color:var(--red);font-weight:700;font-size:.92em;letter-spacing:.1em;margin-bottom:2px}
 .names .n{display:inline-block;margin-right:14px;white-space:nowrap}
-.past{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media (min-width:900px){.past{grid-template-columns:repeat(6,1fr)}}
+.past{display:grid;gap:10px;max-width:620px}
+.past .person{display:flex;align-items:center;text-align:left;gap:16px;padding:10px 16px 10px 10px}
+.past .person .ph{width:72px;height:90px;aspect-ratio:auto;flex:none;border-radius:10px;font-size:26px}
+.past .person b{font-size:18px;padding:0;letter-spacing:.1em}
+.past .person small{font-size:13px;padding:2px 0 0}
 .past .person.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft),var(--shadow)}
 
 /* ===== 活動 / 回顧 / 文章 ===== */
@@ -383,6 +399,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </nav>
     <div class="tools">
       <button class="tbtn" id="btn-lang" data-nolang aria-label="簡繁切換">簡</button>
+      <button class="tbtn menu-btn" id="btn-menu" aria-label="選單"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <button class="tbtn" id="btn-theme" aria-label="深色模式"><svg class="i" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A6 6 0 0 1 12 3z"/></svg></button>
       <a class="tbtn cta" href="#/join">加入本會</a>
     </div>
@@ -573,6 +590,19 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </div>
 </div></main>
 
+<div class="mmenu" id="mmenu"><div class="panel">
+  <div class="hd"><span>網站導覽</span><button id="mmenu-close" aria-label="關閉">×</button></div>
+  <div class="list">
+    <a href="#/" data-tab="home"><svg class="i" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>首頁</a>
+    <a href="#/about" data-tab="about"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>關於本會</a>
+    <div class="sub"><a href="#/about#intro">本會簡介</a><a href="#/about#past">歷屆領袖</a><a href="#/about#message">主席的話</a><a href="#/about#honor">榮譽架構</a><a href="#/about#fund">基金架構</a><a href="#/about#exec">執委會架構</a></div>
+    <a href="#/programmes" data-tab="programmes"><svg class="i" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>重點活動</a>
+    <a href="#/review" data-tab="review"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 5"/><circle cx="16" cy="9" r="1.5"/></svg>活動回顧</a>
+    <a href="#/tributes" data-tab="tributes"><svg class="i" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>題詞賀信</a>
+    <a href="#/contact" data-tab="contact"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>聯繫我們</a>
+  </div>
+  <div class="ft"><a class="btn pri" href="#/join">加入本會</a><button class="btn line" id="mmenu-theme">切換深色 / 淺色</button></div>
+</div></div>
 <nav class="tabbar" id="tabbar">
   <a href="#/" data-tab="home"><svg class="i" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>首頁</a>
   <a href="#/about" data-tab="about"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>關於本會</a>
@@ -1221,10 +1251,6 @@ const STRUCT={
   }
  ],
  "past": [
-  {
-   "term": "創會主席",
-   "name": "曾智雄"
-  },
   {
    "term": "創會會長",
    "name": "蔡加讚"
@@ -1914,7 +1940,7 @@ const HEXIN=[
   "thumb": "hexin/世晉青_01_s.jpg"
  }
 ];
-const T2S={"並":"并","亞":"亚","佈":"布","來":"来","係":"系","個":"个","們":"们","倫":"伦","偉":"伟","傑":"杰","傳":"传","僅":"仅","僑":"侨","價":"价","儀":"仪","優":"优","兒":"儿","內":"内","兩":"两","凱":"凯","別":"别","剛":"刚","創":"创","劃":"划","劉":"刘","劍":"剑","動":"动","務":"务","勝":"胜","勞":"劳","勢":"势","勵":"励","匯":"汇","區":"区","協":"协","參":"参","吳":"吴","呂":"吕","員":"员","問":"问","啟":"启","單":"单","嚴":"严","國":"国","圍":"围","園":"园","圓":"圆","圖":"图","團":"团","執":"执","堅":"坚","堯":"尧","報":"报","場":"场","壇":"坛","壯":"壮","夢":"梦","夥":"伙","奮":"奋","嫺":"娴","孫":"孙","學":"学","實":"实","寧":"宁","寫":"写","寶":"宝","將":"将","專":"专","尋":"寻","對":"对","導":"导","尙":"尚","屆":"届","層":"层","屬":"属","峯":"峰","嶺":"岭","師":"师","帶":"带","幗":"帼","幣":"币","幫":"帮","幹":"干","庫":"库","廈":"厦","廣":"广","廳":"厅","張":"张","強":"强","彥":"彦","後":"后","從":"从","復":"复","恆":"恒","愛":"爱","態":"态","慶":"庆","憑":"凭","應":"应","懷":"怀","戰":"战","戲":"戏","戶":"户","捲":"卷","揚":"扬","換":"换","揮":"挥","搖":"摇","撥":"拨","擁":"拥","擊":"击","擔":"担","據":"据","擴":"扩","攜":"携","敘":"叙","數":"数","於":"于","時":"时","晉":"晋","暉":"晖","暫":"暂","曉":"晓","曠":"旷","書":"书","會":"会","東":"东","棟":"栋","楊":"杨","業":"业","極":"极","榮":"荣","構":"构","樂":"乐","樑":"梁","樓":"楼","標":"标","樣":"样","樹":"树","樺":"桦","橋":"桥","機":"机","欄":"栏","權":"权","歡":"欢","歷":"历","歸":"归","氣":"气","沒":"没","況":"况","湊":"凑","溝":"沟","溫":"温","滬":"沪","滿":"满","漢":"汉","潑":"泼","潛":"潜","潤":"润","澤":"泽","濟":"济","濤":"涛","濱":"滨","瀋":"沈","瀏":"浏","灝":"灏","灣":"湾","為":"为","無":"无","煒":"炜","熱":"热","燈":"灯","營":"营","燦":"灿","爾":"尔","狀":"状","獎":"奖","獨":"独","獲":"获","獻":"献","現":"现","瑤":"瑶","瑩":"莹","環":"环","瓊":"琼","產":"产","甯":"宁","當":"当","療":"疗","發":"发","盡":"尽","監":"监","盧":"卢","眾":"众","碩":"硕","確":"确","磚":"砖","礎":"础","礪":"砺","禮":"礼","稟":"禀","種":"种","稱":"称","積":"积","穎":"颖","穩":"稳","穫":"获","節":"节","範":"范","築":"筑","篤":"笃","簡":"简","簽":"签","籃":"篮","籌":"筹","粵":"粤","紀":"纪","約":"约","紅":"红","納":"纳","紐":"纽","級":"级","紮":"扎","細":"细","紹":"绍","終":"终","組":"组","結":"结","絕":"绝","絡":"络","給":"给","統":"统","經":"经","綠":"绿","維":"维","網":"网","綺":"绮","綿":"绵","緊":"紧","緒":"绪","線":"线","締":"缔","緣":"缘","練":"练","總":"总","績":"绩","織":"织","繞":"绕","繩":"绳","繫":"系","繼":"继","續":"续","羅":"罗","義":"义","習":"习","聖":"圣","聯":"联","聰":"聪","聲":"声","職":"职","聽":"听","脈":"脉","脫":"脱","臨":"临","與":"与","興":"兴","舉":"举","艱":"艰","莊":"庄","華":"华","葉":"叶","蒞":"莅","蓋":"盖","蓮":"莲","蕭":"萧","薈":"荟","薦":"荐","藍":"蓝","藝":"艺","藥":"药","蘇":"苏","蘊":"蕴","蘭":"兰","處":"处","虛":"虚","號":"号","螄":"蛳","術":"术","裡":"里","製":"制","複":"复","見":"见","規":"规","視":"视","親":"亲","覽":"览","觀":"观","計":"计","訊":"讯","討":"讨","訓":"训","託":"托","記":"记","訪":"访","設":"设","許":"许","詞":"词","詠":"咏","詢":"询","詩":"诗","話":"话","該":"该","詳":"详","認":"认","語":"语","誠":"诚","說":"说","説":"说","誰":"谁","課":"课","誼":"谊","調":"调","談":"谈","請":"请","論":"论","諧":"谐","諮":"咨","謀":"谋","謂":"谓","謙":"谦","講":"讲","謝":"谢","謳":"讴","謹":"谨","證":"证","識":"识","譚":"谭","譜":"谱","議":"议","護":"护","譽":"誉","讀":"读","變":"变","讓":"让","讚":"赞","豐":"丰","貞":"贞","負":"负","財":"财","貢":"贡","貫":"贯","責":"责","貴":"贵","貿":"贸","賀":"贺","資":"资","賓":"宾","賢":"贤","賦":"赋","質":"质","賽":"赛","贈":"赠","贊":"赞","趙":"赵","趨":"趋","踐":"践","踴":"踊","躍":"跃","車":"车","軍":"军","軒":"轩","載":"载","輕":"轻","輝":"辉","輩":"辈","輸":"输","轄":"辖","轉":"转","辦":"办","辭":"辞","這":"这","連":"连","進":"进","遊":"游","運":"运","過":"过","達":"达","遞":"递","遠":"远","遼":"辽","邁":"迈","還":"还","邊":"边","郵":"邮","鄉":"乡","鄧":"邓","鄭":"郑","醫":"医","釋":"释","針":"针","鈞":"钧","鉅":"巨","銀":"银","銘":"铭","銷":"销","鋒":"锋","鋪":"铺","錦":"锦","鍵":"键","鍾":"钟","鎔":"镕","鎮":"镇","鐵":"铁","鑌":"镔","長":"长","門":"门","閃":"闪","閉":"闭","開":"开","間":"间","闊":"阔","關":"关","闡":"阐","陝":"陕","陳":"陈","陸":"陆","陽":"阳","隊":"队","階":"阶","際":"际","隨":"随","雙":"双","離":"离","雲":"云","電":"电","靈":"灵","靜":"静","鞏":"巩","韻":"韵","響":"响","頁":"页","頂":"顶","項":"项","順":"顺","領":"领","頭":"头","頴":"颕","頻":"频","題":"题","類":"类","顧":"顾","顯":"显","風":"风","飛":"飞","飲":"饮","養":"养","餘":"余","館":"馆","饋":"馈","馬":"马","馮":"冯","駐":"驻","駒":"驹","駱":"骆","駿":"骏","騰":"腾","驗":"验","體":"体","鬆":"松","鬥":"斗","鴻":"鸿","鵬":"鹏","麗":"丽","麥":"麦","麼":"么","黃":"黄","點":"点","黨":"党","齊":"齐","齡":"龄","龍":"龙","龔":"龚"};
+const T2S={"並":"并","亞":"亚","佈":"布","來":"来","係":"系","個":"个","們":"们","倫":"伦","偉":"伟","傑":"杰","傳":"传","僅":"仅","僑":"侨","價":"价","儀":"仪","優":"优","兒":"儿","內":"内","兩":"两","凱":"凯","別":"别","剛":"刚","創":"创","劃":"划","劉":"刘","劍":"剑","動":"动","務":"务","勝":"胜","勞":"劳","勢":"势","勵":"励","匯":"汇","區":"区","協":"协","參":"参","吳":"吴","呂":"吕","員":"员","問":"问","啟":"启","單":"单","嚴":"严","國":"国","圍":"围","園":"园","圓":"圆","圖":"图","團":"团","執":"执","堅":"坚","堯":"尧","報":"报","場":"场","壇":"坛","壯":"壮","夢":"梦","夥":"伙","奮":"奋","嫺":"娴","孫":"孙","學":"学","實":"实","寧":"宁","寫":"写","寶":"宝","將":"将","專":"专","尋":"寻","對":"对","導":"导","尙":"尚","屆":"届","層":"层","屬":"属","峯":"峰","嶺":"岭","師":"师","帶":"带","幗":"帼","幣":"币","幫":"帮","幹":"干","庫":"库","廈":"厦","廣":"广","廳":"厅","張":"张","強":"强","彥":"彦","後":"后","從":"从","復":"复","恆":"恒","愛":"爱","態":"态","慶":"庆","憑":"凭","應":"应","懷":"怀","戰":"战","戲":"戏","戶":"户","捲":"卷","揚":"扬","換":"换","揮":"挥","搖":"摇","撥":"拨","擁":"拥","擊":"击","擔":"担","據":"据","擴":"扩","攜":"携","敘":"叙","數":"数","於":"于","時":"时","晉":"晋","暉":"晖","暫":"暂","曉":"晓","曠":"旷","書":"书","會":"会","東":"东","棟":"栋","楊":"杨","業":"业","極":"极","榮":"荣","構":"构","樂":"乐","樑":"梁","樓":"楼","標":"标","樣":"样","樹":"树","樺":"桦","橋":"桥","機":"机","欄":"栏","權":"权","歡":"欢","歷":"历","歸":"归","氣":"气","沒":"没","況":"况","淺":"浅","湊":"凑","溝":"沟","溫":"温","滬":"沪","滿":"满","漢":"汉","潑":"泼","潛":"潜","潤":"润","澤":"泽","濟":"济","濤":"涛","濱":"滨","瀋":"沈","瀏":"浏","灝":"灏","灣":"湾","為":"为","無":"无","煒":"炜","熱":"热","燈":"灯","營":"营","燦":"灿","爾":"尔","狀":"状","獎":"奖","獨":"独","獲":"获","獻":"献","現":"现","瑤":"瑶","瑩":"莹","環":"环","瓊":"琼","產":"产","甯":"宁","當":"当","療":"疗","發":"发","盡":"尽","監":"监","盧":"卢","眾":"众","碩":"硕","確":"确","磚":"砖","礎":"础","礪":"砺","禮":"礼","稟":"禀","種":"种","稱":"称","積":"积","穎":"颖","穩":"稳","穫":"获","節":"节","範":"范","築":"筑","篤":"笃","簡":"简","簽":"签","籃":"篮","籌":"筹","粵":"粤","紀":"纪","約":"约","紅":"红","納":"纳","紐":"纽","級":"级","紮":"扎","細":"细","紹":"绍","終":"终","組":"组","結":"结","絕":"绝","絡":"络","給":"给","統":"统","經":"经","綠":"绿","維":"维","網":"网","綺":"绮","綿":"绵","緊":"紧","緒":"绪","線":"线","締":"缔","緣":"缘","練":"练","總":"总","績":"绩","織":"织","繞":"绕","繩":"绳","繫":"系","繼":"继","續":"续","羅":"罗","義":"义","習":"习","聖":"圣","聯":"联","聰":"聪","聲":"声","職":"职","聽":"听","脈":"脉","脫":"脱","臨":"临","與":"与","興":"兴","舉":"举","艱":"艰","莊":"庄","華":"华","葉":"叶","蒞":"莅","蓋":"盖","蓮":"莲","蕭":"萧","薈":"荟","薦":"荐","藍":"蓝","藝":"艺","藥":"药","蘇":"苏","蘊":"蕴","蘭":"兰","處":"处","虛":"虚","號":"号","螄":"蛳","術":"术","裡":"里","製":"制","複":"复","見":"见","規":"规","視":"视","親":"亲","覽":"览","觀":"观","計":"计","訊":"讯","討":"讨","訓":"训","託":"托","記":"记","訪":"访","設":"设","許":"许","詞":"词","詠":"咏","詢":"询","詩":"诗","話":"话","該":"该","詳":"详","認":"认","語":"语","誠":"诚","說":"说","説":"说","誰":"谁","課":"课","誼":"谊","調":"调","談":"谈","請":"请","論":"论","諧":"谐","諮":"咨","謀":"谋","謂":"谓","謙":"谦","講":"讲","謝":"谢","謳":"讴","謹":"谨","證":"证","識":"识","譚":"谭","譜":"谱","議":"议","護":"护","譽":"誉","讀":"读","變":"变","讓":"让","讚":"赞","豐":"丰","貞":"贞","負":"负","財":"财","貢":"贡","貫":"贯","責":"责","貴":"贵","貿":"贸","賀":"贺","資":"资","賓":"宾","賢":"贤","賦":"赋","質":"质","賽":"赛","贈":"赠","贊":"赞","趙":"赵","趨":"趋","踐":"践","踴":"踊","躍":"跃","車":"车","軍":"军","軒":"轩","載":"载","輕":"轻","輝":"辉","輩":"辈","輸":"输","轄":"辖","轉":"转","辦":"办","辭":"辞","這":"这","連":"连","進":"进","遊":"游","運":"运","過":"过","達":"达","遞":"递","遠":"远","選":"选","遼":"辽","邁":"迈","還":"还","邊":"边","郵":"邮","鄉":"乡","鄧":"邓","鄭":"郑","醫":"医","釋":"释","針":"针","鈞":"钧","鉅":"巨","銀":"银","銘":"铭","銷":"销","鋒":"锋","鋪":"铺","錦":"锦","鍵":"键","鍾":"钟","鎔":"镕","鎮":"镇","鐵":"铁","鑌":"镔","長":"长","門":"门","閃":"闪","閉":"闭","開":"开","間":"间","闊":"阔","關":"关","闡":"阐","陝":"陕","陳":"陈","陸":"陆","陽":"阳","隊":"队","階":"阶","際":"际","隨":"随","雙":"双","離":"离","雲":"云","電":"电","靈":"灵","靜":"静","鞏":"巩","韻":"韵","響":"响","頁":"页","頂":"顶","項":"项","順":"顺","領":"领","頭":"头","頴":"颕","頻":"频","題":"题","類":"类","顧":"顾","顯":"显","風":"风","飛":"飞","飲":"饮","養":"养","餘":"余","館":"馆","饋":"馈","馬":"马","馮":"冯","駐":"驻","駒":"驹","駱":"骆","駿":"骏","騰":"腾","驗":"验","體":"体","鬆":"松","鬥":"斗","鴻":"鸿","鵬":"鹏","麗":"丽","麥":"麦","麼":"么","黃":"黄","點":"点","黨":"党","齊":"齐","齡":"龄","龍":"龙","龔":"龚"};
 const NEWS_PHOTO={1089:"z0",1087:"z1",1088:"z2",1086:"z3",1085:"z4",1084:"z5",1083:"z6",1082:"z7"};
 const NEWS_TAG={1084:"tour",1082:"national",1087:"policy",1088:"policy",1083:"national",1085:"mentor",1086:"mentor"};
 const BRANDS={
@@ -2064,6 +2090,9 @@ if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)) $("#map-link").href="https
 const root=document.documentElement;
 $("#btn-theme").onclick=()=>{ const dark=root.dataset.theme==="dark"||(!root.dataset.theme&&matchMedia("(prefers-color-scheme: dark)").matches); root.dataset.theme=dark?"light":"dark"; try{localStorage.setItem("zq-theme",root.dataset.theme)}catch(_){} };
 $("#btn-lang").onclick=toggleLang;
+$("#btn-menu").onclick=()=>$("#mmenu").classList.add("on"); $("#mmenu-close").onclick=()=>$("#mmenu").classList.remove("on");
+$("#mmenu").addEventListener("click",e=>{ if(e.target.id==="mmenu"||e.target.closest("a")) $("#mmenu").classList.remove("on"); });
+$("#mmenu-theme").onclick=()=>{ $("#btn-theme").click(); };
 try{ const t=localStorage.getItem("zq-theme"); if(t) root.dataset.theme=t; const l=localStorage.getItem("zq-lang"); if(l) lang=l; }catch(_){}
 ["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交");}));
 
@@ -2088,7 +2117,7 @@ function route(){
   else if(seg==="contact"){view="contact";tab="contact";}
   else if(seg==="news"||seg==="photos"||seg==="brand"){location.replace(seg==="brand"?"#/programmes/"+(parts[1]||""):"#/review");return;}
   $$(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));
-  $$("#tabbar a, #nav > a, #nav > .dd").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
+  $$("#tabbar a, #nav > a, #nav > .dd, #mmenu .list > a").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
   $$("#about-nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#/about#"+(anchor||"intro")));
   window.scrollTo({top:0});
   if(anchor){ const target=$("#"+anchor); if(target) setTimeout(()=>{ const y=target.getBoundingClientRect().top+window.scrollY-118; window.scrollTo({top:y,behavior:"smooth"}); },80); }
