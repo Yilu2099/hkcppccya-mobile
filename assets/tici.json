@@ -1,0 +1,186 @@
+[
+ {
+  "id": "t01",
+  "file": "tici/t01.jpg",
+  "thumb": "tici/t01_s.jpg",
+  "name": "李家超",
+  "title": "香港特別行政區行政長官",
+  "motto": "宏才策進 盛業綿延"
+ },
+ {
+  "id": "t02",
+  "file": "tici/t02.jpg",
+  "thumb": "tici/t02_s.jpg",
+  "name": "陳國基",
+  "title": "政務司司長",
+  "motto": "廣連政彥 齊譜宏圖"
+ },
+ {
+  "id": "t03",
+  "file": "tici/t03.jpg",
+  "thumb": "tici/t03_s.jpg",
+  "name": "陳茂波",
+  "title": "財政司司長",
+  "motto": "政賢匯萃 會務日新"
+ },
+ {
+  "id": "t04",
+  "file": "tici/t04.jpg",
+  "thumb": "tici/t04_s.jpg",
+  "name": "李慧琼",
+  "title": "立法會主席",
+  "motto": "展才樹德 惠國匡時"
+ },
+ {
+  "id": "t05",
+  "file": "tici/t05.jpg",
+  "thumb": "tici/t05_s.jpg",
+  "name": "許正宇",
+  "title": "財經事務及庫務局局長",
+  "motto": "廣聯政彥 志獻國邦"
+ },
+ {
+  "id": "t06",
+  "file": "tici/t06.jpg",
+  "thumb": "tici/t06_s.jpg",
+  "name": "鄧炳強",
+  "title": "保安局局長",
+  "motto": "凝心聚力 奮志匡邦"
+ },
+ {
+  "id": "t07",
+  "file": "tici/t07.jpg",
+  "thumb": "tici/t07_s.jpg",
+  "name": "丘應樺",
+  "title": "商務及經濟發展局局長",
+  "motto": "集賢謀遠 建社昌邦"
+ },
+ {
+  "id": "t08",
+  "file": "tici/t08.jpg",
+  "thumb": "tici/t08_s.jpg",
+  "name": "甯漢豪",
+  "title": "發展局局長",
+  "motto": "青年賢範 碩劃同籌"
+ },
+ {
+  "id": "t10",
+  "file": "tici/t10.jpg",
+  "thumb": "tici/t10_s.jpg",
+  "name": "蔡若蓮",
+  "title": "教育局局長",
+  "motto": "賢才萃集 協締殷榮"
+ },
+ {
+  "id": "t11",
+  "file": "tici/t11.jpg",
+  "thumb": "tici/t11_s.jpg",
+  "name": "孫東",
+  "title": "創新科技及工業局局長",
+  "motto": "廣聯青俊 協建家邦"
+ },
+ {
+  "id": "t12",
+  "file": "tici/t12.jpg",
+  "thumb": "tici/t12_s.jpg",
+  "name": "麥美娟",
+  "title": "民政及青年事務局局長",
+  "motto": "奮進獻社 建緒益民"
+ },
+ {
+  "id": "t13",
+  "file": "tici/t13.jpg",
+  "thumb": "tici/t13_s.jpg",
+  "name": "孫玉菡",
+  "title": "勞工及福利局局長",
+  "motto": "政通業茂 世泰時和"
+ },
+ {
+  "id": "t14",
+  "file": "tici/t14.jpg",
+  "thumb": "tici/t14_s.jpg",
+  "name": "陳美寶",
+  "title": "運輸及物流局局長",
+  "motto": "匯賢獻力 匡社利民"
+ },
+ {
+  "id": "t15",
+  "file": "tici/t15.jpg",
+  "thumb": "tici/t15_s.jpg",
+  "name": "羅淑佩",
+  "title": "文化體育及旅遊局局長",
+  "motto": "和通青傑 振耀國光"
+ },
+ {
+  "id": "t16",
+  "file": "tici/t16.jpg",
+  "thumb": "tici/t16_s.jpg",
+  "name": "謝小華",
+  "title": "政制及內地事務局局長",
+  "motto": "青俊薈集 良獻啟新"
+ },
+ {
+  "id": "t17",
+  "file": "tici/t17.jpg",
+  "thumb": "tici/t17_s.jpg",
+  "name": "戴德豐",
+  "title": "原全國政協常委、港區省級政協委員聯誼會創會主席、本會榮譽會長",
+  "motto": "博匯青俊 志獻家邦"
+ },
+ {
+  "id": "t18",
+  "file": "tici/t18.jpg",
+  "thumb": "tici/t18_s.jpg",
+  "name": "林樹哲",
+  "title": "第十二屆全國政協常務委員、香港福建社團聯會榮譽主席",
+  "motto": "菁英匯聚 建社惠群"
+ },
+ {
+  "id": "t19",
+  "file": "tici/t19.jpg",
+  "thumb": "tici/t19_s.jpg",
+  "name": "陳清霞",
+  "title": "全國政協委員、行政會議成員、港區省級政協委員聯誼會永遠名譽主席",
+  "motto": "賢才薈萃 締造佳績"
+ },
+ {
+  "id": "t20",
+  "file": "tici/t20.jpg",
+  "thumb": "tici/t20_s.jpg",
+  "name": "譚錦球",
+  "title": "全國政協常委、本會榮譽會長",
+  "motto": "攜青年之力 興一港繁華"
+ },
+ {
+  "id": "t21",
+  "file": "tici/t21.jpg",
+  "thumb": "tici/t21_s.jpg",
+  "name": "鄭翔玲",
+  "title": "香港中華聯誼會會長",
+  "motto": "匯聚青年力量 廣續香江華章"
+ },
+ {
+  "id": "t22",
+  "file": "tici/t22.jpg",
+  "thumb": "tici/t22_s.jpg",
+  "name": "施榮懷",
+  "title": "全國政協常委、港區省級政協委員聯誼會永遠名譽會長、香港北京社團總會會長",
+  "motto": "凝聚青年 愛國愛港"
+ },
+ {
+  "id": "t23",
+  "file": "tici/t23.jpg",
+  "thumb": "tici/t23_s.jpg",
+  "name": "蘇清棟",
+  "title": "全國政協委員、港區省級政協委員聯誼會主席",
+  "motto": "政協青年智匯維港 心懷家國再啟新程"
+ },
+ {
+  "id": "t24",
+  "file": "tici/t24.jpg",
+  "thumb": "tici/t24_s.jpg",
+  "name": "霍啟山",
+  "title": "港區省級政協委員聯誼會會長",
+  "motto": "聚力政協建言 篤誠愛國興港"
+ }
+]
