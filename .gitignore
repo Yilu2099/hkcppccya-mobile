@@ -1,2 +1,35 @@
 .DS_Store
 .claude/
+__pycache__/
+admin/backups/
+.venv/
+
+# Private CMS identities and invitations
+admin/private/
+
+# Public bulk media restored by checksum manifest
+assets/originals/
+assets/web/
+assets/legacy/
+assets/bulk-manifest.local.json
+# Generated output and local QA
+dist/
+index.html
+preview.html
+artifacts/
+*.png
+!assets/**/*.png
+# Credentials and local runtime data
+.env
+.env.*
+*.sqlite
+*.sqlite3
+*.db
+*.pem
+*.key
+
+# Local import/QA provenance excluded from public handoff
+assets/image-sources.json
+assets/image-optimization-report.json
+assets/migration-report.json
+assets/people-manifest.json

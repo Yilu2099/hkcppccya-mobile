@@ -34,6 +34,7 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body:has(.mmenu.on,.sheet.on,.lightbox.on){overflow:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:var(--fs);line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -41,21 +42,21 @@ img{max-width:100%;display:block}
 h1,h2,h3{margin:0;font-weight:900;line-height:1.3;text-wrap:balance;letter-spacing:.01em}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .num{font-family:var(--en);font-variant-numeric:tabular-nums}
-svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+svg.i{flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .wrap{max-width:1120px;margin:0 auto;padding:0 16px}
 @media (min-width:900px){.wrap{padding:0 32px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 /* ===== 頂欄 ===== */
 .topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--hair)}
-.topbar .in{display:flex;align-items:center;gap:8px;height:60px;max-width:1120px;margin:0 auto;padding:0 14px}
+.topbar .in{display:flex;align-items:center;gap:8px;height:60px;max-width:1120px;margin:0 auto;padding:0 16px}
 @media (min-width:900px){.topbar .in{padding:0 32px;height:70px}}
 .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
 .brand img{width:44px;height:44px}
 .brand .t{display:flex;flex-direction:column;line-height:1.15;min-width:0}
 .brand .t b{font-size:17px;font-weight:900;letter-spacing:.04em;white-space:nowrap;color:var(--red)}
 .brand .t small{font-family:var(--en);font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;white-space:nowrap;display:none}
-@media (min-width:900px){.brand{flex:none}.brand .t small{display:block}}
+@media (min-width:1100px){.brand{flex:none}.brand .t small{display:block}}
 .nav{display:none;margin-left:auto;gap:2px;align-items:center}
 .nav>a,.nav>.dd>button{padding:8px 13px;border-radius:999px;font-size:15px;font-weight:500;color:var(--ink-2);display:inline-flex;align-items:center;gap:4px}
 .nav>a.on,.nav>.dd.on>button{background:var(--red);color:#fff}
@@ -65,13 +66,14 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .nav .dd:hover .menu,.nav .dd:focus-within .menu{display:flex}
 .nav .menu a{padding:9px 12px;border-radius:8px;font-size:14.5px;color:var(--ink-2);white-space:nowrap}
 .nav .menu a:hover{background:var(--red-soft);color:var(--red)}
-@media (min-width:900px){.nav{display:flex}}
+@media (min-width:1100px){.nav{display:flex}}
 .tools{display:flex;gap:6px;margin-left:auto}
-@media (min-width:900px){.tools{margin-left:10px}}
+@media (min-width:1100px){.topbar .tools{margin-left:10px}}
 .tbtn{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 9px;border-radius:10px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--red)}
 .tbtn svg.i{font-size:18px}
 .tbtn.cta{background:var(--red);color:#fff;border-color:var(--red);padding:0 14px;display:none}
-@media (min-width:900px){.tbtn.cta{display:inline-flex}.menu-btn{display:none}}
+@media (min-width:1100px){.tbtn.cta{display:inline-flex}.menu-btn{display:none}}
+@media (max-width:359px){.topbar #btn-theme{display:none}}
 .mmenu{position:fixed;inset:0;z-index:60;display:none;background:rgba(40,5,8,.45)}
 .mmenu.on{display:block}
 .mmenu .panel{position:absolute;top:0;right:0;bottom:0;width:min(84vw,340px);background:var(--paper);box-shadow:-10px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;animation:slide .25s ease;padding-bottom:env(safe-area-inset-bottom)}
@@ -92,10 +94,10 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .tabbar a svg.i{font-size:24px;stroke-width:1.7}
 .tabbar a.on{color:var(--red)}
 .tabbar a.on svg.i{stroke-width:2.3}
-@media (min-width:900px){.tabbar{display:none}}
+@media (min-width:1100px){.tabbar{display:none}}
 .view{display:none;padding-bottom:calc(var(--tab-h) + 30px + env(safe-area-inset-bottom));animation:fade .25s ease}
 .view.on{display:block}
-@media (min-width:900px){.view{padding-bottom:40px}}
+@media (min-width:1100px){.view{padding-bottom:40px}}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* ===== 通用 ===== */
@@ -114,6 +116,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .btn.white{background:#fff;color:var(--red-deep)}
 .btn.wide{width:100%}
 .btn svg.i{font-size:20px}
+.btn,.tbtn,.nav>a,.nav>.dd>button,.subnav a,.subnav button,.years button,.art .tools button,.chip,.sec-h .more{white-space:nowrap;flex-shrink:0}
 .chip{display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--red-soft);color:var(--red);letter-spacing:.04em}
 .tip{font-size:13px;color:var(--muted);line-height:1.6}
 .stagger>*{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
@@ -133,9 +136,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .hero{position:relative;background:var(--band);color:#fff;overflow:hidden}
 .hero .in{position:relative;max-width:1120px;margin:0 auto;padding:34px 20px 96px;text-align:center}
 @media (min-width:900px){.hero .in{padding:52px 32px 160px}}
-.hero .motto{font-family:var(--serif);font-size:21px;font-weight:900;letter-spacing:.06em;color:#FFE9A8;line-height:1.4;white-space:nowrap}
+.hero .motto{font-family:var(--serif);font-size:clamp(16px,5.2vw,21px);font-weight:900;letter-spacing:.06em;color:#FFE9A8;line-height:1.4;white-space:nowrap}
 @media (min-width:900px){.hero .motto{font-size:36px;letter-spacing:.1em}}
-.hero .dir{margin-top:12px;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff;line-height:1.7;white-space:nowrap}
+.hero .dir{margin-top:12px;font-family:var(--serif);font-size:clamp(12px,3.8vw,15px);font-weight:700;letter-spacing:.08em;color:#fff;line-height:1.7;white-space:nowrap}
 @media (min-width:900px){.hero .dir{font-size:19px}}
 .hero .txt>*{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
 .hero .txt>*:nth-child(2){animation-delay:.1s}
@@ -157,22 +160,23 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .stats.in>a:nth-child(2)::after{transition-delay:.3s}.stats.in>a:nth-child(3)::after{transition-delay:.5s}.stats.in>a:nth-child(4)::after{transition-delay:.7s}
 .stats b{display:block;font-family:var(--en);font-size:21px;font-weight:800;color:var(--red);line-height:1.1;white-space:nowrap;letter-spacing:-.01em}
 .stats b i{font-style:normal;font-family:var(--sans);font-size:12px;color:var(--gold-deep);margin-left:2px}
-.stats small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
+.stats small{display:block;white-space:nowrap;font-size:clamp(10px,2.9vw,11.5px);color:var(--muted);margin-top:4px;letter-spacing:.04em}
 .stats .cnt{display:inline-block;filter:blur(6px);opacity:0;transition:filter .9s ease,opacity .9s ease}
 .stats.in .cnt{filter:blur(0);opacity:1}
-@media (min-width:900px){.stats{max-width:1056px;margin:20px auto 0}.stats>a{padding:20px}.stats b{font-size:32px}.stats small{font-size:13px}}
+@media (min-width:900px){.stats{width:calc(100% - 64px);max-width:1056px;margin:20px auto 0}.stats>a{padding:20px}.stats b{font-size:32px}.stats small{font-size:13px}}
 .home-news{display:grid;gap:14px}
 @media (min-width:900px){.home-news{grid-template-columns:1fr 1.15fr;gap:20px;align-items:start}}
 .ncard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s}
 .ncard:hover{transform:translateY(-3px)}
 .ncard .ph{aspect-ratio:3/2;background:var(--paper-2) center/cover no-repeat}
+.ncard .ph img,.item .th img{width:100%;height:100%;object-fit:cover;display:block}
 .ncard .b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .ncard h3{font-size:16px;font-weight:700;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .ncard .m{font-size:12.5px;color:var(--muted);display:flex;gap:10px;align-items:center;margin-top:auto}
 .list{display:flex;flex-direction:column}
 .item{display:flex;gap:14px;padding:14px 16px;border-bottom:1px solid var(--hair);align-items:flex-start}
 .item:last-child{border-bottom:0}
-.item .th{flex:none;width:104px;height:74px;border-radius:10px;background:var(--paper-2) center/cover no-repeat}
+.item .th{flex:none;width:104px;height:74px;border-radius:10px;overflow:hidden;background:var(--paper-2)}
 .item .tt{font-size:15px;font-weight:700;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .item .meta{font-size:12.5px;color:var(--muted);margin-top:5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .item .chev{flex:none;align-self:center;color:var(--hair);font-size:22px}
@@ -182,12 +186,13 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .bcard{position:relative;border-radius:16px;padding:20px 18px 16px;min-height:168px;color:#fff;overflow:hidden;display:flex;flex-direction:column;background:var(--red);transition:transform .2s}
 .bcard:hover{transform:translateY(-3px)}
 .bcard::before{content:attr(data-n);position:absolute;right:14px;top:8px;font-family:var(--en);font-size:40px;font-weight:800;color:rgba(255,255,255,.16);line-height:1}
-.bcard b{font-size:21px;font-weight:900;letter-spacing:.06em;line-height:1.3}
+.bcard b{white-space:nowrap;font-size:clamp(16px,4.9vw,21px);font-weight:900;letter-spacing:.06em;line-height:1.3}
 .bcard b::after{content:"";display:block;width:26px;height:3px;background:var(--gold);margin:8px 0 10px;border-radius:2px}
 .bcard small{font-size:13px;color:rgba(255,255,255,.9);line-height:1.6;flex:1}
 .bcard em{font-style:normal;font-size:12.5px;font-weight:700;color:#fff;margin-top:12px;opacity:.95}
 .bcard.b2{background:var(--red-deep)}.bcard.b3{background:#C8393F}.bcard.b4{background:#A5141B}
-@media (min-width:900px){.bcard{min-height:200px;padding:24px 22px 20px}.bcard b{font-size:24px}.bcard small{font-size:14px}}
+@media (min-width:900px){.bcard{min-height:200px;padding:24px 20px 20px}.bcard b{font-size:clamp(19px,2.1vw,22px)}.bcard small{font-size:14px}}
+@media (max-width:359px){.brands{grid-template-columns:1fr}}
 .five{display:grid;gap:14px}
 @media (min-width:900px){.five{grid-template-columns:1fr 1.2fr;gap:32px;align-items:center}}
 .five .emb{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
@@ -234,8 +239,10 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:900px){.pgrid.big{grid-template-columns:repeat(4,1fr)}}
 .person{background:var(--paper);border:1px solid var(--hair);border-radius:14px;overflow:hidden;text-align:center;box-shadow:var(--shadow)}
 .person .ph{aspect-ratio:4/5;background:var(--paper-2) center top/cover no-repeat;display:grid;place-items:center;font-family:var(--serif);font-size:34px;color:var(--red);font-weight:900;position:relative}
+.person .ph img{width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0}
 .person .ph.empty::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(184,24,31,.06),rgba(184,24,31,.14))}
-.person b{display:block;font-size:14.5px;font-weight:700;padding:8px 6px 2px;letter-spacing:.06em}
+.person b{display:block;font-size:14.5px;font-weight:700;padding:8px 6px 2px;white-space:nowrap;letter-spacing:.06em}
+.person b em{font-style:normal;font-size:11px;letter-spacing:0}
 .person small{display:block;font-size:11.5px;color:var(--muted);padding:0 6px 9px;line-height:1.35}
 .pgrid.big .person b{font-size:17px}.pgrid.big .person small{font-size:12.5px}
 .role-h{margin:22px 0 10px;font-size:15px;font-weight:900;color:var(--red);letter-spacing:.12em;display:flex;align-items:center;gap:10px}
@@ -270,21 +277,30 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @media (min-width:640px){.gal-grid{grid-template-columns:repeat(3,1fr)}}
 @media (min-width:900px){.gal-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
 .pcell{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:var(--paper-2) center/cover no-repeat;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.2,.8,.2,1);width:100%;text-align:left}
+.pcell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .pcell:hover{transform:scale(1.025)}
 .pcell span{position:absolute;left:0;right:0;bottom:0;padding:26px 10px 10px;font-size:12.5px;line-height:1.4;color:#fff;background:linear-gradient(transparent,rgba(60,5,8,.85));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red),var(--gold));z-index:45;transition:width .1s linear}
-.art{max-width:760px;margin:0 auto;padding:22px 0 0}
-.art .kick{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
-.art h1{font-size:24px;line-height:1.45;margin-top:10px}
-@media (min-width:900px){.art h1{font-size:32px}.art{padding-top:40px}}
-.art .tools{display:flex;gap:10px;margin-top:16px}
-.art .tools button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:42px;border-radius:10px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--red)}
+.art{max-width:1056px;margin:0 auto;padding:22px 0 0}
+.art>.body,.art>figure{max-width:760px;margin-left:auto;margin-right:auto}
+.art .kick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.art h1{font-size:24px;line-height:1.45;margin-top:10px;text-wrap:wrap;overflow-wrap:anywhere}
+@media (min-width:900px){.art h1{font-size:clamp(28px,2.5vw,32px)}.art{padding-top:40px}}
+.art .tools{display:flex;gap:10px;margin:16px 0 0}
+.art .tools button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:0;height:44px;border-radius:12px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--red)}
 .art .tools button svg.i{font-size:18px}
-.art figure{margin:20px 0 0;border-radius:14px;overflow:hidden}
+.art figure{margin:20px auto 0;border-radius:14px;overflow:hidden}
 .art figure img{width:100%}
+.photo-open{display:block;width:100%;padding:0;background:none;cursor:zoom-in}
+.person .photo-open{height:100%;position:absolute;inset:0}
+.art figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 2px;font-size:12px;color:var(--muted)}
+.art figcaption .btn{min-height:36px;font-size:13px;padding:0 14px;white-space:nowrap}
+.tcard .ph img,.hcard .ph img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .art .body{margin-top:18px;font-size:17px;line-height:1.95;color:var(--ink-2)}
 .art.big .body{font-size:19px}
-.art .body p{margin:0 0 1.1em;text-align:justify;text-indent:2em}
+.art .body p{overflow-wrap:anywhere;margin:0 0 1.1em;text-align:justify;text-indent:2em}
+.art .body .btn{white-space:normal;text-indent:0;padding:10px 16px;line-height:1.5}
+.art .body figcaption .btn{white-space:nowrap}
 .art .end{text-align:center;color:var(--gold);margin:6px 0 26px;letter-spacing:.4em}
 .pn{display:grid;gap:10px;margin-top:22px}
 @media (min-width:640px){.pn{grid-template-columns:1fr 1fr}}
@@ -336,9 +352,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .crow svg.i{font-size:26px;color:var(--red);flex:none;stroke-width:1.7}
 .crow .t{flex:1;min-width:0}
 .crow .t small{display:block;font-size:12px;color:var(--muted);letter-spacing:.06em}
-.crow .t b{display:block;font-weight:700;font-size:15.5px;line-height:1.45}
+.crow .t b{overflow-wrap:anywhere;display:block;font-weight:700;font-size:15.5px;line-height:1.45}
 .crow .act{flex:none;font-size:13px;font-weight:700;color:#fff;background:var(--red);padding:8px 14px;border-radius:999px}
-.crow .act.wa{background:#25D366}.crow .act.wx{background:#07C160}
+.crow .act.wa{background:#137B3A}.crow .act.wx{background:#087F44}
 .join-grid{display:grid;gap:18px}
 @media (min-width:900px){.join-grid{grid-template-columns:1fr 1fr;gap:28px;align-items:start}}
 .why{display:grid;gap:10px}
@@ -348,7 +364,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .why small{font-size:13px;color:var(--muted);line-height:1.5}
 
 /* ===== 覆蓋層 ===== */
-.sheet{position:fixed;inset:0;z-index:70;display:none;align-items:flex-end;justify-content:center;background:rgba(40,5,8,.55)}
+.sheet{position:fixed;inset:0;z-index:90;display:none;align-items:flex-end;justify-content:center;background:rgba(40,5,8,.55)}
 .sheet.on{display:flex}
 .sheet .p{width:100%;max-width:520px;background:var(--paper);border-radius:18px 18px 0 0;padding:18px 20px calc(22px + env(safe-area-inset-bottom))}
 @media (min-width:900px){.sheet{align-items:center}.sheet .p{border-radius:18px}}
@@ -361,27 +377,27 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .lightbox.on{display:flex}
 .lightbox .bar{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 18px 10px;font-size:15px}
 .lightbox .bar span{display:flex;gap:8px;align-items:center}
-.lightbox .bar button{font-size:15px;padding:8px 14px;border:1px solid rgba(255,255,255,.5);border-radius:8px}
+.lightbox .bar button,.lightbox .bar a{font-size:15px;padding:8px 14px;border:1px solid rgba(255,255,255,.5);border-radius:8px;white-space:nowrap}
 .lightbox .bar #lb-share{padding:8px 10px}.lightbox .bar svg.i{font-size:18px}
-.lightbox .strip{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lightbox .strip{flex:1;min-height:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .lightbox .strip::-webkit-scrollbar{display:none}
-.lightbox .strip div{flex:0 0 100%;scroll-snap-align:center;display:grid;place-items:center;padding:10px}
+.lightbox .strip div{flex:0 0 100%;scroll-snap-align:center;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px}
 .lightbox .strip img{max-height:100%;max-width:100%;border-radius:6px;object-fit:contain}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;display:grid;place-items:center;background:rgba(255,255,255,.14);color:#fff;border-radius:12px;transition:background .2s}
-.lb-nav:hover{background:rgba(255,255,255,.3)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;display:grid;place-items:center;background:rgba(13,7,8,.55);color:#fff;border-radius:12px;transition:background .2s}
+.lb-nav:hover{background:rgba(13,7,8,.8)}
 .lb-nav.prev{left:8px}.lb-nav.next{right:8px}.lb-nav svg.i{font-size:28px;stroke-width:2.2}
 .lb-nav[disabled]{opacity:.25;pointer-events:none}
 @media (min-width:900px){.lb-nav{width:56px;height:80px}.lb-nav.prev{left:24px}.lb-nav.next{right:24px}}
-.lightbox .cap{padding:12px 22px calc(22px + env(safe-area-inset-bottom));font-size:14px;line-height:1.5;text-align:center;color:#DDD}
+.lightbox .cap{max-height:30vh;overflow-y:auto;padding:12px 22px calc(22px + env(safe-area-inset-bottom));font-size:14px;line-height:1.5;text-align:center;color:#DDD}
 .lightbox .cap b{display:block;color:#fff;font-size:15px}
 .lb-dots{display:flex;justify-content:center;gap:5px;margin:10px 0 6px;flex-wrap:wrap}.lb-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35)}.lb-dots i.on{background:#fff;width:18px;border-radius:3px}
 .lb-link{display:inline-block;margin-top:4px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.45);color:#fff;font-size:13px;font-weight:700}
 .totop{position:fixed;right:14px;bottom:calc(var(--tab-h) + 18px + env(safe-area-inset-bottom));width:44px;height:44px;border-radius:50%;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--red);opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;z-index:39}
 .totop.on{opacity:1;transform:none;pointer-events:auto}.totop svg.i{font-size:20px;stroke-width:2.2}
-@media (min-width:900px){.totop{right:28px;bottom:28px}}
+@media (min-width:1100px){.totop{right:28px;bottom:28px}}
 .toast{position:fixed;left:50%;bottom:calc(var(--tab-h) + 24px);transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:90;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%)}
-@media (min-width:900px){.toast{bottom:30px}}
+@media (min-width:1100px){.toast{bottom:30px}}
 </style>
 
 <header class="topbar">
@@ -410,17 +426,17 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 </header>
 
 <!-- ================= 首頁 ================= -->
-<main class="view on" id="v-home">
+<main class="view" id="v-home">
   <section class="hero"><div class="in"><div class="txt">
-    <h1 class="motto">服務國家 · 服務香港 · 服務會員</h1>
-    <div class="dir">搭建愛國愛港青年平台 · 培養參政議政人才</div>
+    <h1 class="motto">{{SITE_HOME_MOTTO}}</h1>
+    <div class="dir">{{SITE_HOME_SUBTITLE}}</div>
   </div></div></section>
-  <div class="wrap"><a class="banner" href="#/article/1089"><img src="{{IMG_HERO_M}}" srcset="{{IMG_HERO_M}} 1200w, {{IMG_HERO}} 2400w" sizes="(min-width:900px) 1056px, 100vw" alt="第七屆執委會就職典禮"><div class="cap"><b>第七屆執委會就職典禮</b><span class="num">2026 年 8 月 24 日</span></div></a></div>
+  <div class="wrap"><a class="banner" href="#/article/{{SITE_HOME_BANNER_ARTICLE}}"><img src="{{IMG_HERO_M}}" srcset="{{IMG_HERO_M}} 800w, {{IMG_HERO}} 1600w" sizes="(min-width:900px) 1056px, 100vw" alt="第七屆執委會就職典禮" width="2400" height="708" loading="lazy" fetchpriority="high" decoding="async"><div class="cap"><b>{{SITE_HOME_BANNER_TITLE}}</b><span class="num">{{SITE_HOME_BANNER_DATE}}</span></div></a></div>
   <div class="stats reveal">
-    <a href="#/about#intro"><b><span class="cnt" data-to="12">0</span><i>年</i></b><small>2014 年成立</small></a>
-    <a href="#/about#intro"><b><span class="cnt" data-to="2500">0</span><i>+</i></b><small>青年會員</small></a>
-    <a href="#/programmes"><b><span class="cnt" data-to="4">0</span><i>大</i></b><small>品牌活動</small></a>
-    <a href="#/about#exec"><b><span class="cnt" data-to="13">0</span><i>個</i></b><small>工作委員會</small></a>
+    <a href="#/about#intro"><b><span class="cnt" data-to="{{SITE_STATS_YEARS}}">0</span><i>年</i></b><small>2014 年成立</small></a>
+    <a href="#/about#intro"><b><span class="cnt" data-to="{{SITE_STATS_MEMBERS}}">0</span><i>+</i></b><small>青年會員</small></a>
+    <a href="#/programmes"><b><span class="cnt" data-to="{{SITE_STATS_BRANDS}}">0</span><i>大</i></b><small>品牌活動</small></a>
+    <a href="#/about#exec"><b><span class="cnt" data-to="{{SITE_STATS_COMMITTEES}}">0</span><i>個</i></b><small>工作委員會</small></a>
   </div>
 
   <div class="wrap">
@@ -439,30 +455,30 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     <section class="sec">
       <div class="sec-h"><h2>會徽 · 五帆精神</h2></div>
       <div class="five">
-        <div class="emb"><img src="{{IMG_EMBLEM}}" alt="會徽"><p class="tip" style="margin:0">會徽是一艘紅色帆船，寓意政青團結香港青年搏擊風浪、迎風啟航。五片風帆，五種精神。</p></div>
+        <div class="emb"><img src="{{IMG_EMBLEM}}" alt="會徽"><p class="tip" style="margin:0">{{SITE_HOME_EMBLEM}}</p></div>
         <div><div class="five-tabs" id="sails5"></div><div class="sail-txt" id="sail-txt"></div></div>
       </div>
     </section>
     <section class="sec">
       <div class="sec-h"><h2>主席的話</h2><a class="more" href="#/about#message">全文 ›</a></div>
       <div class="quote">
-        <p>展望未來，新一屆執委會將做好三項重點青年工作：積極對接國家「十五五」規劃，融入和服務國家發展大局；全力支持香港特區政府施政，為青年工作添磚加瓦；發揮好香港「內聯外通」優勢，全力「拼經濟」。讓我們並肩前行，砥礪奮鬥，攜手為國家同香港貢獻更大力量。</p>
-        <div class="sign"><span>—— 容思瀚<small>香港政協青年聯會第七屆執委會主席</small></span><img src="{{IMG_CHAIR}}" alt="容思瀚主席"></div>
+        <p>{{SITE_HOME_CHAIR_1}}</p>
+        <div class="sign"><span>—— 容思瀚<small>香港政協青年聯會第七屆執委會主席</small></span><img src="{{IMG_CHAIR}}" alt="容思瀚主席" loading="lazy"></div>
       </div>
     </section>
     <section class="sec">
       <div class="join-band">
-        <h3>一起迎風啟航</h3>
-        <p>現任港區全國各級政協青年委員、政協委員後代青年，以及香港青年企業家、專業人士、社團領袖，歡迎加入政青。</p>
+        <h3>{{SITE_HOME_JOIN_TITLE}}</h3>
+        <p>{{SITE_HOME_JOIN_TEXT}}</p>
         <div class="cta"><a class="btn white" href="#/join">加入本會</a><a class="btn ghost" href="#/about">認識政青</a></div>
       </div>
     </section>
   </div>
   <footer class="foot"><div class="in">
     <div class="fc">
-      <div class="row"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓</span></div>
-      <div class="row"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a class="num" href="tel:+85237065193">+852 3706 5193</a></div>
-      <div class="row"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><a href="mailto:info@hkcppccya.org">info@hkcppccya.org</a></div>
+      <div class="row"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>{{SITE_CONTACT_ADDRESS}}</span></div>
+      <div class="row"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a class="num" href="tel:{{SITE_CONTACT_PHONE_DIGITS}}">{{SITE_CONTACT_PHONE_DISPLAY}}</a></div>
+      <div class="row"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><a href="mailto:{{SITE_CONTACT_EMAIL}}">{{SITE_CONTACT_EMAIL}}</a></div>
     </div>
     <div class="cp"><span>香港政協青年聯會 · <a href="https://www.hkcppcc.org/" target="_blank" rel="noopener">港區省級政協委員聯誼會屬會</a></span><span>© 2014–2026 香港政協青年聯會 版權所有</span></div>
   </div></footer>
@@ -475,9 +491,9 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <section class="sec" id="intro">
     <div class="sec-h"><h2>本會簡介</h2></div>
     <div class="prose">
-      <p>香港政協青年聯會是在港區省級政協委員聯誼會領導下成立，並以「服務國家、服務香港、服務會員」為本會宗旨，以現任港區全國各級政協青年委員為核心，廣泛吸納香港青年企業家、專業人士、社團領袖等優秀人才。</p>
-      <p>本會自 2014 年成立以來，就香港政制發展和青年事務創立了旅學團、政情班、以專業人士為主的導師計劃等多個年度品牌活動，每年更不定時舉辦時事論壇、社會義工服務、專業人士聚會、體育聯誼活動、社會熱點民意調查，以及多項促進會員與特區政府交流的活動，成功凝聚一群具影響力的青年，目前會員已發展至 2,500 人。</p>
-      <p>政青將團結香港各界優秀人才，搭建愛國愛港青年的活動平台，培養參政議政人才，與香港各友好青年組織建立長期穩定的交流合作關係，充分發揮年青一代的社會影響力，為國家和香港的繁榮穩定作出積極貢獻。</p>
+      <p>{{SITE_ABOUT_INTRO_1}}</p>
+      <p>{{SITE_ABOUT_INTRO_2}}</p>
+      <p>{{SITE_ABOUT_INTRO_3}}</p>
     </div>
   </section>
   <section class="sec" id="past">
@@ -487,11 +503,11 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <section class="sec" id="message">
     <div class="sec-h"><h2>主席的話</h2></div>
     <div class="quote in" style="opacity:1;transform:none">
-      <p>香港政協青年聯會自 2014 年成立，一直秉持創會宗旨，廣泛凝聚青年力量，積極發展會務，推動各類型活動，在眾多社會事務上發揮積極作用，已經成為香港具代表性的青年團體之一。</p>
-      <p>政青在歷任領導和執委會成員的努力下，目前已擁有 2,500 多名會員，形成了旅學團、國情班、政情班、青年導師計劃四大品牌活動，已經成為「港區青年政協委員」以及「愛國愛港各界青年」之間交流互動、共同成長的重要平台。本人很榮幸擔任新一屆政青執委會主席一職，未來將不辜負大家的厚愛和信任，帶領政青在原有的堅實基礎上持續奮進。</p>
-      <p>展望未來，新一屆執委會將做好以下三項重點青年工作，包括：積極對接國家「十五五」規劃，融入和服務國家發展大局；全力支持香港特區政府施政，為青年工作添磚加瓦；發揮好香港「內聯外通」優勢，全力「拼經濟」。</p>
-      <p>最後，希望社會各界一如既往，繼續積極支持香港政協青年聯會的工作，讓我們共同努力，並肩前行，砥礪奮鬥，攜手為國家同香港貢獻更大力量。</p>
-      <div class="sign"><span>—— 容思瀚<small>香港政協青年聯會第七屆執委會主席</small></span><img src="{{IMG_CHAIR}}" alt="容思瀚主席"></div>
+      <p>{{SITE_CHAIR_MESSAGE_1}}</p>
+      <p>{{SITE_CHAIR_MESSAGE_2}}</p>
+      <p>{{SITE_CHAIR_MESSAGE_3}}</p>
+      <p>{{SITE_CHAIR_MESSAGE_4}}</p>
+      <div class="sign"><span>—— 容思瀚<small>香港政協青年聯會第七屆執委會主席</small></span><img src="{{IMG_CHAIR}}" alt="容思瀚主席" loading="lazy"></div>
     </div>
   </section>
   <section class="sec" id="honor">
@@ -512,7 +528,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 <!-- ================= 重點活動 ================= -->
 <main class="view" id="v-programmes"><div class="wrap">
-  <div class="page-hero"><h1>重點活動</h1><p>四大品牌活動，每年持續舉辦</p></div>
+  <div class="page-hero"><h1>重點活動</h1><p>{{SITE_PROGRAMMES_INTRO}}</p></div>
   <nav class="subnav" id="prog-nav"></nav>
   <div id="prog-body"></div>
 </div></main>
@@ -520,7 +536,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 <!-- ================= 活動回顧 ================= -->
 <main class="view" id="v-review"><div class="wrap">
   <div class="page-hero"><h1>活動回顧</h1></div>
-  <nav class="subnav"><button class="on" data-k="news">活動消息</button><button data-k="photos">活動相片</button></nav>
+  <nav class="subnav"><button class="on" data-k="news">活動消息</button><button data-k="media">報導及專訪</button><button data-k="photos">活動相片</button></nav>
   <div id="rv-news">
     <div class="searchbar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="news-q" placeholder="搜尋標題或內容，例如：司長、廣西、兩會"><button id="news-clear" hidden aria-label="清除">×</button></div>
     <div class="years" id="news-years"></div>
@@ -538,7 +554,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 <!-- ================= 題詞賀信 ================= -->
 <main class="view" id="v-tributes"><div class="wrap">
-  <div class="page-hero"><h1>題詞賀信</h1><p>慶祝香港回歸祖國二十九周年、本會成立十二周年暨第七屆執委會就職典禮</p></div>
+  <div class="page-hero"><h1>題詞賀信</h1><p>{{SITE_TRIBUTES_INTRO}}</p></div>
   <nav class="subnav"><button class="on" data-k="tici">題詞</button><button data-k="hexin">賀信</button></nav>
   <div id="tb-tici"><div class="tici-grid" id="tici-grid" style="margin-top:14px"></div></div>
   <div id="tb-hexin" hidden><div id="hexin-groups"></div></div>
@@ -550,11 +566,11 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <div class="join-grid" style="margin-top:14px">
     <div>
       <div class="why">
-        <div><i>1</i><span><b>誰可以加入</b><small>現任港區全國各級政協青年委員、港區省級政協委員聯誼會青委會旅學團團員、政協委員後代青年，以及香港青年企業家、專業人士、社團領袖。</small></span></div>
-        <div><i>2</i><span><b>你會得到什麼</b><small>四大品牌活動、與特區官員及內地省市交流的機會、十三個工作委員會的平台，以及一群志同道合的青年夥伴。</small></span></div>
-        <div><i>3</i><span><b>怎樣申請</b><small>填寫表格，或下載會員登記表填妥後電郵至 info@hkcppccya.org。本會有權拒絕任何申請，無需給予解釋。</small></span></div>
+        <div><i>1</i><span><b>誰可以加入</b><small>{{SITE_JOIN_WHY_1}}</small></span></div>
+        <div><i>2</i><span><b>你會得到什麼</b><small>{{SITE_JOIN_WHY_2}}</small></span></div>
+        <div><i>3</i><span><b>怎樣申請</b><small>{{SITE_JOIN_WHY_3}}</small></span></div>
       </div>
-      <a class="btn pri wide" href="https://wa.me/85259355193?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3%E5%8A%A0%E5%85%A5%E6%94%BF%E9%9D%92" target="_blank" rel="noopener" style="margin-top:12px"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-3.8A8 8 0 1 1 8.2 19z"/></svg>WhatsApp 直接聯繫入會</a>
+      <a class="btn pri wide" href="https://wa.me/{{SITE_CONTACT_WHATSAPP_DIGITS}}?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3%E5%8A%A0%E5%85%A5%E6%94%BF%E9%9D%92" target="_blank" rel="noopener" style="margin-top:12px"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-3.8A8 8 0 1 1 8.2 19z"/></svg>WhatsApp 直接聯繫入會</a>
       <a class="btn line wide" href="{{ASSET}}files/membership-form.pdf" target="_blank" rel="noopener" style="margin-top:10px"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>下載會員登記表（PDF）</a>
     </div>
     <form class="form" id="join-form">
@@ -565,8 +581,8 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
       <label>身份</label><select><option>港區政協青年委員</option><option>政協委員後代青年</option><option>青年企業家</option><option>專業人士</option><option>社團領袖</option><option>其他</option></select>
       <label>所屬機構 / 職業</label><input placeholder="公司或機構名稱、職位">
       <label>推薦人（如有）</label><input>
-      <button class="btn pri sub" type="submit">提交申請</button>
-      <div class="ok" id="join-ok">已收到您的申請，秘書處將於 5 個工作日內以電郵或 WhatsApp 聯絡您。</div>
+      <button class="btn pri sub" type="submit">以電郵發送申請</button>
+      <div class="ok" id="join-ok">請在郵件程式中確認並發送申請。</div>
     </form>
   </div>
 </div></main>
@@ -576,19 +592,19 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <div class="page-hero"><h1>聯繫我們</h1></div>
   <div class="join-grid" style="margin-top:14px">
     <div class="crow">
-      <a id="map-link" href="https://uri.amap.com/search?keyword=%E9%A6%99%E6%B8%AF%E7%81%A3%E4%BB%94%E5%91%8A%E5%A3%AB%E6%89%93%E9%81%93160%E8%99%9F%E6%B5%B7%E5%A4%96%E4%BF%A1%E8%A8%97%E9%8A%80%E8%A1%8C%E5%A4%A7%E5%BB%88" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="t"><small>地址</small><b>香港灣仔告士打道 160 號海外信託銀行大廈 8 樓</b></span><span class="act">導航</span></a>
-      <a href="https://wa.me/85259355193" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-3.8A8 8 0 1 1 8.2 19z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 2 .8-.4 1.6c-3.5.6-8-3.9-7.4-7.4L10.5 7l.8 2z"/></svg><span class="t"><small>WhatsApp</small><b class="num">+852 5935 5193</b></span><span class="act wa">傳訊息</span></a>
-      <button id="wx-copy" type="button"><svg class="i" viewBox="0 0 24 24"><path d="M9 4C5.5 4 3 6.4 3 9.3c0 1.7.9 3.1 2.3 4.1L4.8 15l2-1.1c.7.2 1.4.3 2.2.3.2 0 .4 0 .6 0-.3-.6-.4-1.3-.4-2 0-3.1 3-5.6 6.6-5.6h.4C15.4 5.3 12.5 4 9 4z"/><path d="M15.5 8.5c-3 0-5.5 2-5.5 4.6s2.5 4.6 5.5 4.6c.6 0 1.2-.1 1.8-.3l1.7.9-.4-1.5c1.2-.8 1.9-2.1 1.9-3.7 0-2.6-2.5-4.6-5-4.6z"/></svg><span class="t"><small>微信 WeChat ID</small><b>hkcppccya</b></span><span class="act wx">複製</span></button>
-      <a href="tel:+85237065193"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="t"><small>電話</small><b class="num">+852 3706 5193</b></span><span class="act">撥號</span></a>
-      <div><svg class="i" viewBox="0 0 24 24"><path d="M6 9V4h12v5M6 18H4v-6h16v6h-2M6 14h12v6H6z"/></svg><span class="t"><small>傳真</small><b class="num">+852 2877 0203</b></span></div>
-      <a href="mailto:info@hkcppccya.org"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span class="t"><small>電郵</small><b>info@hkcppccya.org</b></span><span class="act">寫信</span></a>
+      <a id="map-link" href="{{MAP_URL}}" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="t"><small>地址</small><b>{{SITE_CONTACT_ADDRESS}}</b></span><span class="act">導航</span></a>
+      <a href="https://wa.me/{{SITE_CONTACT_WHATSAPP_DIGITS}}" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-3.8A8 8 0 1 1 8.2 19z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 2 .8-.4 1.6c-3.5.6-8-3.9-7.4-7.4L10.5 7l.8 2z"/></svg><span class="t"><small>WhatsApp</small><b class="num">{{SITE_CONTACT_WHATSAPP_DISPLAY}}</b></span><span class="act wa">傳訊息</span></a>
+      <button id="wx-copy" type="button"><svg class="i" viewBox="0 0 24 24"><path d="M9 4C5.5 4 3 6.4 3 9.3c0 1.7.9 3.1 2.3 4.1L4.8 15l2-1.1c.7.2 1.4.3 2.2.3.2 0 .4 0 .6 0-.3-.6-.4-1.3-.4-2 0-3.1 3-5.6 6.6-5.6h.4C15.4 5.3 12.5 4 9 4z"/><path d="M15.5 8.5c-3 0-5.5 2-5.5 4.6s2.5 4.6 5.5 4.6c.6 0 1.2-.1 1.8-.3l1.7.9-.4-1.5c1.2-.8 1.9-2.1 1.9-3.7 0-2.6-2.5-4.6-5-4.6z"/></svg><span class="t"><small>微信 WeChat ID</small><b>{{SITE_CONTACT_WECHAT}}</b></span><span class="act wx">複製</span></button>
+      <a href="tel:{{SITE_CONTACT_PHONE_DIGITS}}"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="t"><small>電話</small><b class="num">{{SITE_CONTACT_PHONE_DISPLAY}}</b></span><span class="act">撥號</span></a>
+      <div><svg class="i" viewBox="0 0 24 24"><path d="M6 9V4h12v5M6 18H4v-6h16v6h-2M6 14h12v6H6z"/></svg><span class="t"><small>傳真</small><b class="num">{{SITE_CONTACT_FAX_DISPLAY}}</b></span></div>
+      <a href="mailto:{{SITE_CONTACT_EMAIL}}"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span class="t"><small>電郵</small><b>{{SITE_CONTACT_EMAIL}}</b></span><span class="act">寫信</span></a>
     </div>
     <form class="form" id="msg-form">
       <div class="two"><div><label>姓名</label><input required></div><div><label>電話</label><input required inputmode="tel"></div></div>
       <label>電郵</label><input type="email" required>
       <label>留言</label><textarea rows="5" placeholder="想了解活動、合作或加入本會，都可以在這裡留言"></textarea>
-      <button class="btn pri sub" type="submit">送出留言</button>
-      <div class="ok" id="msg-ok">已送出，感謝您的留言。</div>
+      <button class="btn pri sub" type="submit">以電郵發送留言</button>
+      <div class="ok" id="msg-ok">請在郵件程式中確認並發送留言。</div>
     </form>
   </div>
 </div></main>
@@ -614,18 +630,18 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   <a href="#/tributes" data-tab="tributes"><svg class="i" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>題詞賀信</a>
 </nav>
 
-<div class="sheet" id="sheet"><div class="p">
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="分享"><div class="p">
   <h3>分享到</h3>
   <div class="share">
-    <button data-share="wechat"><i style="background:#07C160">微信</i>微信好友</button>
+    <button data-share="wechat"><i style="background:#087F44">微信</i>微信好友</button>
     <button data-share="moments"><i style="background:#2C3E50">朋友圈</i>朋友圈</button>
-    <button data-share="whatsapp"><i style="background:#25D366">WA</i>WhatsApp</button>
+    <button data-share="whatsapp"><i style="background:#137B3A">WA</i>WhatsApp</button>
     <button data-share="copy"><i style="background:#D8AC4E">連結</i>複製連結</button>
   </div>
   <button class="cancel" id="sheet-cancel">取消</button>
 </div></div>
-<div class="lightbox" id="lightbox">
-  <div class="bar"><span id="lb-idx" class="num"></span><span><button id="lb-share" aria-label="分享"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg></button><button id="lb-close">關閉</button></span></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片瀏覽">
+  <div class="bar"><span id="lb-idx" class="num"></span><span><a id="lb-download" download hidden>下載原圖</a><button id="lb-share" aria-label="分享"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg></button><button id="lb-close">關閉</button></span></div>
   <div class="strip" id="lb-strip"></div>
   <button class="lb-nav prev" id="lb-prev" aria-label="上一張"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
   <button class="lb-nav next" id="lb-next" aria-label="下一張"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -636,6 +652,7 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 
 <script>
 const ASSET="{{ASSET}}";
+const MEDIA={{MEDIA}};
 const IMG={hero:"{{IMG_HERO}}",hero_m:"{{IMG_HERO_M}}",chair:"{{IMG_CHAIR}}"};
 const PHOTOS={{PHOTOS}};
 const NEWS={{NEWS}};
@@ -645,62 +662,56 @@ const TICI={{TICI}};
 const HEXIN={{HEXIN}};
 const T2S={{T2S}};
 const NEWS_PHOTO={1089:"z0",1087:"z1",1088:"z2",1086:"z3",1085:"z4",1084:"z5",1083:"z6",1082:"z7"};
-const NEWS_TAG={1084:"tour",1082:"national",1087:"policy",1088:"policy",1083:"national",1085:"mentor",1086:"mentor"};
-const BRANDS={
- tour:{n:"01",name:"旅學團",tag:"旅學團",cls:"b1",desc:"走進內地省市，實地認識國家發展",long:"每年組織青年會員到內地不同省市考察交流，走訪政府部門、企業和文化地標，實地認識國家發展大局，並與當地政協及青年組織建立長期聯繫。"},
- national:{n:"02",name:"國情班",tag:"國情班",cls:"b2",desc:"系統學習國情，培育國家意識與大局意識",long:"邀請內地及本港專家學者，系統講解國家政策、歷史文化與發展規劃，包括全國「兩會」精神學習，培育青年的國家意識、大局意識和擔當意識。"},
- policy:{n:"03",name:"政情班",tag:"政情班",cls:"b3",desc:"與特區官員對話，了解施政與政制發展",long:"「與司長有約」等系列活動，邀請特區政府司局長及部門首長與青年面對面交流，了解施政重點和政制發展，反映青年心聲。"},
- mentor:{n:"04",name:"青年導師計劃",tag:"青年導師",cls:"b4",desc:"專業人士帶領，成長路上有人同行",long:"由資深專業人士和企業家擔任導師，帶領青年會員及大學生參與社會服務、行業體驗與專題研習，「社青共融計劃」已連續舉辦五年。"}
-};
-const GALLERY=[
- {id:"g1",img:"z0",title:"第七屆執委會就職典禮 · 容思瀚榮膺主席",date:"2026-08-24",news:1089},
- {id:"g2",img:"z1",title:"「與司長有約」對話財政司司長陳茂波",date:"2026-07-20",news:1087},
- {id:"g3",img:"z2",title:"參觀政府飛行服務隊",date:"2026-07-08",news:1088},
- {id:"g4",img:"z3",title:"第七屆執委會集思會",date:"2026-06-05",news:1086},
- {id:"g5",img:"z4",title:"2026 社青共融計劃閉幕禮暨成果展",date:"2026-04-21",news:1085},
- {id:"g6",img:"z5",title:"香港青年廣西文化交流考察團",date:"2026-04-14",news:1084},
- {id:"g7",img:"z6",title:"拜訪共享基金會 · 梁振英主席寄語青年",date:"2026-04-11",news:1083},
- {id:"g8",img:"z7",title:"全國「兩會」精神學習會",date:"2026-04-09",news:1082},
- {id:"g9",img:"z8",title:"世界晉江青年聯誼會蔡鎔駿會長一行到訪",date:"2026-03-28"},
- {id:"g10",img:"z9",title:"潘國英署長主講「機電工程署」專題分享會",date:"2026-03-10"},
- {id:"g11",img:"z10",title:"2026 社青共融計劃啟動 · 逾 150 位城大學生參與",date:"2026-02"},
- {id:"g12",img:"z11",title:"寶馬聚福慈善盆菜宴 · 筵開 120 席近 1,500 人賀新春",date:"2026-02"}
-];
-const SAILS=[["貢獻","服務社會，為國家、為香港做出應有貢獻。"],["傳承","發揚傳統，傳承父輩艱苦奮鬥精神。"],["謙虛","謙虛謹慎，團結吸引更多優秀青年才俊。"],["學習","加強學習，勇立時代潮頭，勇開風氣之先。"],["新穎","開拓創新，舉辦符合青年特點、形式新穎的活動。"]];
+const NEWS_TAG={...Object.fromEntries(NEWS.filter(a=>a.tag).map(a=>[a.id,a.tag])),1084:"tour",1082:"national",1087:"policy",1088:"policy",1085:"mentor",1086:"mentor"};
+const BRANDS={{BRANDS}};
+const GALLERY={{GALLERY}};
+const SAILS={{SAILS}};
 
 /* ===== 簡繁 ===== */
-const S2T=Object.fromEntries(Object.entries(T2S).map(([t,s])=>[s,t]));
+const S2T={{S2T}};
 const toS=s=>s.replace(/[㐀-鿿]/g,c=>T2S[c]||c);
+const toT=s=>s.replace(/[㐀-鿿]/g,c=>S2T[c]||c);
+const displayText=s=>lang==="zh-Hans"?toS(s):toT(s);
 let lang="zh-Hant";
 function applyLang(rootEl=document.body){
   const w=document.createTreeWalker(rootEl,NodeFilter.SHOW_TEXT); const ns=[]; while(w.nextNode()) ns.push(w.currentNode);
-  ns.forEach(n=>{ if(n.parentNode.closest && n.parentNode.closest("[data-nolang],script,style")) return; if(n.__o===undefined) n.__o=n.nodeValue; n.nodeValue = lang==="zh-Hans"?toS(n.__o):n.__o; });
-  $$("[placeholder]",rootEl).forEach(el=>{ if(el.__o===undefined) el.__o=el.placeholder; el.placeholder = lang==="zh-Hans"?toS(el.__o):el.__o; });
+  ns.forEach(n=>{ if(n.parentNode.closest && n.parentNode.closest("[data-nolang],script,style")) return; if(n.__o===undefined) n.__o=n.nodeValue; n.nodeValue = displayText(n.__o); });
+  $$("[placeholder],[title],[aria-label],[alt]",rootEl).forEach(el=>{
+    if(el.closest('[data-nolang]'))return;el.__attrs??={};
+    for(const attr of ['placeholder','title','aria-label','alt']){if(!el.hasAttribute(attr))continue;el.__attrs[attr]??=el.getAttribute(attr);el.setAttribute(attr,displayText(el.__attrs[attr]));}
+  });
   document.documentElement.lang=lang; $("#btn-lang").textContent = lang==="zh-Hans"?"繁":"簡";
 }
-function toggleLang(){ lang = lang==="zh-Hans"?"zh-Hant":"zh-Hans"; try{localStorage.setItem("zq-lang",lang)}catch(_){} applyLang(); toast(lang==="zh-Hans"?"已切换为简体":"已切換為繁體"); }
+function toggleLang(){ lang = lang==="zh-Hans"?"zh-Hant":"zh-Hans"; try{localStorage.setItem("zq-lang",lang)}catch(_){} applyLang(); document.title=($(".view.on h1")?.textContent||"政青")+" · 香港政協青年聯會"; toast(lang==="zh-Hans"?"已切换为简体":"已切換為繁體"); }
 
 /* ===== 工具 ===== */
 const $=(s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const fmtDate=d=>{const [y,m,dd]=d.split("-");return dd?`${y}年${+m}月${+dd}日`:`${y}年${+m}月`;};
+const fmtDate=d=>{const [y,m,dd]=d.split("-");return dd?`${y}年${+m}月${+dd}日`:m?`${y}年${+m}月`:`${y}年`;};
 const photo=k=>PHOTOS[k]?PHOTOS[k].data:"";
 const pstyle=k=>PHOTOS[k]?`background-image:url('${PHOTOS[k].data}');background-position:center ${PHOTOS[k].pos||50}%`:"";
-function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
+function toast(m){const t=$("#toast");t.textContent=displayText(m);t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
 const newsSorted=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
 const tagChip=a=>NEWS_TAG[a.id]?`<span class="chip">${BRANDS[NEWS_TAG[a.id]].tag}</span>`:"";
-const ncard=a=>`<a class="ncard" href="#/article/${a.id}"><div class="ph" style="${pstyle(NEWS_PHOTO[a.id])}"></div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span>${tagChip(a)}</div></div></a>`;
-const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}"><span class="th" style="${pstyle(NEWS_PHOTO[a.id])}"></span><span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${tagChip(a)}</span></span><span class="chev">›</span></a>`;
+const cover=a=>a.cover?ASSET+a.cover:photo(NEWS_PHOTO[a.id]);
+const imageAttrs=p=>`src="${ASSET}${p.small}"${p.largeWidth!==p.smallWidth?` srcset="${ASSET}${p.small} ${p.smallWidth}w, ${ASSET}${p.large} ${p.largeWidth}w"`:""} width="${p.smallWidth}" height="${p.smallHeight}"`;
+const originalName=(p,title,n=1)=>title.replace(/[\\/:*?"<>|\u0000-\u001f]/g,"").slice(0,40)+"-"+n+"."+p.original.split('.').pop();
+const articlePictures=a=>a.pictures?.length?a.pictures:MEDIA['photo:'+NEWS_PHOTO[a.id]]?[MEDIA['photo:'+NEWS_PHOTO[a.id]]]:[];
+const figure=(p,a,i)=>`<figure><button class="photo-open" data-artphoto="${i}" aria-label="查看第 ${i+1} 張大圖"><img ${imageAttrs(p)} sizes="(min-width:900px) 760px, calc(100vw - 36px)" alt="${esc(a.title)}" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"></button><figcaption><span>${i+1} / ${articlePictures(a).length}</span><a class="btn line" href="${ASSET}${p.original}" download="${esc(originalName(p,a.title,i+1))}">下載原圖</a></figcaption></figure>`;
+const newsImg=(a,featured=false)=>{const src=a.thumb?ASSET+a.thumb:cover(a);return src?`<img src="${src}" alt="" ${featured&&a.thumb&&cover(a)?`srcset="${src} 1x, ${cover(a)} 2x"`:""} loading="lazy" decoding="async">`:"";};
+const ncard=a=>`<a class="ncard" href="#/article/${a.id}"><div class="ph">${newsImg(a,true)}</div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span>${tagChip(a)}</div></div></a>`;
+const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}">${(a.thumb||cover(a))?`<span class="th">${newsImg(a)}</span>`:""}<span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${tagChip(a)}</span></span><span class="chev">›</span></a>`;
 const bcard=([k,b])=>`<a class="bcard ${b.cls}" data-n="${b.n}" href="#/programmes/${k}"><b>${b.name}</b><small>${b.desc}</small><em>相關消息 ›</em></a>`;
 const initials=n=>n.replace(/[（(].*$/,"").slice(0,1);
 function personCard(name,role,big){ const clean=name.replace(/[（(]兼[）)]/,"").trim(); const ph=PEOPLE[clean];
-  return `<div class="person"><div class="ph ${ph?'':'empty'}" ${ph?`style="background-image:url('${ASSET}${ph}')"`:''}>${ph?'':initials(clean)}</div><b>${esc(name)}</b>${role?`<small>${esc(role)}</small>`:''}</div>`; }
+  return `<div class="person"><div class="ph ${ph?'':'empty'}">${ph?`<button class="photo-open" data-media="${esc(ph)}" aria-label="查看${esc(clean)}照片"><img ${imageAttrs(MEDIA[ph])} sizes="${big?'252px':'(min-width:900px) 164px, (min-width:600px) 160px, 28vw'}" alt="${esc(clean)}" loading="lazy" decoding="async"></button>`:initials(clean)}</div><b>${esc(clean)}${clean!==name?"<em>（兼）</em>":""}</b>${role?`<small>${esc(role)}</small>`:''}</div>`; }
 
 /* ===== 首頁 ===== */
 $("#home-brands").innerHTML=Object.entries(BRANDS).map(bcard).join("");
-const homeNews=newsSorted.filter(a=>a.id!==1089);
+const homeNews=newsSorted.filter(a=>a.category!=="media");
 $("#home-feat").innerHTML=ncard(homeNews[0]); $("#home-list").innerHTML=homeNews.slice(1,7).map(a=>item(a,"sm")).join("");
-$("#home-tici").innerHTML=TICI.slice(0,4).map((t,i)=>`<button class="tcard" data-tici="${i}"><div class="ph" style="background-image:url('${ASSET}${t.thumb}')"></div><div class="b"><div class="motto">${esc(t.motto)}</div><b>${esc(t.name)}</b><small>${esc(t.title)}</small></div></button>`).join("");
+const mediaThumb=key=>{const p=MEDIA[key];return `<img src="${ASSET}${p.thumb||p.small}" width="${p.thumbWidth||p.smallWidth}" height="${p.thumbHeight||p.smallHeight}" alt="" loading="lazy" decoding="async">`;};
+$("#home-tici").innerHTML=TICI.slice(0,4).map((t,i)=>`<button class="tcard" data-tici="${i}"><div class="ph">${mediaThumb(t.file,t.motto)}</div><div class="b"><div class="motto">${esc(t.motto)}</div><b>${esc(t.name)}</b><small>${esc(t.title)}</small></div></button>`).join("");
 let sailIdx=0;
 function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="${i===sailIdx?'on':''}" data-i="${i}">${s[0]}</button>`).join(""); $("#sail-txt").innerHTML=`<b>${SAILS[sailIdx][0]}</b><span>${SAILS[sailIdx][1]}</span>`; applyLang($("#v-home .five")); }
 renderSails();
@@ -708,7 +719,7 @@ let sailTimer=setInterval(()=>{ if(!$("#v-home").classList.contains("on")) retur
 $("#sails5").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; sailIdx=+b.dataset.i; renderSails(); clearInterval(sailTimer);});
 
 /* ===== 關於本會 ===== */
-$("#past-grid").innerHTML=STRUCT.past.map(p=>`<div class="person ${p.now?'now':''}"><div class="ph ${PEOPLE[p.name]?'':'empty'}" ${PEOPLE[p.name]?`style="background-image:url('${ASSET}${PEOPLE[p.name]}')"`:''}>${PEOPLE[p.name]?'':initials(p.name)}</div><b>${esc(p.name)}</b><small>${esc(p.term)}</small></div>`).join("");
+$("#past-grid").innerHTML=STRUCT.past.map(p=>`<div class="person ${p.now?'now':''}"><div class="ph ${PEOPLE[p.name]?'':'empty'}">${PEOPLE[p.name]?`<button class="photo-open" data-media="${PEOPLE[p.name]}" aria-label="查看${esc(p.name)}照片"><img ${imageAttrs(MEDIA[PEOPLE[p.name]])} sizes="160px" alt="${esc(p.name)}" loading="lazy" decoding="async"></button>`:initials(p.name)}</div><b>${esc(p.name)}</b><small>${esc(p.term)}</small></div>`).join("");
 const namesBlock=rows=>rows.map(r=>`<div><b>${esc(r.title)}</b>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div>`).join("");
 $("#honor-list").innerHTML=namesBlock(STRUCT.honor); $("#fund-list").innerHTML=namesBlock(STRUCT.fund);
 $("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
@@ -719,7 +730,7 @@ $("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
   if(withPhoto.length) html+=`<div class="pgrid ${big?'big':''}">${withPhoto.map(n=>personCard(n,big?"第七屆執委會主席":"")).join("")}</div>`;
   if(without.length) html+=`<div class="names${withPhoto.length?' gap':''}"><div>${without.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div></div>`;
   return html; }).join("");
-$("#committee-grid").innerHTML=`<div class="names"><div>${STRUCT.committees.map(c=>`<span class="cm"><b>${esc(c.name.replace("委員會",""))}</b>${esc(c.chair)}</span>`).join("")}</div></div>`;
+$("#committee-grid").innerHTML=`<div class="pgrid">${STRUCT.committees.map(c=>personCard(c.chair,c.name.replace("委員會","")+"主任")).join("")}</div>`;
 
 /* ===== 重點活動 ===== */
 function renderProg(key){
@@ -732,33 +743,43 @@ function renderProg(key){
 }
 
 /* ===== 活動回顧 ===== */
-const years=[...new Set(newsSorted.map(a=>a.date.slice(0,4)))];
-$("#news-years").innerHTML=`<button class="on" data-y="">全部</button>`+years.concat(["2025","2024","2023"]).map(y=>`<button data-y="${y}">${y}</button>`).join("");
 $("#news-tags").innerHTML=`<button class="on" data-t="">全部類別</button>`+Object.entries(BRANDS).map(([k,b])=>`<button data-t="${k}">${b.tag}</button>`).join("");
-let newsY="",newsTag="";
-function renderNews(){ const q=$("#news-q").value.trim(); const qt=q.replace(/[㐀-鿿]/g,c=>S2T[c]||c);
+let newsY="",newsTag="",newsKind="news",newsLimit=40,fullNews={};
+async function readData(path,timeout=8000){for(let i=0;i<2;i++){try{const r=await fetch(ASSET+"data/"+path,{signal:AbortSignal.timeout(timeout),priority:"high"});if(!r.ok)throw Error();return await r.json();}catch(e){if(i)throw e;}}}
+async function loadFullNews(){const kind=newsKind;if(NEWS.filter(a=>a.category===kind).every(a=>a.loaded))return;return fullNews[kind]||(fullNews[kind]=readData("search-"+kind+".json",60000).then(rows=>rows.forEach(a=>Object.assign(NEWS.find(x=>x.id===a.id),a))).catch(e=>{delete fullNews[kind];throw e;}));}
+function renderNews(reset=true){ if(reset) newsLimit=40;$("#news-years").innerHTML=`<button class="${newsY?'':'on'}" data-y="">全部</button>`+[...new Set(newsSorted.filter(a=>(a.category||"news")===newsKind).map(a=>a.date.slice(0,4)))].map(y=>`<button data-y="${y}">${y}</button>`).join(""); const q=$("#news-q").value.trim(); const qt=toS(q);
   $$("#news-years button").forEach(b=>b.classList.toggle("on",b.dataset.y===newsY)); $$("#news-tags button").forEach(b=>b.classList.toggle("on",b.dataset.t===newsTag)); $("#news-clear").hidden=!q;
-  const items=newsSorted.filter(a=>(!newsY||a.date.startsWith(newsY))&&(!newsTag||NEWS_TAG[a.id]===newsTag)&&(!q||(a.title+a.body.join("")).includes(qt)||(a.title+a.body.join("")).includes(q)));
-  $("#news-list").innerHTML=items.length?items.map(a=>item(a)).join(""):`<div class="tip" style="padding:36px;text-align:center">${q?`沒有找到「${esc(q)}」相關的消息`:(newsY?newsY+" 年暫無消息":"暫無消息")}</div>`; applyLang($("#rv-news")); }
+  const items=newsSorted.filter(a=>(a.category||"news")===newsKind&&(!newsY||a.date.startsWith(newsY))&&(!newsTag||NEWS_TAG[a.id]===newsTag)&&(!q||toS(a.title+a.body.join("")).includes(qt)));
+  $("#news-list").innerHTML=items.length?items.slice(0,newsLimit).map(a=>item(a)).join("")+(items.length>newsLimit?`<button class="btn line wide" id="news-more">載入更多（${newsLimit} / ${items.length}）</button>`:""):`<div class="tip" style="padding:36px;text-align:center">${q?`沒有找到「${esc(q)}」相關的消息`:(newsY?newsY+" 年暫無消息":"暫無消息")}</div>`; const more=$("#news-more");if(more)more.onclick=()=>{newsLimit+=40;renderNews(false);};applyLang($("#rv-news")); }
 $("#news-years").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){newsY=b.dataset.y;renderNews();}});
 $("#news-tags").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){newsTag=b.dataset.t;renderNews();}});
-$("#news-q").addEventListener("input",renderNews); $("#news-clear").onclick=()=>{$("#news-q").value="";renderNews();};
+$("#news-q").addEventListener("input",async()=>{try{if($("#news-q").value.trim())await loadFullNews();renderNews();}catch{toast("搜尋資料載入失敗，請重試");}}); $("#news-clear").onclick=()=>{$("#news-q").value="";renderNews();};
 renderNews();
-$("#photo-years").innerHTML=`<button class="on">2026</button>`+["2025","2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014"].map(y=>`<button onclick="toast('${y} 年相片整理中')">${y}</button>`).join("");
-$("#photo-grid").innerHTML=GALLERY.map((g,i)=>`<button class="pcell" data-gal="${i}" style="${pstyle(g.img)}"><span>${esc(g.title)}</span></button>`).join("");
-$("#v-review .subnav").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; $$("#v-review .subnav button").forEach(x=>x.classList.toggle("on",x===b)); $("#rv-news").hidden=b.dataset.k!=="news"; $("#rv-photos").hidden=b.dataset.k!=="photos";});
+let photoYear=GALLERY[0]?.date.slice(0,4)||"2026";
+const galleryYears=[...new Set(GALLERY.map(g=>g.date.slice(0,4)))].sort().reverse();
+function renderGallery(){
+ $("#photo-years").innerHTML=galleryYears.map(y=>`<button class="${y===photoYear?'on':''}" data-year="${y}">${y}</button>`).join("");
+ $("#photo-grid").innerHTML=GALLERY.map((g,i)=>g.date.startsWith(photoYear)?`<button class="pcell" data-gal="${i}">${g.cover?`<img src="${ASSET}${g.thumb||g.cover}" alt="" loading="lazy" decoding="async">`:""}<span>${esc(g.title)}</span></button>`:"").join("");applyLang($("#rv-photos"));
+}
+$("#photo-years").onclick=e=>{const b=e.target.closest("[data-year]");if(b){photoYear=b.dataset.year;renderGallery();}};
+renderGallery();
+$("#v-review .subnav").addEventListener("click",async e=>{const b=e.target.closest("button");if(!b)return;$$("#v-review .subnav button").forEach(x=>x.classList.toggle("on",x===b));const photos=b.dataset.k==="photos";$("#rv-news").hidden=photos;$("#rv-photos").hidden=!photos;if(!photos){newsKind=b.dataset.k;newsY="";newsTag="";renderNews();if($("#news-q").value.trim()){try{await loadFullNews();renderNews();}catch{toast("搜尋資料載入失敗，請重試");}}}});
+
 
 /* ===== 文章 ===== */
-function renderArticle(id){
+async function renderArticle(id){
   const a=NEWS.find(x=>x.id===+id); if(!a){location.hash="#/review";return;}
-  const idx=newsSorted.findIndex(x=>x.id===a.id); const prev=newsSorted[idx+1], next=newsSorted[idx-1];
-  const rel=newsSorted.filter(x=>x.id!==a.id && x.id!==(prev&&prev.id) && x.id!==(next&&next.id)).slice(0,3);
-  $("#art").innerHTML=`<div class="kick"><span class="chip">活動回顧</span>${tagChip(a)}<span class="num">${fmtDate(a.date)}</span></div><h1>${esc(a.title)}</h1>
+  if(!a.loaded){$("#art").innerHTML=`<div class="kick"><span class="num">${fmtDate(a.date)}</span></div><h1>${esc(a.title)}</h1><p class="tip">正在載入正文…</p>`;applyLang($("#art"));try{Object.assign(a,await readData("articles/"+a.id+".json"),{loaded:true});}catch{if(location.hash==="#/article/"+id){$("#art .tip").textContent="連線較慢，請重試。";$("#art").insertAdjacentHTML("beforeend",'<button class="btn line" id="article-retry">重新載入</button>');$("#article-retry").onclick=()=>renderArticle(id);applyLang($("#art"));}return;}}
+  if(location.hash!=="#/article/"+id)return;
+  const group=newsSorted.filter(x=>x.category===a.category);const idx=group.findIndex(x=>x.id===a.id); const prev=group[idx+1], next=group[idx-1];
+  const rel=group.filter(x=>x.id!==a.id && x.id!==(prev&&prev.id) && x.id!==(next&&next.id)).slice(0,3);
+  const pics=articlePictures(a);
+  $("#art").innerHTML=`<div class="kick"><span class="chip">${a.category==="media"?"報導及專訪":"活動回顧"}</span>${tagChip(a)}<span class="num">${fmtDate(a.date)}</span></div><h1>${esc(a.title)}</h1>
    <div class="tools"><button id="fs-btn"><svg class="i" viewBox="0 0 24 24"><path d="M4 18 10 5l6 13M6 14h8M17 12h5M19.5 9.5v5"/></svg>大字</button><button id="share-btn"><svg class="i" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg>分享</button><button id="copy-btn"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>複製連結</button></div>
-   ${NEWS_PHOTO[a.id]?`<figure><img src="${photo(NEWS_PHOTO[a.id])}" alt="" loading="lazy"></figure>`:""}
-   <div class="body">${a.body.map(p=>`<p>${esc(p)}</p>`).join("")}</div><div class="end">◆ ◆ ◆</div>
+   ${pics.length?figure(pics[0],a,0):""}
+   <div class="body">${a.body.map(p=>`<p>${esc(p)}</p>`).join("")}${(a.links||[]).map(l=>`<p><a class="btn line" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title)} ↗</a></p>`).join("")}${pics.slice(1).map((p,i)=>figure(p,a,i+1)).join("")}</div><div class="end">◆ ◆ ◆</div>
    <div class="pn"><a class="${prev?'':'empty'}" href="${prev?'#/article/'+prev.id:'#'}"><small>‹ 上一篇</small><b>${prev?esc(prev.title):'已是最早一篇'}</b></a><a class="next ${next?'':'empty'}" href="${next?'#/article/'+next.id:'#'}"><small>下一篇 ›</small><b>${next?esc(next.title):'已是最新一篇'}</b></a></div>
-   <div class="sec-h" style="margin-top:26px"><h2 style="font-size:18px">更多消息</h2></div><div class="card list">${rel.map(a=>item(a)).join("")}</div>
+   <div class="sec-h" style="margin-top:26px"><h2 style="font-size:18px">${a.category==="media"?"更多報導":"更多消息"}</h2></div><div class="card list">${rel.map(a=>item(a)).join("")}</div>
    <a class="btn line wide" href="#/review" style="margin-top:18px">返回活動回顧</a>`;
   $("#share-btn").onclick=()=>$("#sheet").classList.add("on"); $("#copy-btn").onclick=copyLink;
   $("#fs-btn").onclick=()=>{ $("#art").classList.toggle("big"); toast($("#art").classList.contains("big")?"已放大字體":"已恢復字號"); };
@@ -766,35 +787,41 @@ function renderArticle(id){
 }
 
 /* ===== 題詞賀信 ===== */
-$("#tici-grid").innerHTML=TICI.map((t,i)=>`<button class="tcard" data-tici="${i}"><div class="ph" style="background-image:url('${ASSET}${t.thumb}')"></div><div class="b"><div class="motto">${esc(t.motto)}</div><b>${esc(t.name)}</b><small>${esc(t.title)}</small></div></button>`).join("");
+$("#tici-grid").innerHTML=TICI.map((t,i)=>`<button class="tcard" data-tici="${i}"><div class="ph">${mediaThumb(t.file,t.motto)}</div><div class="b"><div class="motto">${esc(t.motto)}</div><b>${esc(t.name)}</b><small>${esc(t.title)}</small></div></button>`).join("");
 (function(){ const groups=[]; HEXIN.forEach(h=>{ let g=groups.find(x=>x.region===h.region); if(!g){g={region:h.region,items:[]};groups.push(g);} g.items.push(h); });
   const label=r=>({"全國政協":"中國人民政治協商會議全國委員會","中華海聯":"中華海外聯誼會","世晉青":"世界晉江青年聯誼會"}[r]||r);
-  $("#hexin-groups").innerHTML=groups.map(g=>`<div class="hx-group"><h3>${esc(label(g.region))}</h3><div class="hx-grid">${g.items.map(h=>`<button class="hcard" data-hexin="${HEXIN.indexOf(h)}" title="${esc(h.title)}"><div class="ph" style="background-image:url('${ASSET}${h.thumb}')"></div>${h.page>1?`<span class="pg">${h.page}</span>`:''}</button>`).join("")}</div></div>`).join(""); })();
+  $("#hexin-groups").innerHTML=groups.map(g=>`<div class="hx-group"><h3>${esc(label(g.region))}</h3><div class="hx-grid">${g.items.map(h=>`<button class="hcard" data-hexin="${HEXIN.indexOf(h)}" title="${esc(h.title)}"><div class="ph">${mediaThumb(h.file,h.title)}</div>${h.page>1?`<span class="pg">${h.page}</span>`:''}</button>`).join("")}</div></div>`).join(""); })();
 $("#v-tributes .subnav").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; $$("#v-tributes .subnav button").forEach(x=>x.classList.toggle("on",x===b)); $("#tb-tici").hidden=b.dataset.k!=="tici"; $("#tb-hexin").hidden=b.dataset.k!=="hexin";});
 
 /* ===== 全屏瀏覽（相片／題詞／賀信共用） ===== */
 let LB={list:[],idx:0};
-function lbGo(k,smooth=true){ const s=$("#lb-strip"); k=Math.max(0,Math.min(LB.list.length-1,k)); s.scrollTo({left:k*s.clientWidth,behavior:smooth?"smooth":"auto"}); }
+function lbGo(k,smooth=true){ const s=$("#lb-strip"); k=Math.max(0,Math.min(LB.list.length-1,k)); s.scrollTo({left:k*s.clientWidth,behavior:smooth?"smooth":"instant"}); }
 function lbUpdate(){ const s=$("#lb-strip"); const k=Math.round(s.scrollLeft/s.clientWidth); LB.idx=k; const it=LB.list[k]; if(!it) return;
-  $("#lb-idx").textContent=`${k+1} / ${LB.list.length}`; $("#lb-cap").innerHTML=`<b>${esc(lang==="zh-Hans"?toS(it.cap):it.cap)}</b>${it.sub?esc(lang==="zh-Hans"?toS(it.sub):it.sub):""}`;
+  for(let j=Math.max(0,k-1);j<=Math.min(LB.list.length-1,k+1);j++){const img=s.children[j].firstElementChild,p=LB.list[j];if(!img.hasAttribute("src")){img.loading=j===k?"eager":"lazy";img.fetchPriority=j===k?"high":"low";img.width=p.smallWidth;img.height=p.smallHeight;img.sizes="100vw";if(p.largeWidth!==p.smallWidth)img.srcset=`${ASSET}${p.small} ${p.smallWidth}w, ${ASSET}${p.large} ${p.largeWidth}w`;img.src=ASSET+p.small;}}
+  const d=$("#lb-download");d.hidden=!it.original;if(it.original){d.href=ASSET+it.original;d.download=originalName(it,it.cap,k+1);}
+  $("#lb-idx").textContent=`${k+1} / ${LB.list.length}`; $("#lb-cap").innerHTML=`<b>${esc(displayText(it.cap))}</b>${it.sub?esc(displayText(it.sub)):""}`;
   $("#lb-dots").innerHTML=LB.list.length<=30?LB.list.map((_,i)=>`<i class="${i===k?'on':''}"></i>`).join(""):""; $("#lb-prev").disabled=k===0; $("#lb-next").disabled=k===LB.list.length-1;
   const l=$("#lb-link"); if(it.news){l.hidden=false;l.href="#/article/"+it.news;} else l.hidden=true; }
-function openLB(list,i){ LB.list=list; const s=$("#lb-strip"); s.innerHTML=list.map(it=>`<div><img src="${it.src}" alt="" loading="lazy"></div>`).join(""); $("#lightbox").classList.add("on"); requestAnimationFrame(()=>{lbGo(i,false);setTimeout(lbUpdate,60);}); s.onscroll=()=>{clearTimeout(s._t);s._t=setTimeout(lbUpdate,80);}; }
-function closeLB(){ $("#lightbox").classList.remove("on"); }
+function openLB(list,i){ LB={list,idx:i}; const s=$("#lb-strip"); s.innerHTML=list.map(it=>`<div><img alt="${esc(it.cap)}" decoding="async"></div>`).join(""); $("#lightbox").classList.add("on"); lbGo(i,false);lbUpdate(); s.onscroll=()=>{clearTimeout(s._t);s._t=setTimeout(lbUpdate,80);}; }
+addEventListener("resize",()=>{if($("#lightbox").classList.contains("on"))lbGo(LB.idx,false);});
+addEventListener("keydown",e=>{if(e.key==="Escape"){ $("#sheet").classList.remove("on"); $("#mmenu").classList.remove("on"); }});
+function closeLB(){ $("#lightbox").classList.remove("on"); $("#lb-strip").innerHTML=""; }
 $("#lb-close").onclick=closeLB; $("#lb-prev").onclick=()=>lbGo(LB.idx-1); $("#lb-next").onclick=()=>lbGo(LB.idx+1); $("#lb-share").onclick=()=>$("#sheet").classList.add("on"); $("#lb-link").onclick=closeLB;
 addEventListener("keydown",e=>{ if(!$("#lightbox").classList.contains("on")) return; if(e.key==="ArrowLeft") lbGo(LB.idx-1); else if(e.key==="ArrowRight") lbGo(LB.idx+1); else if(e.key==="Escape") closeLB(); });
-document.addEventListener("click",e=>{
-  const g=e.target.closest("[data-gal]"); if(g){ openLB(GALLERY.map(x=>({src:photo(x.img),cap:x.title,sub:fmtDate(x.date),news:x.news})),+g.dataset.gal); return; }
-  const t=e.target.closest("[data-tici]"); if(t){ openLB(TICI.map(x=>({src:ASSET+x.file,cap:x.motto,sub:x.name+"　"+x.title})),+t.dataset.tici); return; }
-  const h=e.target.closest("[data-hexin]"); if(h){ openLB(HEXIN.map(x=>({src:ASSET+x.file,cap:x.title+(x.page>1?`（第 ${x.page} 頁）`:""),sub:"賀信"})),+h.dataset.hexin); return; }
+document.addEventListener("click",async e=>{
+  const ap=e.target.closest("[data-artphoto]");if(ap){const a=NEWS.find(x=>x.id===+location.hash.split('/').pop());openLB(articlePictures(a).map(p=>({...p,cap:a.title,sub:fmtDate(a.date)})),+ap.dataset.artphoto);return;}
+  const pm=e.target.closest("[data-media]");if(pm){openLB([{...MEDIA[pm.dataset.media],cap:pm.getAttribute('aria-label').replace(/^查看|照片$/g,'')}],0);return;}
+  const g=e.target.closest("[data-gal]"); if(g){const album=GALLERY[+g.dataset.gal];g.disabled=true;try{if(!album.pictures)Object.assign(album,await readData("albums/"+album.id+".json"));if(!album.pictures.length){toast("此相冊的原圖連結已失效");return;}openLB(album.pictures.map(p=>({...p,cap:album.title,sub:fmtDate(album.date),news:album.news})),0);}catch{toast("相冊載入失敗，請重試");}finally{g.disabled=false;}return;}
+  const t=e.target.closest("[data-tici]"); if(t){ openLB(TICI.map(x=>({...MEDIA[x.file],cap:x.motto,sub:x.name+"　"+x.title})),+t.dataset.tici); return; }
+  const h=e.target.closest("[data-hexin]"); if(h){ openLB(HEXIN.map(x=>({...MEDIA[x.file],cap:x.title+(x.page>1?`（第 ${x.page} 頁）`:""),sub:"賀信"})),+h.dataset.hexin); return; }
 });
 
 /* ===== 分享 / 複製 / 地圖 ===== */
 $("#sheet-cancel").onclick=()=>$("#sheet").classList.remove("on");
 $("#sheet").addEventListener("click",e=>{ if(e.target.id==="sheet") $("#sheet").classList.remove("on"); const b=e.target.closest("[data-share]"); if(!b) return; $("#sheet").classList.remove("on"); if(b.dataset.share==="copy") copyLink(); else if(b.dataset.share==="whatsapp") open("https://wa.me/?text="+encodeURIComponent(document.title+" "+location.href)); else toast("在微信內打開後，用右上角「…」分享"); });
 function copyLink(){ (navigator.clipboard?navigator.clipboard.writeText(location.href):Promise.reject()).then(()=>toast("連結已複製"),()=>toast("請長按網址複製")); }
-$("#wx-copy").onclick=()=>{ (navigator.clipboard?navigator.clipboard.writeText("hkcppccya"):Promise.reject()).then(()=>toast("微信號 hkcppccya 已複製"),()=>toast("微信號：hkcppccya")); };
-if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)) $("#map-link").href="https://maps.apple.com/?q=160+Gloucester+Road+Wan+Chai+Hong+Kong";
+$("#wx-copy").onclick=()=>{ (navigator.clipboard?navigator.clipboard.writeText("{{SITE_CONTACT_WECHAT}}"):Promise.reject()).then(()=>toast("微信號 {{SITE_CONTACT_WECHAT}} 已複製"),()=>toast("微信號：{{SITE_CONTACT_WECHAT}}")); };
+if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)) $("#map-link").href="https://maps.apple.com/?q="+encodeURIComponent($("#map-link .t b").textContent);
 
 /* ===== 深色 / 簡繁 / 表單 ===== */
 const root=document.documentElement;
@@ -804,7 +831,8 @@ $("#btn-menu").onclick=()=>$("#mmenu").classList.add("on"); $("#mmenu-close").on
 $("#mmenu").addEventListener("click",e=>{ if(e.target.id==="mmenu"||e.target.closest("a")) $("#mmenu").classList.remove("on"); });
 $("#mmenu-theme").onclick=()=>{ $("#btn-theme").click(); };
 try{ const t=localStorage.getItem("zq-theme"); if(t) root.dataset.theme=t; const l=localStorage.getItem("zq-lang"); if(l) lang=l; }catch(_){}
-["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();$("#"+k+"-ok").style.display="block";toast("已提交");}));
+$$(".form input,.form select,.form textarea").forEach((field,i)=>{field.id="field-"+i;field.previousElementSibling?.setAttribute("for",field.id);});
+["join","msg"].forEach(k=>$("#"+k+"-form").addEventListener("submit",e=>{e.preventDefault();const fields=$$("input,select,textarea",e.target);const body=fields.map(f=>{const label=f.previousElementSibling;return (label?label.textContent:"")+"："+f.value;}).join("\n");location.href="mailto:{{SITE_CONTACT_EMAIL}}?subject="+encodeURIComponent(k==="join"?"入會申請":"網站留言")+"&body="+encodeURIComponent(body);$("#"+k+"-ok").style.display="block";}));
 
 /* ===== 捲動 / 進場 ===== */
 $("#totop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
@@ -829,8 +857,11 @@ function route(){
   $$(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));
   $$("#tabbar a, #nav > a, #nav > .dd, #mmenu .list > a").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
   $$("#about-nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#/about#"+(anchor||"intro")));
+  $("#progress").style.width="0";
+  const title=view==="article"?NEWS.find(a=>a.id===+parts[1])?.title:$("#v-"+view+" h1")?.textContent;
+  document.title=(title?(displayText(title))+" · ":"")+"香港政協青年聯會";
   window.scrollTo({top:0});
-  if(anchor){ const target=$("#"+anchor); if(target) setTimeout(()=>{ const y=target.getBoundingClientRect().top+window.scrollY-118; window.scrollTo({top:y,behavior:"smooth"}); },80); }
+  if(anchor){ const target=$("#"+anchor); if(target) setTimeout(()=>{ const y=target.getBoundingClientRect().top+window.scrollY-$(".topbar").offsetHeight-$("#about-nav").offsetHeight-16; window.scrollTo({top:y,behavior:"smooth"}); },80); }
 }
 addEventListener("hashchange",route); route(); applyLang();
 </script>

@@ -1,0 +1,11 @@
+# Add inside the existing zq.t2099.com HTTPS server block, before location /.
+location = /cms { return 301 /cms/; }
+location ^~ /cms/ {
+    client_max_body_size 18m;
+    proxy_pass http://127.0.0.1:8788;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_read_timeout 360s;
+    add_header Cache-Control "no-store" always;
+}
