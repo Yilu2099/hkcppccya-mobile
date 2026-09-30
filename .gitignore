@@ -14,8 +14,8 @@ assets/legacy/
 assets/bulk-manifest.local.json
 # Generated output and local QA
 dist/
-index.html
-preview.html
+/index.html
+/preview.html
 artifacts/
 *.png
 !assets/**/*.png

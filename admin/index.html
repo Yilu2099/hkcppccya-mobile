@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>政青内容管理</title>
+  <link rel="stylesheet" href="/cms/static/admin.css">
+</head>
+<body>
+  <div id="login" class="login">
+    <form id="login-form" class="panel login-card">
+      <div class="mark">政青</div>
+      <h1>内容管理</h1>
+      <p>登录后即可编辑网站内容。</p>
+      <label class="field"><span>账号</span><input id="account" type="text" autocomplete="username" placeholder="管理员账号或手机号" required autofocus></label>
+      <label class="field"><span>密码</span><input id="password" type="password" autocomplete="current-password" required></label>
+      <button class="primary wide">登录后台</button>
+      <div id="login-error" class="error" role="alert"></div>
+    </form>
+  </div>
+  <div id="register" class="login" hidden>
+    <form id="register-form" class="panel login-card">
+      <div class="mark">政青</div><h1>受邀加入后台</h1>
+      <p id="register-hint">填写手机号和密码，注册后即可编辑网站内容。</p>
+      <div id="register-fields">
+        <label class="field"><span>手机号</span><input id="register-phone" type="tel" inputmode="numeric" autocomplete="username" pattern="(?:[0-9]{8}|[0-9]{11})" maxlength="11" placeholder="香港 8 位 / 内地 11 位，不用区号" required></label>
+        <label class="field"><span>设置密码</span><input id="register-password" type="password" autocomplete="new-password" minlength="8" placeholder="至少 8 位，无需组合大小写或符号" required></label>
+        <button id="register-submit" class="primary wide">注册并进入后台</button>
+      </div>
+      <div id="register-error" class="error" role="alert"></div>
+      <a class="login-link" href="/cms/">已有账号？直接登录</a>
+    </form>
+  </div>
+  <dialog id="invite-dialog" class="panel invite-dialog">
+    <div class="dialog-heading"><h2>添加邀请</h2><button id="close-invite" type="button" aria-label="关闭邀请窗口">关闭</button></div>
+    <p class="hint">每条链接 7 天内有效，可供一人注册。对方注册后可编辑网站内容。</p>
+    <label class="field"><span>邀请链接</span><input id="invite-link" readonly placeholder="正在生成邀请链接…"></label>
+    <div class="invite-actions"><button id="copy-invite" class="primary" type="button" disabled>复制链接</button><button id="new-invite" type="button">再生成一条</button></div>
+    <p id="invite-status" class="hint" role="status"></p>
+    <details><summary>最近邀请</summary><div id="invite-list"></div></details>
+  </dialog>
+  <div id="app" hidden>
+    <header class="site-header">
+      <div class="brand"><div class="mark">政青</div><span><b>内容管理</b><small>香港政协青年联会</small></span></div>
+      <div class="head-actions">
+        <div class="language-switch" data-no-translate role="group" aria-label="界面语言"><button type="button" data-language="sc">简体</button><button type="button" data-language="tc">繁體</button></div>
+        <a href="https://zq.t2099.com/" target="_blank" rel="noopener">查看官网 ↗</a>
+        <span id="current-account" class="hint"></span>
+        <button id="invite" class="quiet-btn" hidden>添加邀请</button>
+        <button id="logout" class="text-btn">退出</button>
+      </div>
+    </header>
+    <div class="layout">
+      <aside><nav id="nav" aria-label="内容分类"></nav><div class="side-footer">编辑后点击保存，官网立即更新。</div></aside>
+      <main>
+        <div class="top">
+          <div class="heading"><div class="eyebrow" id="breadcrumb">网站内容</div><h1 id="section-title">内容</h1><p id="section-hint"></p></div>
+          <div class="actions"><button id="back-list" class="quiet-btn" hidden>← 返回列表</button><button id="save" class="primary" disabled hidden>保存修改</button></div>
+        </div>
+        <div id="notice" class="notice" role="status" aria-live="polite"></div>
+        <div id="workspace"></div>
+      </main>
+    </div>
+  </div>
+  <script src="/cms/static/language.js"></script>
+  <script src="/cms/static/admin.js"></script>
+</body>
+</html>
