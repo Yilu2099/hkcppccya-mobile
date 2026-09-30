@@ -16,12 +16,14 @@ import subprocess
 import tempfile
 import threading
 import time
+import fcntl
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 from PIL import Image, ImageOps, UnidentifiedImageError
+from media import available_manifest, draft_root, draft_manifest_path, promote_referenced
 from schema import ROOT, DATASETS, load, path_for, validate
 
 PREFIX = "/cms"
@@ -30,7 +32,30 @@ PUBLIC = Path(os.environ.get("ZQ_CMS_PUBLIC_ROOT", "")).resolve() if os.environ.
 PASSWORD = os.environ.get("ZQ_CMS_PASSWORD", "")
 ACCOUNT = os.environ.get("ZQ_CMS_ACCOUNT", "")
 ATTEMPT_LOCK = threading.Lock()
-LOCK = threading.Lock()
+class EditLock:
+    """Serialize edits and maintenance builds without stopping the service."""
+    def __init__(self):
+        self.thread = threading.Lock()
+
+    def __enter__(self):
+        self.thread.acquire()
+        try:
+            directory = ROOT / 'admin' / 'private'
+            directory.mkdir(parents=True, exist_ok=True)
+            self.file = (directory / 'edit.lock').open('a')
+            fcntl.flock(self.file, fcntl.LOCK_EX)
+        except Exception:
+            self.thread.release()
+            raise
+
+    def __exit__(self, *args):
+        try:
+            self.file.close()
+        finally:
+            self.thread.release()
+
+
+LOCK = EditLock()
 ATTEMPTS = {}
 MAX_BODY = 18 * 1024 * 1024
 
@@ -44,7 +69,7 @@ def save_json(path, value):
     backups = ROOT / "admin" / "backups"
     backups.mkdir(exist_ok=True)
     stamp = time.strftime("%Y%m%d-%H%M%S")
-    shutil.copy2(path, backups / f"{path.stem}-{stamp}-{secrets.token_hex(2)}.json")
+    if path.exists(): shutil.copy2(path, backups / f"{path.stem}-{stamp}-{secrets.token_hex(2)}.json")
     with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as f:
         f.write(data)
         temp = Path(f.name)
@@ -79,7 +104,7 @@ def updating(path):
         raise
 
 
-def optimize_image(encoded):
+def optimize_image(encoded, destination=ASSETS):
     raw = base64.b64decode(encoded, validate=True)
     if len(raw) > 12 * 1024 * 1024:
         raise ValueError("图片请控制在 12 MB 以内")
@@ -94,18 +119,18 @@ def optimize_image(encoded):
     if im.mode not in ("RGB", "RGBA"):
         im = im.convert("RGBA" if "A" in im.getbands() else "RGB")
     sha = hashlib.sha256(raw).hexdigest()[:24]
-    original = ASSETS / "originals" / "uploads" / f"{sha}{suffix}"
+    original = destination / "originals" / "uploads" / f"{sha}{suffix}"
     original.parent.mkdir(parents=True, exist_ok=True)
     if not original.exists(): original.write_bytes(raw)
-    result = {"original": original.relative_to(ASSETS).as_posix(), "sha256": hashlib.sha256(raw).hexdigest(), "originalBytes": len(raw)}
-    web = ASSETS / "web"
-    web.mkdir(exist_ok=True)
+    result = {"original": original.relative_to(destination).as_posix(), "sha256": hashlib.sha256(raw).hexdigest(), "originalBytes": len(raw)}
+    web = destination / "web"
+    web.mkdir(parents=True, exist_ok=True)
     for name, width in (("small", 800), ("large", 1600), ("thumb", 480)):
         resized = im.copy()
         resized.thumbnail((width, int(width * 1.5)), Image.Resampling.LANCZOS)
         dest = web / f"{sha}-{width}.webp"
         if not dest.exists(): resized.save(dest, "WEBP", quality=84, method=4)
-        result[name] = dest.relative_to(ASSETS).as_posix()
+        result[name] = dest.relative_to(destination).as_posix()
         result[name + "Width"] = resized.width
         result[name + "Height"] = resized.height
         result[name + "Bytes"] = dest.stat().st_size
@@ -202,8 +227,9 @@ class Handler(BaseHTTPRequestHandler):
                         if row.get(field): names.add(row[field].replace("(兼)", "").replace("（兼）", "").strip())
             return self.result(sorted(names))
         if route == PREFIX + "/api/media":
-            manifest = json.loads((ASSETS / "image-variants.json").read_text())
-            return self.result({k: v["thumb"] if "thumb" in v else v["small"] for k, v in manifest.items()})
+            with LOCK:
+                manifest = available_manifest(ROOT)
+                return self.result({k: v["thumb"] if "thumb" in v else v["small"] for k, v in manifest.items()})
         if route.startswith(PREFIX + "/api/data/"):
             name = route.rsplit("/", 1)[-1]
             if name not in DATASETS: return self.error(404, "内容分类不存在")
@@ -211,6 +237,9 @@ class Handler(BaseHTTPRequestHandler):
                 return self.result({"data": load(name), "revision": digest(path_for(name))})
         if route.startswith(PREFIX + "/media/"):
             rel = route[len(PREFIX + "/media/"):]
+            staged = draft_root(ROOT) / rel
+            if staged.is_file() and staged.resolve().is_relative_to(draft_root(ROOT).resolve()):
+                return self.file(rel, draft_root(ROOT))
             if PUBLIC and rel.startswith(("web/", "originals/", "people/", "tici/", "hexin/", "files/")) and not (ASSETS / rel).is_file():
                 return self.file(rel, PUBLIC)
             return self.file(rel, ASSETS)
@@ -235,29 +264,37 @@ class Handler(BaseHTTPRequestHandler):
                     for key in list(ATTEMPTS):
                         ATTEMPTS[key] = [t for t in ATTEMPTS[key] if now-t<900]
                         if not ATTEMPTS[key]: del ATTEMPTS[key]
-                    failures = ATTEMPTS.setdefault(ip, [])
-                    if len(failures)>=30: return self.error(429, "尝试次数太多，请 15 分钟后重试")
+                    account = value.get("account") if route.endswith('/login') else value.get("phone") if route.endswith('/register') else value.get("token")
+                    account = account.strip() if isinstance(account, str) else ''
+                    attempt_key = (route, ip, account)
+                    ip_key = ('all', ip)
+                    failures = ATTEMPTS.setdefault(attempt_key, [])
+                    total = ATTEMPTS.setdefault(ip_key, [])
+                    if len(failures) >= 30 or len(total) >= 120:
+                        return self.error(429, "尝试次数太多，请 15 分钟后重试")
                     failures.append(now)
-                if route.endswith('/invite-check'):
-                    return self.result(auth.check_invite(str(value.get("token", ""))))
-                if route.endswith('/register'):
-                    credentials = auth.register(str(value.get("token", "")), value.get("phone"), value.get("password"))
-                else:
-                    credentials = auth.login(value.get("account"), value.get("password"))
-                    if not credentials: return self.error(401, "账号或密码不正确")
-                with ATTEMPT_LOCK: ATTEMPTS.pop(ip, None)
+                    total.append(now)
+                with LOCK:
+                    if route.endswith('/invite-check'):
+                        return self.result(auth.check_invite(str(value.get("token", ""))))
+                    if route.endswith('/register'):
+                        credentials = auth.register(str(value.get("token", "")), value.get("phone"), value.get("password"))
+                    else:
+                        credentials = auth.login(value.get("account"), value.get("password"))
+                        if not credentials: return self.error(401, "账号或密码不正确")
+                with ATTEMPT_LOCK: ATTEMPTS.pop(attempt_key, None)
                 return self.signed_in(credentials)
             if not self.require(write=True): return
             if route == PREFIX + "/api/logout":
                 cookie = SimpleCookie(self.headers.get("Cookie", ""))
-                auth.logout(cookie["zq_session"].value)
+                with LOCK: auth.logout(cookie["zq_session"].value)
                 return self.result({"ok": True}, extra={"Set-Cookie": f"zq_session=; HttpOnly; SameSite=Strict; Path={PREFIX}; Max-Age=0"})
             if route in (PREFIX + "/api/invites", PREFIX + "/api/invites/revoke"):
                 if not self.require(write=True, admin=True): return
                 if route.endswith('/revoke'):
-                    auth.revoke(int(value.get("id", 0)))
+                    with LOCK: auth.revoke(int(value.get("id", 0)))
                     return self.result({"ok": True})
-                return self.result(auth.invite(self.session()["id"]))
+                with LOCK: return self.result(auth.invite(self.session()["id"]))
             if route.startswith(PREFIX + "/api/data/"):
                 name = route.rsplit("/", 1)[-1]
                 if name not in DATASETS: return self.error(404, "内容分类不存在")
@@ -265,13 +302,19 @@ class Handler(BaseHTTPRequestHandler):
                 with LOCK:
                     path = path_for(name)
                     if value.get("revision") != digest(path): return self.error(409, "内容已被别人修改，请刷新后再编辑")
-                    with updating(path):
+                    manifest_path = ASSETS / "image-variants.json"
+                    with updating((path, manifest_path)):
                         save_json(path, value["data"])
+                        promoted = promote_referenced(ROOT)
+                        if promoted != json.loads(manifest_path.read_text()):
+                            save_json(manifest_path, promoted)
                     return self.result({"revision": digest(path), "ok": True})
             if route == PREFIX + "/api/upload":
                 with LOCK:
-                    key, variant, im = optimize_image(value["base64"])
                     role = value.get("role", "content")
+                    if role != "content" and role != "person" and role not in ("image:hero", "image:logo", "image:emblem", "image:chair", "image:ship"):
+                        raise ValueError("图片位置不正确")
+                    key, variant, im = optimize_image(value["base64"], draft_root(ROOT) if role == "content" else ASSETS)
                     if role == "person":
                         name = str(value.get("name", "")).strip()
                         if not name or "/" in name or "\\" in name or name in (".", ".."):
@@ -294,8 +337,8 @@ class Handler(BaseHTTPRequestHandler):
                             if role not in ("image:hero", "image:logo", "image:emblem", "image:chair", "image:ship"):
                                 raise ValueError("图片位置不正确")
                             key = "image:chair_custom" if role == "image:chair" else role
-                        path = ASSETS / "image-variants.json"
-                        manifest = json.loads(path.read_text())
+                        path = ASSETS / "image-variants.json" if role.startswith("image:") else draft_manifest_path(ROOT)
+                        manifest = json.loads(path.read_text()) if path.exists() else {}
                         manifest[key] = variant
                         if role.startswith("image:"):
                             with updating(path):
@@ -336,7 +379,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    auth.initialize(ACCOUNT, PASSWORD)
+    with LOCK: auth.initialize(ACCOUNT, PASSWORD)
     port = int(os.environ.get("ZQ_CMS_PORT", "8788"))
     host = os.environ.get("ZQ_CMS_BIND", "127.0.0.1")
     print(f"CMS listening at http://{host}:{port}{PREFIX}/", flush=True)

@@ -42,8 +42,10 @@ def initialize(account=None, password=None):
                 token TEXT PRIMARY KEY, user_id INTEGER NOT NULL, csrf TEXT NOT NULL, expires INTEGER NOT NULL);
         ''')
         if not db.execute("SELECT 1 FROM users WHERE role='admin'").fetchone():
-            if not account or not password:
+            if not isinstance(account, str) or not account.strip() or not isinstance(password, str):
                 raise RuntimeError('首次启动请配置管理员账号和密码')
+            if not 12 <= len(password) <= 1024:
+                raise RuntimeError('首次初始化管理员密码必须为 12 至 1024 字符')
             db.execute('INSERT INTO users(account,password,role,created) VALUES(?,?,?,?)',
                        (account.strip(), password_hash(password), 'admin', int(time.time())))
     DB.chmod(0o600)

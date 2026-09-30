@@ -1,5 +1,7 @@
 """Copy a built site into the public directory, replacing each file atomically."""
 import os
+import json
+from media import safe_path
 import pathlib
 import shutil
 import sys
@@ -26,13 +28,13 @@ def atomic_copy(source, destination):
     os.replace(temporary, destination)
 
 
-for name in ("data", "web", "files", "tici", "hexin", "people", "originals"):
-    source_dir = root / "dist" / name
-    if not source_dir.is_dir():
-        continue
-    for source in source_dir.rglob("*"):
-        if source.is_file():
-            atomic_copy(source, target / name / source.relative_to(source_dir))
+# Explicit build allowlist prevents historical dist leftovers and drafts from
+# being copied. Existing public images remain untouched by this publication.
+for relative in json.loads((root / 'dist' / '.publish-files.json').read_text()):
+    source = safe_path(root / 'dist', relative)
+    if source.is_file(): atomic_copy(source, safe_path(target, relative))
+for source in (root / 'dist' / 'data').rglob('*.json'):
+    atomic_copy(source, target / source.relative_to(root / 'dist'))
 atomic_copy(root / "dist" / "index.html", target / "index.html")
 
 # Deleted entries must also disappear from their public detail URLs.

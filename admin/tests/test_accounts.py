@@ -40,7 +40,7 @@ class AccountsTest(unittest.TestCase):
         shutil.copytree(ROOT/'admin', cls.root/'admin', ignore=shutil.ignore_patterns('private','backups','__pycache__'))
         shutil.copytree(ROOT/'assets', cls.root/'assets', ignore=lambda path,names:[n for n in names if not n.endswith('.json')])
         cls.base = 'http://127.0.0.1:8791'
-        cls.env = dict(os.environ, ZQ_CMS_PORT='8791', ZQ_CMS_ACCOUNT='qa-admin', ZQ_CMS_PASSWORD='1234567', ZQ_CMS_AUTH_DB=str(cls.root/'admin/private/accounts.sqlite3'))
+        cls.env = dict(os.environ, ZQ_CMS_PORT='8791', ZQ_CMS_ACCOUNT='qa-admin', ZQ_CMS_PASSWORD='qa-password-123', ZQ_CMS_AUTH_DB=str(cls.root/'admin/private/accounts.sqlite3'))
         cls.process = subprocess.Popen(['python3',str(cls.root/'admin/server.py')],env=cls.env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         for _ in range(100):
             try:
@@ -53,9 +53,9 @@ class AccountsTest(unittest.TestCase):
 
     def test_complete_flow(self):
         admin = Client(self.base)
-        self.assertEqual(admin.call('login',{'password':'1234567'})[0],401)
+        self.assertEqual(admin.call('login',{'password':'qa-password-123'})[0],401)
         self.assertEqual(admin.call('login',{'account':'qa-admin','password':'wrong'})[0],401)
-        self.assertEqual(admin.call('login',{'account':'qa-admin','password':'1234567'})[0],200)
+        self.assertEqual(admin.call('login',{'account':'qa-admin','password':'qa-password-123'})[0],200)
         self.assertEqual(admin.call('session')[1]['user']['role'],'admin')
         self.assertEqual(admin.call('invites',{},csrf='bad')[0],403)
         token=admin.call('invites',{})[1]['token']

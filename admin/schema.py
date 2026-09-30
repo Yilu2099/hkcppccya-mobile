@@ -1,5 +1,6 @@
 """Editable website data and small, shared validation rules."""
 from pathlib import Path
+from media import available_manifest
 import json
 import re
 
@@ -31,7 +32,7 @@ def validate(name, value):
         raise ValueError("内容格式不正确")
     if name in ("news", "gallery"):
         seen = set()
-        media = json.loads((ROOT / "assets" / "image-variants.json").read_text())
+        media = available_manifest(ROOT)
         for row in value:
             if not isinstance(row, dict) or not isinstance(row.get("title"), str) or not row["title"].strip():
                 raise ValueError("每条内容都需要标题")
@@ -59,7 +60,7 @@ def validate(name, value):
     elif name in ("tici", "hexin"):
         if any(not isinstance(row, dict) or not row.get("file") for row in value):
             raise ValueError("题词贺信需要图片")
-        media = json.loads((ROOT / "assets" / "image-variants.json").read_text())
+        media = available_manifest(ROOT)
         if any(row["file"] not in media for row in value):
             raise ValueError("题词贺信图片不存在")
     elif name == "site":
@@ -83,6 +84,8 @@ def validate(name, value):
             raise ValueError("品牌活动内容格式错误")
         if not isinstance(value.get("sails"), list) or len(value["sails"]) != 5 or any(not isinstance(s, list) or len(s) != 2 or any(not isinstance(x, str) for x in s) for s in value["sails"]):
             raise ValueError("五帆精神应保留五组标题和说明")
+        if any(b["cls"] not in ("b1", "b2", "b3", "b4") for b in value["brands"].values()):
+            raise ValueError("品牌样式仅支持 b1、b2、b3、b4")
     elif name == "structure":
         if any(k not in value for k in ("exec", "committees", "honor", "fund", "past")):
             raise ValueError("本会架构缺少栏目")

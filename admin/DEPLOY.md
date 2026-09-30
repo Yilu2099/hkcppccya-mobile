@@ -8,7 +8,7 @@
 - 正式站：`/www/wwwroot/zq.t2099.com`，保存内容或上传图片、表格时自动更新。
 - 对外入口：`https://zq.t2099.com/cms/`，由现有 HTTPS Nginx 反向代理至本机 `127.0.0.1:8788`。
 
-初次接入时同步了 `build.py`、`src/`、`admin/`、`assets/*.json`、`assets/people/`、`assets/tici/`、`assets/hexin/`、`assets/files/`。历史 `assets/web/` 和 `assets/originals/` 已存在于正式站，不重新复制。预览和后台缩略图会读取正式站的历史图片；新上传的图片保存在后台目录，并在保存内容时同步到正式站。服务器上的 `assets/*.json` 和上传文件现为编辑资料的唯一来源，以后更新程序时不得用本机副本覆盖。
+初次接入时同步了 `build.py`、`src/`、`admin/`、`assets/*.json`、`assets/people/`、`assets/tici/`、`assets/hexin/`、`assets/files/`。历史 `assets/web/` 和 `assets/originals/` 已存在于正式站，不重新复制。预览和后台缩略图会读取正式站的历史图片；文章、相册、题词和贺信的新图片先保存在 `admin/private/media-drafts/`，仅已保存内容引用的图片才晋升到素材并发布；未引用草稿不会出现在公开 MEDIA 清单。人物照片、网站主图、PDF 的「上传并更新」属于明确保存操作。历史公开图片不会自动删除。服务器上的 `assets/*.json` 和上传文件现为编辑资料的唯一来源，以后更新程序时不得用本机副本覆盖。
 
 ## 依赖与服务
 
@@ -16,7 +16,7 @@
 
 ```ini
 ZQ_CMS_ACCOUNT=<首次初始化管理员账号>
-ZQ_CMS_PASSWORD=<首次初始化管理员密码>
+ZQ_CMS_PASSWORD=<首次初始化管理员密码，12至1024字符>
 ZQ_CMS_PUBLIC_ROOT=/www/wwwroot/zq.t2099.com
 ```
 
@@ -36,3 +36,5 @@ ZQ_CMS_PUBLIC_ROOT=/www/wwwroot/zq.t2099.com
 - 注册即进入后台，编辑员不能创建或查看邀请。手机号用作账号，未接入短信验证。
 - 密码只保存加盐摘要；退出会注销服务端会话。旧版共享密码会话在迁移后失效，需要重新登录。
 - 部署时禁止覆盖 `admin/private/`。更新管理员资料应通过私有数据库维护流程，不得重新初始化已有数据。
+
+维护建置发布须持有 `admin/private/edit.lock` 文件锁，与 CMS 写操作互斥，避免覆盖同时编辑。保留线上 JSON、上传、私有账号数据库与 `.env`；代码备份及公开站回滚副本只留在服务器的非公开备份目录。

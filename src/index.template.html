@@ -692,7 +692,7 @@ const photo=k=>PHOTOS[k]?PHOTOS[k].data:"";
 const pstyle=k=>PHOTOS[k]?`background-image:url('${PHOTOS[k].data}');background-position:center ${PHOTOS[k].pos||50}%`:"";
 function toast(m){const t=$("#toast");t.textContent=displayText(m);t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
 const newsSorted=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
-const tagChip=a=>NEWS_TAG[a.id]?`<span class="chip">${BRANDS[NEWS_TAG[a.id]].tag}</span>`:"";
+const tagChip=a=>NEWS_TAG[a.id]?`<span class="chip">${esc(BRANDS[NEWS_TAG[a.id]].tag)}</span>`:"";
 const cover=a=>a.cover?ASSET+a.cover:photo(NEWS_PHOTO[a.id]);
 const imageAttrs=p=>`src="${ASSET}${p.small}"${p.largeWidth!==p.smallWidth?` srcset="${ASSET}${p.small} ${p.smallWidth}w, ${ASSET}${p.large} ${p.largeWidth}w"`:""} width="${p.smallWidth}" height="${p.smallHeight}"`;
 const originalName=(p,title,n=1)=>title.replace(/[\\/:*?"<>|\u0000-\u001f]/g,"").slice(0,40)+"-"+n+"."+p.original.split('.').pop();
@@ -701,25 +701,26 @@ const figure=(p,a,i)=>`<figure><button class="photo-open" data-artphoto="${i}" a
 const newsImg=(a,featured=false)=>{const src=a.thumb?ASSET+a.thumb:cover(a);return src?`<img src="${src}" alt="" ${featured&&a.thumb&&cover(a)?`srcset="${src} 1x, ${cover(a)} 2x"`:""} loading="lazy" decoding="async">`:"";};
 const ncard=a=>`<a class="ncard" href="#/article/${a.id}"><div class="ph">${newsImg(a,true)}</div><div class="b"><h3>${esc(a.title)}</h3><div class="m"><span class="num">${fmtDate(a.date)}</span>${tagChip(a)}</div></div></a>`;
 const item=(a,cls="")=>`<a class="item ${cls}" href="#/article/${a.id}">${(a.thumb||cover(a))?`<span class="th">${newsImg(a)}</span>`:""}<span style="flex:1;min-width:0"><span class="tt">${esc(a.title)}</span><span class="meta"><span class="num">${fmtDate(a.date)}</span>${tagChip(a)}</span></span><span class="chev">›</span></a>`;
-const bcard=([k,b])=>`<a class="bcard ${b.cls}" data-n="${b.n}" href="#/programmes/${k}"><b>${b.name}</b><small>${b.desc}</small><em>相關消息 ›</em></a>`;
+const brandClass=c=>["b1","b2","b3","b4"].includes(c)?c:"";
+const bcard=([k,b])=>`<a class="bcard ${brandClass(b.cls)}" data-n="${esc(b.n)}" href="#/programmes/${k}"><b>${esc(b.name)}</b><small>${esc(b.desc)}</small><em>相關消息 ›</em></a>`;
 const initials=n=>n.replace(/[（(].*$/,"").slice(0,1);
 function personCard(name,role,big){ const clean=name.replace(/[（(]兼[）)]/,"").trim(); const ph=PEOPLE[clean];
-  return `<div class="person"><div class="ph ${ph?'':'empty'}">${ph?`<button class="photo-open" data-media="${esc(ph)}" aria-label="查看${esc(clean)}照片"><img ${imageAttrs(MEDIA[ph])} sizes="${big?'252px':'(min-width:900px) 164px, (min-width:600px) 160px, 28vw'}" alt="${esc(clean)}" loading="lazy" decoding="async"></button>`:initials(clean)}</div><b>${esc(clean)}${clean!==name?"<em>（兼）</em>":""}</b>${role?`<small>${esc(role)}</small>`:''}</div>`; }
+  return `<div class="person"><div class="ph ${ph?'':'empty'}">${ph?`<button class="photo-open" data-media="${esc(ph)}" aria-label="查看${esc(clean)}照片"><img ${imageAttrs(MEDIA[ph])} sizes="${big?'252px':'(min-width:900px) 164px, (min-width:600px) 160px, 28vw'}" alt="${esc(clean)}" loading="lazy" decoding="async"></button>`:esc(initials(clean))}</div><b>${esc(clean)}${clean!==name?"<em>（兼）</em>":""}</b>${role?`<small>${esc(role)}</small>`:''}</div>`; }
 
 /* ===== 首頁 ===== */
 $("#home-brands").innerHTML=Object.entries(BRANDS).map(bcard).join("");
 const homeNews=newsSorted.filter(a=>a.category!=="media");
-$("#home-feat").innerHTML=ncard(homeNews[0]); $("#home-list").innerHTML=homeNews.slice(1,7).map(a=>item(a,"sm")).join("");
+$("#home-feat").innerHTML=homeNews.length?ncard(homeNews[0]):'<div class="tip" style="padding:24px">暫無活動消息</div>'; $("#home-list").innerHTML=homeNews.slice(1,7).map(a=>item(a,"sm")).join("");
 const mediaThumb=key=>{const p=MEDIA[key];return `<img src="${ASSET}${p.thumb||p.small}" width="${p.thumbWidth||p.smallWidth}" height="${p.thumbHeight||p.smallHeight}" alt="" loading="lazy" decoding="async">`;};
 $("#home-tici").innerHTML=TICI.slice(0,4).map((t,i)=>`<button class="tcard" data-tici="${i}"><div class="ph">${mediaThumb(t.file,t.motto)}</div><div class="b"><div class="motto">${esc(t.motto)}</div><b>${esc(t.name)}</b><small>${esc(t.title)}</small></div></button>`).join("");
 let sailIdx=0;
-function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="${i===sailIdx?'on':''}" data-i="${i}">${s[0]}</button>`).join(""); $("#sail-txt").innerHTML=`<b>${SAILS[sailIdx][0]}</b><span>${SAILS[sailIdx][1]}</span>`; applyLang($("#v-home .five")); }
+function renderSails(){ $("#sails5").innerHTML=SAILS.map((s,i)=>`<button class="${i===sailIdx?'on':''}" data-i="${i}">${esc(s[0])}</button>`).join(""); $("#sail-txt").innerHTML=`<b>${esc(SAILS[sailIdx][0])}</b><span>${esc(SAILS[sailIdx][1])}</span>`; applyLang($("#v-home .five")); }
 renderSails();
 let sailTimer=setInterval(()=>{ if(!$("#v-home").classList.contains("on")) return; sailIdx=(sailIdx+1)%5; renderSails(); },3200);
 $("#sails5").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; sailIdx=+b.dataset.i; renderSails(); clearInterval(sailTimer);});
 
 /* ===== 關於本會 ===== */
-$("#past-grid").innerHTML=STRUCT.past.map(p=>`<div class="person ${p.now?'now':''}"><div class="ph ${PEOPLE[p.name]?'':'empty'}">${PEOPLE[p.name]?`<button class="photo-open" data-media="${PEOPLE[p.name]}" aria-label="查看${esc(p.name)}照片"><img ${imageAttrs(MEDIA[PEOPLE[p.name]])} sizes="160px" alt="${esc(p.name)}" loading="lazy" decoding="async"></button>`:initials(p.name)}</div><b>${esc(p.name)}</b><small>${esc(p.term)}</small></div>`).join("");
+$("#past-grid").innerHTML=STRUCT.past.map(p=>`<div class="person ${p.now?'now':''}"><div class="ph ${PEOPLE[p.name]?'':'empty'}">${PEOPLE[p.name]?`<button class="photo-open" data-media="${esc(PEOPLE[p.name])}" aria-label="查看${esc(p.name)}照片"><img ${imageAttrs(MEDIA[PEOPLE[p.name]])} sizes="160px" alt="${esc(p.name)}" loading="lazy" decoding="async"></button>`:esc(initials(p.name))}</div><b>${esc(p.name)}</b><small>${esc(p.term)}</small></div>`).join("");
 const namesBlock=rows=>rows.map(r=>`<div><b>${esc(r.title)}</b>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div>`).join("");
 $("#honor-list").innerHTML=namesBlock(STRUCT.honor); $("#fund-list").innerHTML=namesBlock(STRUCT.fund);
 $("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
@@ -735,15 +736,15 @@ $("#committee-grid").innerHTML=`<div class="pgrid">${STRUCT.committees.map(c=>pe
 /* ===== 重點活動 ===== */
 function renderProg(key){
   const keys=Object.keys(BRANDS); if(!BRANDS[key]) key="";
-  $("#prog-nav").innerHTML=`<a href="#/programmes" class="${key?'':'on'}">全部</a>`+keys.map(k=>`<a href="#/programmes/${k}" class="${k===key?'on':''}">${BRANDS[k].name}</a>`).join("");
-  if(!key){ $("#prog-body").innerHTML=`<div class="brands" style="margin-top:14px">${Object.entries(BRANDS).map(bcard).join("")}</div>`+keys.map(k=>{const items=newsSorted.filter(a=>NEWS_TAG[a.id]===k); return `<div class="sec-h" style="margin-top:28px"><h2 style="font-size:19px">${BRANDS[k].name}</h2></div><div class="card list">${items.length?items.map(a=>item(a,"sm")).join(""):'<div class="tip" style="padding:20px">暫無相關消息</div>'}</div>`;}).join(""); }
+  $("#prog-nav").innerHTML=`<a href="#/programmes" class="${key?'':'on'}">全部</a>`+keys.map(k=>`<a href="#/programmes/${k}" class="${k===key?'on':''}">${esc(BRANDS[k].name)}</a>`).join("");
+  if(!key){ $("#prog-body").innerHTML=`<div class="brands" style="margin-top:14px">${Object.entries(BRANDS).map(bcard).join("")}</div>`+keys.map(k=>{const items=newsSorted.filter(a=>NEWS_TAG[a.id]===k); return `<div class="sec-h" style="margin-top:28px"><h2 style="font-size:19px">${esc(BRANDS[k].name)}</h2></div><div class="card list">${items.length?items.map(a=>item(a,"sm")).join(""):'<div class="tip" style="padding:20px">暫無相關消息</div>'}</div>`;}).join(""); }
   else { const b=BRANDS[key]; const items=newsSorted.filter(a=>NEWS_TAG[a.id]===key);
-    $("#prog-body").innerHTML=`<div class="brand-hero"><div class="k">${b.n} · 品牌活動</div><h2>${b.name}</h2><p>${b.long}</p></div><div class="sec-h" style="margin-top:22px"><h2 style="font-size:19px">相關消息</h2></div><div class="card list">${items.length?items.map(a=>item(a)).join(""):'<div class="tip" style="padding:30px;text-align:center">暫無相關消息</div>'}</div>`; }
+    $("#prog-body").innerHTML=`<div class="brand-hero"><div class="k">${esc(b.n)} · 品牌活動</div><h2>${esc(b.name)}</h2><p>${esc(b.long)}</p></div><div class="sec-h" style="margin-top:22px"><h2 style="font-size:19px">相關消息</h2></div><div class="card list">${items.length?items.map(a=>item(a)).join(""):'<div class="tip" style="padding:30px;text-align:center">暫無相關消息</div>'}</div>`; }
   applyLang($("#v-programmes"));
 }
 
 /* ===== 活動回顧 ===== */
-$("#news-tags").innerHTML=`<button class="on" data-t="">全部類別</button>`+Object.entries(BRANDS).map(([k,b])=>`<button data-t="${k}">${b.tag}</button>`).join("");
+$("#news-tags").innerHTML=`<button class="on" data-t="">全部類別</button>`+Object.entries(BRANDS).map(([k,b])=>`<button data-t="${k}">${esc(b.tag)}</button>`).join("");
 let newsY="",newsTag="",newsKind="news",newsLimit=40,fullNews={};
 async function readData(path,timeout=8000){for(let i=0;i<2;i++){try{const r=await fetch(ASSET+"data/"+path,{signal:AbortSignal.timeout(timeout),priority:"high"});if(!r.ok)throw Error();return await r.json();}catch(e){if(i)throw e;}}}
 async function loadFullNews(){const kind=newsKind;if(NEWS.filter(a=>a.category===kind).every(a=>a.loaded))return;return fullNews[kind]||(fullNews[kind]=readData("search-"+kind+".json",60000).then(rows=>rows.forEach(a=>Object.assign(NEWS.find(x=>x.id===a.id),a))).catch(e=>{delete fullNews[kind];throw e;}));}
