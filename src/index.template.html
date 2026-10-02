@@ -521,7 +521,7 @@ svg.i{flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:
   <section class="sec" id="exec">
     <div class="sec-h"><h2>第七屆執委會架構</h2></div>
     <div id="exec-grid"></div>
-    <div class="role-h" style="margin-top:26px">工作委員會主任</div>
+    <div class="role-h" style="margin-top:26px">工作委員會</div>
     <div id="committee-grid"></div>
   </section>
 </div></main>
@@ -705,7 +705,7 @@ const brandClass=c=>["b1","b2","b3","b4"].includes(c)?c:"";
 const bcard=([k,b])=>`<a class="bcard ${brandClass(b.cls)}" data-n="${esc(b.n)}" href="#/programmes/${k}"><b>${esc(b.name)}</b><small>${esc(b.desc)}</small><em>相關消息 ›</em></a>`;
 const initials=n=>n.replace(/[（(].*$/,"").slice(0,1);
 function personCard(name,role,big){ const clean=name.replace(/[（(]兼[）)]/,"").trim(); const ph=PEOPLE[clean];
-  return `<div class="person"><div class="ph ${ph?'':'empty'}">${ph?`<button class="photo-open" data-media="${esc(ph)}" aria-label="查看${esc(clean)}照片"><img ${imageAttrs(MEDIA[ph])} sizes="${big?'252px':'(min-width:900px) 164px, (min-width:600px) 160px, 28vw'}" alt="${esc(clean)}" loading="lazy" decoding="async"></button>`:esc(initials(clean))}</div><b>${esc(clean)}${clean!==name?"<em>（兼）</em>":""}</b>${role?`<small>${esc(role)}</small>`:''}</div>`; }
+  return `<div class="person"><div class="ph ${ph?'':'empty'}">${ph?`<button class="photo-open" data-media="${esc(ph)}" data-nolang aria-label="查看${esc(clean)}照片"><img ${imageAttrs(MEDIA[ph])} sizes="${big?'252px':'(min-width:900px) 164px, (min-width:600px) 160px, 28vw'}" alt="${esc(clean)}" loading="lazy" decoding="async"></button>`:esc(initials(clean))}</div><b data-nolang>${esc(clean)}${clean!==name?"<em>（兼）</em>":""}</b>${role?`<small>${esc(role)}</small>`:''}</div>`; }
 
 /* ===== 首頁 ===== */
 $("#home-brands").innerHTML=Object.entries(BRANDS).map(bcard).join("");
@@ -721,17 +721,17 @@ $("#sails5").addEventListener("click",e=>{const b=e.target.closest("button"); if
 
 /* ===== 關於本會 ===== */
 $("#past-grid").innerHTML=STRUCT.past.map(p=>`<div class="person ${p.now?'now':''}"><div class="ph ${PEOPLE[p.name]?'':'empty'}">${PEOPLE[p.name]?`<button class="photo-open" data-media="${esc(PEOPLE[p.name])}" aria-label="查看${esc(p.name)}照片"><img ${imageAttrs(MEDIA[PEOPLE[p.name]])} sizes="160px" alt="${esc(p.name)}" loading="lazy" decoding="async"></button>`:esc(initials(p.name))}</div><b>${esc(p.name)}</b><small>${esc(p.term)}</small></div>`).join("");
-const namesBlock=rows=>rows.map(r=>`<div><b>${esc(r.title)}</b>${r.names.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div>`).join("");
+const namesBlock=rows=>rows.map(r=>`<div><b>${esc(r.title)}</b>${r.names.map(n=>`<span class="n" data-nolang>${esc(n)}</span>`).join("")}</div>`).join("");
 $("#honor-list").innerHTML=namesBlock(STRUCT.honor); $("#fund-list").innerHTML=namesBlock(STRUCT.fund);
 $("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
   const clean=n=>n.replace(/[（(]兼[）)]/,"").trim();
-  const withPhoto=r.names.filter(n=>PEOPLE[clean(n)]), without=r.names.filter(n=>!PEOPLE[clean(n)]);
+  const withPhoto=r.names.some(n=>PEOPLE[clean(n)]);
   const big=r.title==="主席";
   let html=`<div class="role-h"${r.title==="常務理事"?' id="directors"':""}>${esc(r.title)}</div>`;
-  if(withPhoto.length) html+=`<div class="pgrid ${big?'big':''}">${withPhoto.map(n=>personCard(n,big?"第七屆執委會主席":"")).join("")}</div>`;
-  if(without.length) html+=`<div class="names${withPhoto.length?' gap':''}"><div>${without.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div></div>`;
+  if(withPhoto) html+=`<div class="pgrid ${big?'big':''}">${r.names.map(n=>personCard(n,big?"第七屆執委會主席":"")).join("")}</div>`;
+  else html+=`<div class="names"><div>${r.names.map(n=>`<span class="n" data-nolang>${esc(n)}</span>`).join("")}</div></div>`;
   return html; }).join("");
-$("#committee-grid").innerHTML=`<div class="pgrid">${STRUCT.committees.map(c=>personCard(c.chair,c.name.replace("委員會","")+"主任")).join("")}</div>`;
+$("#committee-grid").innerHTML=STRUCT.committees.map(c=>`<div class="role-h">${esc(c.name)}</div><div class="names">${namesBlock([{title:"主任",names:[c.chair]},{title:"副主任",names:c.deputies||[]}])}</div>`).join("");
 
 /* ===== 重點活動 ===== */
 function renderProg(key){

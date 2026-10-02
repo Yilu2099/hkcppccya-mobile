@@ -25,6 +25,20 @@ admin/static/admin.css
 admin/static/admin.js
 admin/static/language.js
 FILES
+# Refuse to overwrite production-only code changes. Hashing against the saved
+# deployed commit catches drift even when local Git and origin are both clean.
+deployed_commit=$(ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$host" "cat '$remote/.deployed-commit'")
+[[ "$deployed_commit" =~ ^[0-9a-f]{40}$ ]] || { echo 'Missing valid deployed commit; review production code first.' >&2; exit 5; }
+git cat-file -e "$deployed_commit^{commit}" || { echo 'Deployed commit is unavailable locally; review before deploying.' >&2; exit 5; }
+while IFS= read -r file; do
+  remote_hash=$(ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$host" "test ! -f '$remote/$file' || sha256sum '$remote/$file'" | awk '{print $1}')
+  if git cat-file -e "$deployed_commit:$file" 2>/dev/null; then
+    base_hash=$(git show "$deployed_commit:$file" | shasum -a 256 | awk '{print $1}')
+    [[ "$remote_hash" == "$base_hash" ]] || { echo "Production code drift: review and merge $file before deploying." >&2; exit 5; }
+  else
+    [[ -z "$remote_hash" ]] || { echo "Production-only code: review and merge $file before deploying." >&2; exit 5; }
+  fi
+done < "$list"
 # Changed dependencies or image configuration need a separately reviewed rebuild.
 for file in admin/requirements.txt admin/Dockerfile; do
   local_hash=$(shasum -a 256 "$file" | awk '{print $1}')
@@ -47,3 +61,5 @@ fi
 echo "Code backup: $backup"
 echo "Rollback: ssh $host 'tar -xzf $backup -C $remote && docker restart zq-cms'"
 echo "Website published using server-side content; protected data hashes checked."
+commit=$(git rev-parse HEAD)
+ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$host" "printf '%s\\n' '$commit' > '$remote/.deployed-commit'"
