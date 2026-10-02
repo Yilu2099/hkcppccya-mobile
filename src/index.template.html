@@ -727,7 +727,7 @@ $("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
   const clean=n=>n.replace(/[（(]兼[）)]/,"").trim();
   const withPhoto=r.names.filter(n=>PEOPLE[clean(n)]), without=r.names.filter(n=>!PEOPLE[clean(n)]);
   const big=r.title==="主席";
-  let html=`<div class="role-h">${esc(r.title)}</div>`;
+  let html=`<div class="role-h"${r.title==="常務理事"?' id="directors"':""}>${esc(r.title)}</div>`;
   if(withPhoto.length) html+=`<div class="pgrid ${big?'big':''}">${withPhoto.map(n=>personCard(n,big?"第七屆執委會主席":"")).join("")}</div>`;
   if(without.length) html+=`<div class="names${withPhoto.length?' gap':''}"><div>${without.map(n=>`<span class="n">${esc(n)}</span>`).join("")}</div></div>`;
   return html; }).join("");
@@ -845,7 +845,9 @@ $$(".reveal,.stagger,.quote,.join-band").forEach(el=>io.observe(el)); setTimeout
 
 /* ===== 路由 ===== */
 function route(){
-  const h=location.hash||"#/"; const [path,anchor]=h.slice(2).split("#"); const parts=path.split("/"); const seg=parts[0]||"home";
+  const requested=new URLSearchParams(location.search).get("view");
+  const entry=requested==="directors"?"#/about#directors":requested==="exec"?"#/about#exec":"#/";
+  const h=location.hash||entry; const [path,anchor]=h.slice(2).split("#"); const parts=path.split("/"); const seg=parts[0]||"home";
   let view="home",tab="home";
   if(seg==="about"){view="about";tab="about";}
   else if(seg==="programmes"){view="programmes";tab="programmes";renderProg(parts[1]||"");}
@@ -857,7 +859,7 @@ function route(){
   else if(seg==="news"||seg==="photos"||seg==="brand"){location.replace(seg==="brand"?"#/programmes/"+(parts[1]||""):"#/review");return;}
   $$(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+view));
   $$("#tabbar a, #nav > a, #nav > .dd, #mmenu .list > a").forEach(a=>a.classList.toggle("on",a.dataset.tab===tab));
-  $$("#about-nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#/about#"+(anchor||"intro")));
+  $$("#about-nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#/about#"+(anchor==="directors"?"exec":anchor||"intro")));
   $("#progress").style.width="0";
   const title=view==="article"?NEWS.find(a=>a.id===+parts[1])?.title:$("#v-"+view+" h1")?.textContent;
   document.title=(title?(displayText(title))+" · ":"")+"香港政協青年聯會";
