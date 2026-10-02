@@ -254,6 +254,14 @@ svg.i{flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:
 .names b{display:block;color:var(--red);font-weight:700;font-size:.92em;letter-spacing:.1em;margin-bottom:2px}
 .names .n{display:inline-block;margin-right:14px;white-space:nowrap}
 .names.gap{margin-top:10px}
+.committee-card{padding:0 18px;overflow:hidden}
+.names .committee-chair{display:flex;align-items:center;gap:20px;padding:20px 0}
+.committee-chair .committee-portrait{flex:none;width:80px;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:var(--paper-2)}
+.committee-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.committee-chair-copy .n{font-family:var(--serif);font-size:22px;letter-spacing:.04em;font-weight:700;color:var(--ink);margin:0}
+.committee-chair-copy b{margin-bottom:5px}
+.committee-card > div:last-child{padding:16px 0 20px}
+@media(min-width:900px){.committee-chair .committee-portrait{width:96px}.names .committee-chair{gap:24px}.committee-card{padding:0 24px}}
 .names .cm{display:inline-flex;align-items:baseline;gap:6px;margin:0 16px 6px 0;white-space:nowrap}
 .names .cm b{display:inline;color:var(--muted);font-size:.86em;letter-spacing:0;font-weight:500;margin:0}
 .past{display:grid;gap:10px;max-width:620px}
@@ -731,7 +739,11 @@ $("#exec-grid").innerHTML=STRUCT.exec.map(r=>{
   if(withPhoto) html+=`<div class="pgrid ${big?'big':''}">${r.names.map(n=>personCard(n,big?"第七屆執委會主席":"")).join("")}</div>`;
   else html+=`<div class="names"><div>${r.names.map(n=>`<span class="n" data-nolang>${esc(n)}</span>`).join("")}</div></div>`;
   return html; }).join("");
-$("#committee-grid").innerHTML=STRUCT.committees.map(c=>`<div class="role-h">${esc(c.name)}</div><div class="names">${namesBlock([{title:"主任",names:[c.chair]},{title:"副主任",names:c.deputies||[]}])}</div>`).join("");
+$("#committee-grid").innerHTML=STRUCT.committees.map(c=>{
+  const clean=c.chair.replace(/[（(]兼[）)]/,"").trim(),ph=PEOPLE[clean],image=ph&&MEDIA[ph];
+  const portrait=image?`<button class="photo-open committee-portrait" data-media="${esc(ph)}" data-nolang aria-label="查看${esc(clean)}照片"><img ${imageAttrs(image)} sizes="(min-width:900px) 96px, 80px" alt="${esc(clean)}" loading="lazy" decoding="async"></button>`:"";
+  return `<div class="role-h">${esc(c.name)}</div><div class="names committee-card"><div class="committee-chair">${portrait}<section class="committee-chair-copy"><b>主任</b><span class="n" data-nolang>${esc(c.chair)}</span></section></div>${namesBlock([{title:"副主任",names:c.deputies||[]}])}</div>`;
+}).join("");
 
 /* ===== 重點活動 ===== */
 function renderProg(key){
