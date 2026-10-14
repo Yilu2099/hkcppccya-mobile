@@ -298,7 +298,7 @@ svg.i{flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:
 .art .tools button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:0;height:44px;border-radius:12px;border:1px solid var(--hair);background:var(--paper);font-size:14px;font-weight:700;color:var(--red)}
 .art .tools button svg.i{font-size:18px}
 .art figure{margin:20px auto 0;border-radius:14px;overflow:hidden}
-.art figure img{width:100%}
+.art figure img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
 .photo-open{display:block;width:100%;padding:0;background:none;cursor:zoom-in}
 .person .photo-open{height:100%;position:absolute;inset:0}
 .art figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 2px;font-size:12px;color:var(--muted)}
@@ -390,7 +390,7 @@ svg.i{flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:
 .lightbox .strip{flex:1;min-height:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .lightbox .strip::-webkit-scrollbar{display:none}
 .lightbox .strip div{flex:0 0 100%;scroll-snap-align:center;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px}
-.lightbox .strip img{max-height:100%;max-width:100%;border-radius:6px;object-fit:contain}
+.lightbox .strip img{flex:none;width:auto;height:auto;max-height:100%;max-width:100%;border-radius:6px;object-fit:contain}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;display:grid;place-items:center;background:rgba(13,7,8,.55);color:#fff;border-radius:12px;transition:background .2s}
 .lb-nav:hover{background:rgba(13,7,8,.8)}
 .lb-nav.prev{left:8px}.lb-nav.next{right:8px}.lb-nav svg.i{font-size:28px;stroke-width:2.2}
