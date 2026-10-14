@@ -97,5 +97,7 @@ def validate(name, value):
             for row in rows:
                 if not isinstance(row, dict) or any(not isinstance(row.get(k), str) or not row[k].strip() for k in required):
                     raise ValueError("请填写架构条目的名称和职务")
+                if key == "committees" and (not isinstance(row.get("deputies", []), list) or any(not isinstance(n, str) or not n.strip() for n in row.get("deputies", []))):
+                    raise ValueError("副主任名单请每行填写一位姓名")
                 if key in ("exec", "honor", "fund") and (not isinstance(row.get("names"), list) or any(not isinstance(n, str) or not n.strip() for n in row["names"])):
                     raise ValueError("名单请每行填写一位姓名")

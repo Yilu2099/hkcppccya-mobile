@@ -46640,6 +46640,23 @@
     "thumbHeight": 720,
     "thumbBytes": 26042
   },
+  "people/周靜思.webp": {
+    "original": "originals/uploads/d643e3d3201d345f062f1cb9.jpg",
+    "sha256": "d643e3d3201d345f062f1cb953fb7b7ec7d22a073be3a60125ff3dfa6fc6928e",
+    "originalBytes": 257670,
+    "small": "web/d643e3d3201d345f062f1cb9-800.webp",
+    "smallWidth": 800,
+    "smallHeight": 1120,
+    "smallBytes": 55736,
+    "large": "web/d643e3d3201d345f062f1cb9-1600.webp",
+    "largeWidth": 1097,
+    "largeHeight": 1536,
+    "largeBytes": 111486,
+    "thumb": "web/d643e3d3201d345f062f1cb9-480.webp",
+    "thumbWidth": 480,
+    "thumbHeight": 672,
+    "thumbBytes": 19304
+  },
   "people/譚鎮國.webp": {
     "original": "originals/people/707b4d7f4a10a2d2734ec6bf6ab7c8e30427c154c9679d68db1dbbcf49aef367.jpeg",
     "sha256": "707b4d7f4a10a2d2734ec6bf6ab7c8e30427c154c9679d68db1dbbcf49aef367",
