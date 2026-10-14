@@ -56,7 +56,7 @@ def fill(html, asset_prefix, img_map, photo_map):
     return html, len(t2s)
 head = ('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
-        '<meta name="color-scheme" content="light dark">')
+        '<meta name="color-scheme" content="light">')
 # ---- preview.html：本地單檔（圖片 base64 內嵌，題詞/賀信/照片引用 assets/）----
 preview_imgs = {k:'assets/'+media['image:'+k]['large'] for k in imgs}
 preview_imgs['hero_m'] = 'assets/'+media['image:hero']['small']
