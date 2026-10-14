@@ -74205,6 +74205,26 @@
       "path": "web/fa42b1b0e0f130cdee7d05b1-480-q88.webp",
       "bytes": 15766,
       "sha256": "d5c7e194e2e0f776594937ef375c20b195ebd1119a1a46a40b016c191cfe552f"
+    },
+    {
+      "path": "originals/people/707b4d7f4a10a2d2734ec6bf6ab7c8e30427c154c9679d68db1dbbcf49aef367.jpeg",
+      "bytes": 76631,
+      "sha256": "707b4d7f4a10a2d2734ec6bf6ab7c8e30427c154c9679d68db1dbbcf49aef367"
+    },
+    {
+      "path": "web/707b4d7f4a10a2d2734ec6bf-800-q88.webp",
+      "bytes": 32938,
+      "sha256": "67ee8b0fe05cd93ab501a7785a61c29d103b94ddcd86b131a4e06654661b3c93"
+    },
+    {
+      "path": "web/707b4d7f4a10a2d2734ec6bf-1600-q90.webp",
+      "bytes": 39156,
+      "sha256": "829954464723faf629ac5e02ec04bcda0e82cc45011679803c5ae612cb8fa195"
+    },
+    {
+      "path": "web/707b4d7f4a10a2d2734ec6bf-480-q88.webp",
+      "bytes": 16094,
+      "sha256": "b6837524cdb31399a2e3c3d831df797ac93994268143c671d5172178f7ac0fcf"
     }
   ]
 }

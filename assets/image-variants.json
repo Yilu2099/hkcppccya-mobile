@@ -46641,21 +46641,21 @@
     "thumbBytes": 26042
   },
   "people/譚鎮國.webp": {
-    "original": "originals/people/576962f4ac144e12ab3e6afe8701f6c0ec31a120b26511c2c90c8b9d24270270.png",
-    "sha256": "576962f4ac144e12ab3e6afe8701f6c0ec31a120b26511c2c90c8b9d24270270",
-    "originalBytes": 1668014,
-    "small": "web/576962f4ac144e12ab3e6afe-800-q88.webp",
+    "original": "originals/people/707b4d7f4a10a2d2734ec6bf6ab7c8e30427c154c9679d68db1dbbcf49aef367.jpeg",
+    "sha256": "707b4d7f4a10a2d2734ec6bf6ab7c8e30427c154c9679d68db1dbbcf49aef367",
+    "originalBytes": 76631,
+    "small": "web/707b4d7f4a10a2d2734ec6bf-800-q88.webp",
     "smallWidth": 800,
     "smallHeight": 1005,
-    "smallBytes": 33908,
-    "large": "web/576962f4ac144e12ab3e6afe-1600-q90.webp",
-    "largeWidth": 1280,
-    "largeHeight": 1608,
-    "largeBytes": 98634,
-    "thumb": "web/576962f4ac144e12ab3e6afe-480-q88.webp",
+    "smallBytes": 32938,
+    "large": "web/707b4d7f4a10a2d2734ec6bf-1600-q90.webp",
+    "largeWidth": 823,
+    "largeHeight": 1034,
+    "largeBytes": 39156,
+    "thumb": "web/707b4d7f4a10a2d2734ec6bf-480-q88.webp",
     "thumbWidth": 480,
     "thumbHeight": 603,
-    "thumbBytes": 16076
+    "thumbBytes": 16094
   },
   "people/沈慧林.webp": {
     "original": "originals/people/3239fcaecf65063a2e43bc48b7ed8dad9efc8adfb94dcc100f3964f98fb281c9.jpg",
