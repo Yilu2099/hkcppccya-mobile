@@ -1,11 +1,14 @@
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const labels = {news:'消息与报道',gallery:'活动相册',structure:'本会架构',site:'页面文字',tici:'题词',hexin:'贺信',people:'人物照片',pictures:'网站图片',files:'入会表格'};
-const hints = {news:'查找或新增消息，编辑标题、正文和相片。',gallery:'管理活动相册与封面相片。',structure:'编辑执委会、工作委员会和历届名单。',site:'修改首页、关于本会及联系资料。',tici:'管理题词内容与图片。',hexin:'管理贺信内容与图片。',people:'按姓名上传或更换人物照片。',pictures:'更换首页和网站使用的图片。',files:'上传新版会员登记表 PDF。'};
+const labels = {news:'消息与报道',gallery:'活动相册',structure:'本会架构',site:'页面文字与标签',tici:'题词',hexin:'贺信',people:'人物照片',pictures:'网站图片',files:'入会表格'};
+const hints = {news:'查找或新增消息，编辑标题、正文和相片。',gallery:'管理活动相册与封面相片。',structure:'编辑执委会、工作委员会和历届名单。',site:'修改活动标签名称、首页、关于本会及联系资料。',tici:'管理题词内容与图片。',hexin:'管理贺信内容与图片。',people:'按姓名上传或更换人物照片。',pictures:'更换首页和网站使用的图片。',files:'上传新版会员登记表 PDF。'};
 const groups = [['日常更新',['news','gallery']],['网站页面',['site','structure','tici','hexin']],['图片与文件',['people','pictures','files']]];
 const names = {title:'标题',date:'日期',category:'文章分类',body:'正文',tag:'活动系列',news:'相关消息编号（可留空）',name:'姓名',region:'地区',kind:'类别',motto:'题词内容',page:'同一机构第几页',exec:'执委会',committees:'工作委员会',honor:'荣誉架构',fund:'基金架构',past:'历届领袖',roles:'职务',names:'名单',chair:'主任',deputies:'副主任名单',term:'届别',now:'现任',home_motto:'首页宗旨',home_subtitle:'首页副标题',home_banner_title:'横幅标题',home_banner_date:'横幅日期',home_banner_article:'横幅关联文章编号',home_emblem:'会徽介绍',home_join_title:'加入区标题',home_join_text:'加入区说明',home_chair_1:'首页主席寄语',stats_years:'成立年数',stats_members:'会员人数',stats_brands:'品牌活动数量',stats_committees:'工作委员会数量',contact_address:'联系地址',contact_phone_display:'电话号码',contact_phone_digits:'电话拨号号码',contact_whatsapp_display:'WhatsApp 号码',contact_whatsapp_digits:'WhatsApp 拨号号码',contact_fax_display:'传真号码',contact_email:'联系邮箱',contact_wechat:'微信 ID',programmes_intro:'品牌活动介绍',tributes_intro:'题词贺信介绍',brands:'四大品牌活动',sails:'五帆精神',n:'显示编号',desc:'卡片简介',long:'详细说明'};
 const label = k => names[k] || k.replace(/^(about_intro|chair_message|join_why)_(\d+)$/, (_,a,n) => ({about_intro:'本会简介',chair_message:'主席的话',join_why:'加入说明'}[a]+' '+n)).replaceAll('_',' ');
 const collection = () => ['news','gallery','tici','hexin'].includes(section);
+const SERIES_KEYS=['tour','national','policy','mentor'];
+let seriesBrands={};
+const seriesLabel=key=>seriesBrands[key]?.tag||seriesBrands[key]?.name||key;
 let csrf='', section='news', view='list', data=null, revision='', selected=0, dirty=false, media={}, publicSite=false, query='', limit=50, busy=false;
 
 function notice(message, bad=false){const box=$('#notice');box.textContent=message;box.classList.toggle('error',bad)}
@@ -49,6 +52,8 @@ async function openSection(name){
   if(dirty&&!cmsConfirm('当前修改还没保存，确定放弃修改吗？'))return;
   await working('正在加载…',async()=>{
     const value=['people','pictures','files'].includes(name)?null:await api('data/'+name);
+    const site=name==='news'?await api('data/site'):null;
+    if(site)seriesBrands=site.data.brands;
     section=name;view=collection()?'list':'editor';dirty=false;query='';limit=50;selected=0;
     const box=$('#workspace');box.oninput=null;box.onclick=null;
     data=value?.data;revision=value?.revision;
@@ -58,7 +63,7 @@ async function openSection(name){
 }
 function render(){collection()?renderCollection():renderObject()}
 function rowTitle(row,i){return (section==='tici'?row.name:row.title)||row.title||row.name||row.region||'第 '+(i+1)+' 条'}
-function rowInfo(row){return [row.date,section==='news'?(row.category==='media'?'报道及专访':'活动消息'):section==='tici'?row.title:row.region||row.name].filter(Boolean).join(' · ')}
+function rowInfo(row){return [row.date,section==='news'?(row.category==='media'?'报道及专访':'活动消息'):section==='tici'?row.title:row.region||row.name,section==='news'?(row.tag?seriesLabel(row.tag):'无活动标签'):''].filter(Boolean).join(' · ')}
 function renderCollection(){view==='list'?renderList():renderEditor();actions()}
 function renderList(){
   $('#workspace').oninput=null;$('#workspace').onclick=null;
@@ -75,7 +80,7 @@ function renderRows(){
   $('#rows').onclick=e=>{if(e.target.id==='more'){limit+=50;renderRows();return}const row=e.target.closest('[data-index]');if(row){selected=+row.dataset.index;view='editor';renderCollection();scrollTo(0,0)}};
 }
 function addRow(){
-  if(section==='news')data.unshift({id:Math.max(0,...data.map(x=>Number(x.id)||0))+1,title:'',date:new Date().toLocaleDateString('sv-SE'),body:[],category:'news',images:[],cover:''});
+  if(section==='news')data.unshift({id:Math.max(0,...data.map(x=>Number(x.id)||0))+1,title:'',date:new Date().toLocaleDateString('sv-SE'),body:[],category:'news',tag:'',images:[],cover:''});
   else if(section==='gallery')data.unshift({id:'album'+Date.now(),title:'',date:new Date().toLocaleDateString('sv-SE'),images:[],cover:''});
   else data.unshift(section==='tici'?{id:'t'+Date.now(),file:'',thumb:'',name:'',title:'',motto:''}:{id:'h'+Date.now(),region:'',kind:'',title:'',page:1,file:'',thumb:''});
   selected=0;view='editor';changed();renderCollection();scrollTo(0,0);
@@ -92,12 +97,12 @@ function renderEditor(){
   let html=`<div class="edit-shell ${['tici','hexin'].includes(section)?'tribute-editor':''}">`;
   if(section==='news'||section==='gallery'){
     html+=`<section class="edit-card"><h2>基本信息</h2><div class="fields">${input('title',row.title,'text','placeholder="请输入清楚的标题"')}`;
-    html+=`<div class="two">${input('date',row.date,section==='news'?'date':'text',section==='gallery'?'placeholder="YYYY-MM-DD，也可只填年份"':'')}${section==='news'?input('category',row.category,'select'):input('news',row.news||'','number','placeholder="可不填"')}</div></div></section>`;
+    html+=`<div class="two">${input('date',row.date,section==='news'?'date':'text',section==='gallery'?'placeholder="YYYY-MM-DD，也可只填年份"':'')}${section==='news'?input('category',row.category,'select'):input('news',row.news||'','number','placeholder="可不填"')}</div>${section==='news'?`<label class="field"><span>活动系列（日期旁标签）</span><select data-field="tag" aria-describedby="series-help"><option value="">不显示标签</option>${SERIES_KEYS.map(key=>`<option value="${key}" ${row.tag===key?'selected':''}>${esc(seriesLabel(key))}</option>`).join('')}</select><small id="series-help">选择后，文章会归入对应活动系列；不属于四大系列可选“不显示标签”。统一改标签文字，请先保存文章，再到左侧“页面文字与标签”。</small></label>`:''}</div></section>`;
     if(section==='news'){
       html+=`<section class="edit-card"><h2>文章正文</h2><p class="hint">直接输入文字，段落之间空一行。</p>${input('body',(row.body||[]).join('\n\n'),'textarea','class="long" placeholder="在这里填写文章内容"')}</section>`;
     }
     html+=`<section class="edit-card"><h2>相片与封面</h2>${photoEditor(row)}</section>`;
-    if(section==='news')html+=`<section class="edit-card"><details><summary>更多设置：活动系列与相关链接</summary><div class="fields"><label class="field"><span>活动系列（可留空）</span><select data-field="tag"><option value="">不分类</option>${[['tour','旅学团'],['national','国情班'],['policy','政情班'],['mentor','青年导师计划']].map(([key,text])=>`<option value="${key}" ${row.tag===key?'selected':''}>${text}</option>`).join('')}</select></label><div class="field"><span>相关文章链接</span>${(row.links||[]).map((link,i)=>`<div class="two"><input data-link="title" data-i="${i}" placeholder="链接名称" value="${esc(link.title)}"><input data-link="url" data-i="${i}" placeholder="https://…" value="${esc(link.url)}"><button class="danger" data-remove-link="${i}" type="button">移除链接</button></div>`).join('')}<button id="add-link" type="button">＋ 添加链接</button></div></div></details></section>`;
+    if(section==='news')html+=`<section class="edit-card"><details><summary>相关链接（可选）</summary><div class="fields"><div class="field"><span>相关文章链接</span>${(row.links||[]).map((link,i)=>`<div class="two"><input data-link="title" data-i="${i}" placeholder="链接名称" value="${esc(link.title)}"><input data-link="url" data-i="${i}" placeholder="https://…" value="${esc(link.url)}"><button class="danger" data-remove-link="${i}" type="button">移除链接</button></div>`).join('')}<button id="add-link" type="button">＋ 添加链接</button></div></div></details></section>`;
   }else{
     html+=`<section class="edit-card"><h2>${section==='tici'?'题词资料':'贺信资料'}</h2><div class="fields">`;
     if(section==='tici')html+=input('name',row.name||'')+input('title',row.title||'')+input('motto',row.motto||'','textarea');
@@ -155,8 +160,9 @@ function tree(value,path=[],name=''){
 const siteGroups=[['首页',['home_motto','home_subtitle','home_banner_title','home_banner_date','home_banner_article','home_emblem','home_chair_1']],['关于本会',['about_intro_1','about_intro_2','about_intro_3','chair_message_1','chair_message_2','chair_message_3','chair_message_4']],['加入政青',['home_join_title','home_join_text','join_why_1','join_why_2','join_why_3']],['活动与数据',['programmes_intro','tributes_intro','stats_years','stats_members','stats_brands','stats_committees']],['联系资料',['contact_address','contact_phone_display','contact_whatsapp_display','contact_fax_display','contact_email','contact_wechat']]];
 function renderSite(){
   let html='<div class="edit-shell">';
+  html+=`<details class="section-card" open><summary>活动系列与标签名称</summary><p class="hint">这里统一修改所有文章日期旁的标签文字。只改某一篇的归属，请到“消息与报道”编辑该文章。</p>${Object.entries(data.brands).map(([key,item])=>`<details><summary>${esc(item.tag)} · ${esc(item.name)}</summary><div class="fields">${['tag','name','n','desc','long'].map(field=>valueField(['brands',key,field],item[field],field==='tag'?'标签文字（日期旁）':field==='name'?'活动页名称':label(field))).join('')}</div></details>`).join('')}</details>`;
   for(const [title,keys] of siteGroups)html+=`<details class="section-card"><summary>${title}</summary><div class="fields site-fields">${keys.filter(key=>key in data).map(key=>valueField([key],data[key],label(key))).join('')}</div></details>`;
-  html+=`<details class="section-card"><summary>四大品牌活动</summary>${Object.entries(data.brands).map(([key,item])=>`<details><summary>${esc(item.name)}</summary><div class="fields">${['n','name','tag','desc','long'].map(field=>valueField(['brands',key,field],item[field],field==='tag'?'显示标签':field==='name'?'活动名称':label(field))).join('')}</div></details>`).join('')}</details>`;
+
   html+=`<details class="section-card"><summary>五帆精神</summary><div class="fields">${data.sails.map((item,i)=>`<div class="two">${valueField(['sails',i,0],item[0],'第 '+(i+1)+' 帆标题')}${valueField(['sails',i,1],item[1],'说明')}</div>`).join('')}</div></details></div>`;
   $('#workspace').innerHTML=html;
 }

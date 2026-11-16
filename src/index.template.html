@@ -660,7 +660,7 @@ const TICI={{TICI}};
 const HEXIN={{HEXIN}};
 const T2S={{T2S}};
 const NEWS_PHOTO={1089:"z0",1087:"z1",1088:"z2",1086:"z3",1085:"z4",1084:"z5",1083:"z6",1082:"z7"};
-const NEWS_TAG={...Object.fromEntries(NEWS.filter(a=>a.tag).map(a=>[a.id,a.tag])),1084:"tour",1082:"national",1087:"policy",1088:"policy",1085:"mentor",1086:"mentor"};
+const NEWS_TAG=Object.fromEntries(NEWS.filter(a=>a.tag).map(a=>[a.id,a.tag]));
 const BRANDS={{BRANDS}};
 const GALLERY={{GALLERY}};
 const SAILS={{SAILS}};
@@ -690,7 +690,7 @@ const photo=k=>PHOTOS[k]?PHOTOS[k].data:"";
 const pstyle=k=>PHOTOS[k]?`background-image:url('${PHOTOS[k].data}');background-position:center ${PHOTOS[k].pos||50}%`:"";
 function toast(m){const t=$("#toast");t.textContent=displayText(m);t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2000);}
 const newsSorted=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
-const tagChip=a=>NEWS_TAG[a.id]?`<span class="chip">${esc(BRANDS[NEWS_TAG[a.id]].tag)}</span>`:"";
+const tagChip=a=>BRANDS[NEWS_TAG[a.id]]?`<span class="chip">${esc(BRANDS[NEWS_TAG[a.id]].tag)}</span>`:"";
 const cover=a=>a.cover?ASSET+a.cover:photo(NEWS_PHOTO[a.id]);
 const imageAttrs=p=>`src="${ASSET}${p.small}"${p.largeWidth!==p.smallWidth?` srcset="${ASSET}${p.small} ${p.smallWidth}w, ${ASSET}${p.large} ${p.largeWidth}w"`:""} width="${p.smallWidth}" height="${p.smallHeight}"`;
 const originalName=(p,title,n=1)=>title.replace(/[\\/:*?"<>|\u0000-\u001f]/g,"").slice(0,40)+"-"+n+"."+p.original.split('.').pop();
